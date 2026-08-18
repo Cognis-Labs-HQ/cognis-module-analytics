@@ -1,44 +1,65 @@
-import { randomUUID } from 'node:crypto';
+const ANALYTICS_EVENTS_TABLE = 'sample_analytics_events';
 
-export class ShowcaseStore {
-  constructor(database) {
-    this.database = database;
+/**
+ * Persistence layer for the Sample Analytics module.
+ *
+ * Manages the sample_analytics_events table via the structured DbExecutor abstraction.
+ * The accounts table is queried directly in route handlers; this store only
+ * manages custom event records contributed by the analytics module itself.
+ *
+ * @param {{
+ *   db: {
+ *     ensureTable: (def: object) => Promise<void>,
+ *     executeCommand: (command: object) => Promise<{ rows?: Array<Record<string, unknown>> }>,
+ *   },
+ * }} options
+ */
+export class AnalyticsStore {
+  constructor({ db }) {
+    this.db = db;
   }
 
   async ensureSchema() {
-    await this.database.ensureTable({
-      name: 'module_template_items',
+    await this.db.ensureTable({
+      name: ANALYTICS_EVENTS_TABLE,
       columns: [
         { name: 'id', type: 'text', primaryKey: true },
-        { name: 'title', type: 'text', notNull: true },
-        { name: 'owner_id', type: 'text', notNull: true },
-        { name: 'created_at', type: 'timestamp', notNull: true, default: 'now' },
+        { name: 'event_type', type: 'text', notNull: true },
+        { name: 'account_id', type: 'text' },
+        { name: 'meta', type: 'text' },
+        {
+          name: 'created_at',
+          type: 'timestamp',
+          notNull: true,
+          default: 'now',
+        },
       ],
+      indexes: [{ columns: ['created_at'] }],
     });
   }
 
-  async list(ownerId) {
-    const result = await this.database.executeCommand({
-      option: 'SELECT',
-      table: 'module_template_items',
-      columns: ['id', 'title', 'created_at'],
-      where: [{ column: 'owner_id', value: ownerId }],
-      orderBy: [{ column: 'created_at', direction: 'desc' }],
-    });
-    return (result.rows ?? []).map((row) => ({
-      id: String(row.id),
-      title: String(row.title),
-      createdAt: row.created_at,
-    }));
-  }
-
-  async create(ownerId, title) {
-    const item = { id: randomUUID(), title, ownerId };
-    await this.database.executeCommand({
+  async recordEvent(id, eventType, accountId = null, meta = null) {
+    await this.db.executeCommand({
       option: 'INSERT',
-      table: 'module_template_items',
-      values: { id: item.id, title, owner_id: ownerId },
+      table: ANALYTICS_EVENTS_TABLE,
+      values: {
+        id,
+        event_type: eventType,
+        account_id: accountId ?? null,
+        meta: meta !== null ? JSON.stringify(meta) : null,
+        created_at: new Date().toISOString(),
+      },
     });
-    return item;
+  }
+
+  async getRecentEvents(limit = 50) {
+    const result = await this.db.executeCommand({
+      option: 'SELECT',
+      table: ANALYTICS_EVENTS_TABLE,
+      columns: ['id', 'event_type', 'account_id', 'created_at'],
+      orderBy: [{ column: 'created_at', direction: 'DESC' }],
+      limit,
+    });
+    return result.rows ?? [];
   }
 }
