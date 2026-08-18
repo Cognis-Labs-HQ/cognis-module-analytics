@@ -151,6 +151,18 @@ function buildStatCards(metrics, { i18n }) {
           <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.total_users')}</span>
         </div>
         <div class="analytics-stat-card">
+          <span class="analytics-stat-value">${metrics.activationRate}%</span>
+          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.activation_rate')}</span>
+        </div>
+        <div class="analytics-stat-card">
+          <span class="analytics-stat-value">${metrics.enabledUsers}</span>
+          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.enabled_users')}</span>
+        </div>
+        <div class="analytics-stat-card analytics-stat-card--attention">
+          <span class="analytics-stat-value">${metrics.dormantUsers30d}</span>
+          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.dormant_30d')}</span>
+        </div>
+        <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.activeUsers7d}</span>
           <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.active_7d')}</span>
         </div>
@@ -160,6 +172,27 @@ function buildStatCards(metrics, { i18n }) {
         </div>
       </div>
       ${allRoles.length > 0 ? `<div class="analytics-role-breakdown">${roleRows}</div>` : ''}
+    `;
+}
+
+function buildEventSummary(summary, { i18n, escapeHtml }) {
+  if (!summary || summary.total === 0) {
+    return `<p class="analytics-empty">${i18n.t('module.analytics.admin.events.empty')}</p>`;
+  }
+  const peak = Math.max(...summary.byType.map((item) => item.count), 1);
+  const rows = summary.byType.slice(0, 8).map((item) => `
+      <div class="analytics-event-type-row">
+        <span>${escapeHtml(item.type)}</span>
+        <div class="analytics-event-type-track"><span style="width:${(item.count / peak) * 100}%"></span></div>
+        <strong>${item.count}</strong>
+      </div>
+    `).join('');
+  return `
+      <div class="analytics-summary-totals">
+        <span><strong>${summary.total}</strong> ${i18n.t('module.analytics.admin.events.total')}</span>
+        <span><strong>${summary.uniqueActors}</strong> ${i18n.t('module.analytics.admin.events.unique_actors')}</span>
+      </div>
+      <div class="analytics-event-types">${rows}</div>
     `;
 }
 
@@ -222,19 +255,22 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
   let metricsData = null;
   let seriesData = [];
   let eventsData = [];
+  let eventSummaryData = null;
   let activeDays = 30;
   let isLoading = false;
 
   let statsEl = null;
   let chartEl = null;
   let eventsEl = null;
+  let eventSummaryEl = null;
   let applyBtn = null;
 
   async function fetchData(days) {
-    const [metricsRes, seriesRes, eventsRes] = await Promise.all([
+    const [metricsRes, seriesRes, eventsRes, summaryRes] = await Promise.all([
       apiFetch(`/api/v1/modules/analytics/metrics?days=${days}`),
       apiFetch(`/api/v1/modules/analytics/series?days=${days}`),
       apiFetch('/api/v1/modules/analytics/activity-log?limit=20'),
+      apiFetch(`/api/v1/modules/analytics/event-summary?days=${days}`),
     ]);
 
     if (metricsRes.ok) {
@@ -248,6 +284,10 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
     if (eventsRes.ok) {
       const payload = await eventsRes.json();
       eventsData = payload.data ?? [];
+    }
+    if (summaryRes.ok) {
+      const payload = await summaryRes.json();
+      eventSummaryData = payload.data ?? null;
     }
   }
 
@@ -265,6 +305,10 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
     return buildEventsSection(eventsData, { i18n, escapeHtml });
   }
 
+  function renderEventSummary() {
+    return buildEventSummary(eventSummaryData, { i18n, escapeHtml });
+  }
+
   function updateView() {
     if (statsEl instanceof HTMLElement) {
       statsEl.innerHTML = renderStats();
@@ -275,6 +319,9 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
     if (eventsEl instanceof HTMLElement) {
       eventsEl.innerHTML = renderEvents();
     }
+    if (eventSummaryEl instanceof HTMLElement) {
+      eventSummaryEl.innerHTML = renderEventSummary();
+    }
   }
 
   function bindSection(rootEl) {
@@ -283,6 +330,7 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
     statsEl = rootEl.querySelector('.analytics-stats');
     chartEl = rootEl.querySelector('.analytics-chart-wrap');
     eventsEl = rootEl.querySelector('.analytics-events-wrap');
+    eventSummaryEl = rootEl.querySelector('.analytics-event-summary-wrap');
     applyBtn = rootEl.querySelector('.analytics-apply');
 
     const rangeSelect = rootEl.querySelector('[name="analyticsRange"]');
@@ -318,6 +366,7 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
     statsEl = null;
     chartEl = null;
     eventsEl = null;
+    eventSummaryEl = null;
     applyBtn = null;
   }
 
@@ -353,6 +402,10 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
                         <div class="analytics-chart-section">
                           <h4 class="analytics-chart-title">${i18n.t('module.analytics.admin.chart.registrations_title')}</h4>
                           <div class="analytics-chart-wrap">${renderChart()}</div>
+                        </div>
+                        <div class="analytics-events-section">
+                          <h4 class="analytics-events-title">${i18n.t('module.analytics.admin.events.summary_title')}</h4>
+                          <div class="analytics-event-summary-wrap">${renderEventSummary()}</div>
                         </div>
                         <div class="analytics-events-section">
                           <h4 class="analytics-events-title">${i18n.t('module.analytics.admin.events.title')}</h4>

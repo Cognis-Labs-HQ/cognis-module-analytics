@@ -2,7 +2,7 @@
   "id": "analytics",
   "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
   "name": "Analytics",
-  "version": "2.0.12",
+  "version": "2.1.0",
   "class": "extension",
   "coreApiVersion": "v1",
   "capabilities": [
@@ -20,7 +20,7 @@
   "files": [
     {
       "path": "AGENTS.md",
-      "sha256": "509784a889286aad75c8b21042dddeaa20bd7a4929eb80db40a9deefe92e1ff5"
+      "sha256": "7b8bd8b8bf19fb7dadeef2d10984f684161e13206171cef7c32d956bce21aab5"
     },
     {
       "path": "LICENSE",
@@ -28,11 +28,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "e96bbfbc2d6b1c72dd88666282502fdc3786fc8b5799f173f84703ae2f7bd3b5"
+      "sha256": "d5516619d9ec1712fe1ee447be528239527fd310b743394a18cd39650d6880e7"
     },
     {
       "path": "api/index.js",
-      "sha256": "d9c16ec7be92189aa071d77cc710aae9f560048f2d381b52b5f0d42f1c7ea69c"
+      "sha256": "21db5290111b492b177adaf1c3c7dfaff470080a2a70c7bc65adc0705a28e4e4"
     },
     {
       "path": "api/invalid-access.js",
@@ -40,15 +40,15 @@
     },
     {
       "path": "api/store.js",
-      "sha256": "8467dbdaa052b7ca921f3a20d2fa5f295f8c7a47e6bfab796a5ade3896a9fd8c"
+      "sha256": "94ea93fc2dddc86497535e5fc819f718844c83748e4165232fc361f736cbd71e"
     },
     {
       "path": "assets/banner.svg",
-      "sha256": "80b88340fc348fc0da4118b4327548ba5a794d2fd8a1acee58f35678f1888845"
+      "sha256": "54e4fe479eb05c3f35c86f1a677a5f0dd95913524a540ec3de2dd97be9e8e6d4"
     },
     {
       "path": "assets/icon.svg",
-      "sha256": "b7db750a5eaab3b6513329e56cde36416d392d2b596fb09f3fd3878555a6d19f"
+      "sha256": "f91440ab48ea9b470596b74e5554224c1bf72e8d31f8273a5b93f319694ccd04"
     },
     {
       "path": "bootstrap.js",
@@ -56,7 +56,7 @@
     },
     {
       "path": "cli/index.js",
-      "sha256": "b3975a41a733547fc865815354c7d46ab7cb38724efc8a03d8cafd42c9fb58a6"
+      "sha256": "af18bfcfbd4b18e14b43ea6368bab19d505a88bb2a7fa9cc650a1ed016642941"
     },
     {
       "path": "db/001_analytics.sql",
@@ -64,31 +64,31 @@
     },
     {
       "path": "docs/standard.de.md",
-      "sha256": "8e84897f63f0b280c4fdf3b79e8eeb55ffe3cbe9a1a534cf63926d2420bbd492"
+      "sha256": "ecc8e724c9fe199873d6bf16f169c51e5f3e48ddd1eec58d6cda5fecacdd687e"
     },
     {
       "path": "docs/standard.en.md",
-      "sha256": "d91f9e9ca99c30bd0ad5e0b7c2185c9899a2b74d4787edc1e75ede658bf05995"
+      "sha256": "e9ea9de728eff4682bdd1ddc0d2ebe57583b5f4b77249b505c482211df38720c"
     },
     {
       "path": "docs/standard.id.md",
-      "sha256": "417caf5c1408e68055ea42e37bbd77f610e10f8393fb684b2b6ee5e2be3d859c"
+      "sha256": "43b4fcecee04f9f1a67ce611c997a9c587dc41da4e9cfe2ce19ae86a42e26e79"
     },
     {
       "path": "docs/standard.ja.md",
-      "sha256": "a26b383b84707aecd98e73f633dd851825440c66c707593d82de59890f7c1fe6"
+      "sha256": "b8c329cb6cec6192d7fbc6ca97fe5d1c2bc3a47474dc0e712379c930453896a5"
     },
     {
       "path": "package-lock.json",
-      "sha256": "7822fbc2aed6d56f4cea7605869f12971070a3f0f5f91f599ea9209d5979f586"
+      "sha256": "9223ccf030dcbd2d82039df28876c03e661dcc0c71caa71ef399ccaabdac8616"
     },
     {
       "path": "package.json",
-      "sha256": "ad9daf360657fbd6e53e1c4939d886a69296f5cfc430e9c538ac90bf43f30676"
+      "sha256": "b0e7f1cb578d8b0e198d16e150b141c8e0f04c2c0ce592f52331ce50d0441aa7"
     },
     {
       "path": "routes.json",
-      "sha256": "3315ee0c14a619bc71caa424cfe70212b05f8d0ff77fbb18b2151fd770557643"
+      "sha256": "2a9e3c8584426d0c9aaec761b3b9ad2f5dd55a8fa830b6d416b1528fed033dd8"
     },
     {
       "path": "scripts/update-manifest-hashes.js",
@@ -104,19 +104,19 @@
     },
     {
       "path": "tests/routes.test.js",
-      "sha256": "87a66b80b76908a5cdd9f6e282187d7b47e17cf013994d46d29cc4f25816a908"
+      "sha256": "608984f91e62082404f2d56ce202ed6ebf4a50eb9aeead3812345db373053d51"
     },
     {
       "path": "tests/store.test.js",
-      "sha256": "a71ff2c884db2b059c15833f58392e2528553e67d75c677a8ff30a624e320cc4"
+      "sha256": "7d99742decf94e5ae759cd26728979bc399443712939a60033c79bec2a441bf7"
     },
     {
       "path": "ui/admin-section.css",
-      "sha256": "4ff001ceb31e6ea0957afc6c37c0cb79ba361d9c63c51501547898600254331c"
+      "sha256": "f52b6362a88f6f00ebf3b9859b6e1c5b86e646835c144afa600efda1300da162"
     },
     {
       "path": "ui/admin-section.js",
-      "sha256": "f6eaec7512c3264dd0df81dfd4118ae4f922b92058fc2f3d6c543efcaae03924"
+      "sha256": "d776d45b87b16d0806675c364982f4feadf255e8a9dbd819acaf029d266b6c8f"
     },
     {
       "path": "ui/dashboard-element.js",
@@ -124,19 +124,19 @@
     },
     {
       "path": "ui/languages/de/strings.xml",
-      "sha256": "3cb32c48c3a047bf1b0025f423eccccc7c7a2444f8877f12b3ffa27fd2348bb8"
+      "sha256": "b73c2e8979c55a3357d27446a3133b525f26d47fb7033a785606f348faee47d9"
     },
     {
       "path": "ui/languages/en/strings.xml",
-      "sha256": "69905b859409ed789468a202054cd76be6852c76983db63e80602d6fac50537c"
+      "sha256": "345327f8f410b392da04ea35f2ebc9578541de995290e56ffa857a83f8a9cf9a"
     },
     {
       "path": "ui/languages/id/strings.xml",
-      "sha256": "665c7cc222448414d17e83ffa697dea55841c9339eeca84e561a49768972365f"
+      "sha256": "3da133b16411545d504f626b659f51edf237189a181a4ca3a442f2a475a0f20f"
     },
     {
       "path": "ui/languages/ja/strings.xml",
-      "sha256": "11e7a0b6e090201eb5921a3854d1293b0babf53b21fe776fb69fc3576d75f291"
+      "sha256": "6827e71b306e184f72a293d1135d2ec0a4c6ff2d0a84a4716918d005e9c8f691"
     },
     {
       "path": "ui/pages/analytics.html",
@@ -159,8 +159,8 @@
       "sha256": "63691290c4af153ff9890b786b22710272aa666b1a1d2d95a2bb7fbe207d1130"
     }
   ],
-  "summary": "Privacy-conscious usage insights and administrative reporting.",
-  "description": "Understand Cognis activity through extensible metrics and operational dashboards.",
+  "summary": "Privacy-conscious account health, adoption, and event insights.",
+  "description": "Understand Cognis adoption through account health, registration trends, event summaries, and operational dashboards.",
   "categories": [
     "Productivity"
   ],
@@ -172,7 +172,9 @@
   },
   "tags": [
     "analytics",
-    "insights"
+    "insights",
+    "reporting",
+    "adoption"
   ],
   "homepage": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics#readme",
   "support": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics/issues",
