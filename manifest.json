@@ -20,7 +20,7 @@
   "files": [
     {
       "path": "AGENTS.md",
-      "sha256": "509784a889286aad75c8b21042dddeaa20bd7a4929eb80db40a9deefe92e1ff5"
+      "sha256": "7b8bd8b8bf19fb7dadeef2d10984f684161e13206171cef7c32d956bce21aab5"
     },
     {
       "path": "LICENSE",
@@ -64,7 +64,7 @@
     },
     {
       "path": "docs/standard.de.md",
-      "sha256": "8e84897f63f0b280c4fdf3b79e8eeb55ffe3cbe9a1a534cf63926d2420bbd492"
+      "sha256": "ecc8e724c9fe199873d6bf16f169c51e5f3e48ddd1eec58d6cda5fecacdd687e"
     },
     {
       "path": "docs/standard.en.md",
@@ -72,11 +72,11 @@
     },
     {
       "path": "docs/standard.id.md",
-      "sha256": "417caf5c1408e68055ea42e37bbd77f610e10f8393fb684b2b6ee5e2be3d859c"
+      "sha256": "43b4fcecee04f9f1a67ce611c997a9c587dc41da4e9cfe2ce19ae86a42e26e79"
     },
     {
       "path": "docs/standard.ja.md",
-      "sha256": "a26b383b84707aecd98e73f633dd851825440c66c707593d82de59890f7c1fe6"
+      "sha256": "b8c329cb6cec6192d7fbc6ca97fe5d1c2bc3a47474dc0e712379c930453896a5"
     },
     {
       "path": "package-lock.json",
