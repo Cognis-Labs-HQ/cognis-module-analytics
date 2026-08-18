@@ -1,9 +1,9 @@
 const ANALYTICS_EVENTS_TABLE = 'sample_analytics_events';
 
 /**
- * Persistence layer for the Sample Analytics module.
+ * Persistence layer for the Analytics module.
  *
- * Manages the sample_analytics_events table via the structured DbExecutor abstraction.
+ * Manages the analytics events table via the structured DbExecutor abstraction.
  * The accounts table is queried directly in route handlers; this store only
  * manages custom event records contributed by the analytics module itself.
  *
@@ -61,5 +61,30 @@ export class AnalyticsStore {
       limit,
     });
     return result.rows ?? [];
+  }
+
+  async getEventSummary(days = 30) {
+    const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+    const result = await this.db.executeCommand({
+      option: 'SELECT',
+      table: ANALYTICS_EVENTS_TABLE,
+      columns: ['event_type', 'account_id', 'created_at'],
+      where: [{ column: 'created_at', operator: '>=', value: cutoff }],
+    });
+    const rows = result.rows ?? [];
+    const counts = new Map();
+    const actors = new Set();
+    for (const row of rows) {
+      const type = String(row.event_type ?? 'unknown');
+      counts.set(type, (counts.get(type) ?? 0) + 1);
+      if (row.account_id) actors.add(String(row.account_id));
+    }
+    return {
+      total: rows.length,
+      uniqueActors: actors.size,
+      byType: [...counts.entries()]
+        .map(([type, count]) => ({ type, count }))
+        .sort((left, right) => right.count - left.count || left.type.localeCompare(right.type)),
+    };
   }
 }

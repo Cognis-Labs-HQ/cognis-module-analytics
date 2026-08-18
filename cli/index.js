@@ -50,6 +50,22 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
   );
 
   register(
+    'analytics:event-summary',
+    async ({ args, apiBaseUrl, getApiToken }) => {
+      const days = args[0] ? `?days=${encodeURIComponent(args[0])}` : '';
+      return apiGet(
+        apiBaseUrl,
+        `/api/v1/modules/analytics/event-summary${days}`,
+        await getApiToken(),
+      );
+    },
+    {
+      usage: 'cognisctl analytics:event-summary [days]',
+      description: 'Summarize event volume and unique actors by event type.',
+    },
+  );
+
+  register(
     'analytics:activity-log:record',
     async ({ args, apiBaseUrl, getApiToken }) => {
       if (!args[0]) {

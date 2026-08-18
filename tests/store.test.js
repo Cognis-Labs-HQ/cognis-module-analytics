@@ -23,6 +23,14 @@ function makeDb(initialRows = {}) {
       }
       if (command.option === 'SELECT') {
         let rows = tables.get(command.table) ?? [];
+        if (command.where) {
+          rows = rows.filter((row) => command.where.every((clause) => {
+            if (clause.operator === '>=') {
+              return String(row[clause.column] ?? '') >= String(clause.value);
+            }
+            return true;
+          }));
+        }
         if (command.orderBy) {
           const [order] = command.orderBy;
           const direction = order?.direction === 'ASC' ? 1 : -1;
@@ -139,4 +147,22 @@ test('AnalyticsStore.getRecentEvents returns empty array when no events exist', 
   const store = new AnalyticsStore({ db });
   const events = await store.getRecentEvents(50);
   assert.deepEqual(events, []);
+});
+
+test('AnalyticsStore.getEventSummary groups recent events and unique actors', async () => {
+  const recent = new Date().toISOString();
+  const old = '2020-01-01T00:00:00.000Z';
+  const db = makeAnalyticsDb({ eventRows: [
+    { event_type: 'page_view', account_id: 'u1', created_at: recent },
+    { event_type: 'page_view', account_id: 'u2', created_at: recent },
+    { event_type: 'export', account_id: 'u1', created_at: recent },
+    { event_type: 'old_event', account_id: 'u3', created_at: old },
+  ] });
+  const summary = await new AnalyticsStore({ db }).getEventSummary(30);
+  assert.equal(summary.total, 3);
+  assert.equal(summary.uniqueActors, 2);
+  assert.deepEqual(summary.byType, [
+    { type: 'page_view', count: 2 },
+    { type: 'export', count: 1 },
+  ]);
 });

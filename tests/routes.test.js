@@ -156,6 +156,8 @@ test('GET /api/v1/modules/analytics/metrics returns total user count', async () 
   assert.equal(typeof data.activeUsers7d, 'number');
   assert.equal(typeof data.newUsersDays, 'number');
   assert.ok(data.roleBreakdown);
+  assert.equal(data.enabledUsers, 3);
+  assert.equal(data.activationRate, 100);
 });
 
 test('GET /api/v1/modules/analytics/metrics computes role breakdown correctly', async () => {
@@ -270,6 +272,23 @@ test('GET /api/v1/modules/analytics/activity-log returns recent events ordered d
   assert.equal(data.length, 2);
   assert.equal(data[0].id, 'e2');
   assert.equal(data[1].id, 'e1');
+});
+
+test('GET /api/v1/modules/analytics/event-summary reports event mix', async () => {
+  const { router } = setupRoutes({
+    eventRows: [
+      buildEventRow({ id: 'e1', event_type: 'page_view', account_id: 'u1' }),
+      buildEventRow({ id: 'e2', event_type: 'page_view', account_id: 'u2' }),
+      buildEventRow({ id: 'e3', event_type: 'export', account_id: 'u1' }),
+    ],
+  });
+  const req = makeRequest('GET', '/api/v1/modules/analytics/event-summary?days=30');
+  const res = makeResponse();
+  await router.handle('GET', '/api/v1/modules/analytics/event-summary', req, res);
+  assert.equal(res.status, 200);
+  assert.equal(res.json.data.total, 3);
+  assert.equal(res.json.data.uniqueActors, 2);
+  assert.deepEqual(res.json.data.byType[0], { type: 'page_view', count: 2 });
 });
 
 test('POST /api/v1/modules/analytics/activity-log records an event and returns 201', async () => {

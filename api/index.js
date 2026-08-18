@@ -20,6 +20,8 @@ function parseLimit(value, fallback = 50) {
   return Math.min(parsed, 200);
 }
 
+const MAX_EVENT_BODY_BYTES = 16 * 1024;
+
 function toDateString(value) {
   if (!value) return null;
   const timestamp = Date.parse(String(value));
@@ -31,7 +33,7 @@ async function computeMetrics(db, days) {
   const result = await db.executeCommand({
     option: 'SELECT',
     table: 'accounts',
-    columns: ['id', 'role', 'created_at', 'last_login'],
+    columns: ['id', 'role', 'created_at', 'last_login', 'enabled'],
   });
 
   const rows = result.rows ?? [];
@@ -41,17 +43,26 @@ async function computeMetrics(db, days) {
 
   let activeUsers7d = 0;
   let newUsersDays = 0;
+  let enabledUsers = 0;
+  let dormantUsers30d = 0;
   const roleBreakdown = {};
 
   for (const row of rows) {
     const role = String(row.role ?? 'user');
     roleBreakdown[role] = (roleBreakdown[role] ?? 0) + 1;
 
+    if (row.enabled !== 0 && row.enabled !== false) enabledUsers++;
+
     if (row.last_login) {
       const loginMs = Date.parse(String(row.last_login));
       if (Number.isFinite(loginMs) && loginMs >= cutoff7d) {
         activeUsers7d++;
       }
+      if (Number.isFinite(loginMs) && loginMs < now - 30 * MS_PER_DAY) {
+        dormantUsers30d++;
+      }
+    } else {
+      dormantUsers30d++;
     }
 
     if (row.created_at) {
@@ -66,6 +77,11 @@ async function computeMetrics(db, days) {
     totalUsers: rows.length,
     activeUsers7d,
     newUsersDays,
+    enabledUsers,
+    disabledUsers: rows.length - enabledUsers,
+    dormantUsers30d,
+    activationRate:
+      rows.length > 0 ? Math.round((activeUsers7d / rows.length) * 1000) / 10 : 0,
     days,
     roleBreakdown,
   };
@@ -114,6 +130,30 @@ export function registerApiRoutes(router, ctx) {
   if (store) {
     store.ensureSchema().catch(() => logFailure('ensure-schema'));
   }
+
+  router.get(
+    '/api/v1/modules/analytics/event-summary',
+    async (req, res) => {
+      const url = new URL(req.url, 'http://localhost');
+      const days = parseDays(url.searchParams.get('days'), 30);
+
+      if (!store) {
+        sendJson(res, 200, { data: { total: 0, uniqueActors: 0, byType: [] } });
+        return;
+      }
+
+      try {
+        const summary = await store.getEventSummary(days);
+        sendJson(res, 200, { data: summary });
+      } catch {
+        logFailure('summarize-events');
+        sendJson(res, 500, {
+          error: { code: 'query_failed', message: 'Failed to summarize events.' },
+        });
+      }
+    },
+    { access: { minRole: 'admin' } },
+  );
 
   router.get(
     '/api/v1/modules/analytics/metrics',
@@ -217,8 +257,19 @@ export function registerApiRoutes(router, ctx) {
       let body;
       try {
         const chunks = [];
+        let bodySize = 0;
         for await (const chunk of req) {
           chunks.push(chunk);
+          bodySize += chunk.length;
+          if (bodySize > MAX_EVENT_BODY_BYTES) {
+            sendJson(res, 413, {
+              error: {
+                code: 'body_too_large',
+                message: 'Request body is too large.',
+              },
+            });
+            return;
+          }
         }
         body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
       } catch {
@@ -247,7 +298,9 @@ export function registerApiRoutes(router, ctx) {
 
       const id = randomUUID();
       const meta =
-        body.meta && typeof body.meta === 'object' ? body.meta : null;
+        body.meta && typeof body.meta === 'object' && !Array.isArray(body.meta)
+          ? body.meta
+          : null;
 
       try {
         await store.recordEvent(id, eventType, null, meta);
