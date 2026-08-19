@@ -266,26 +266,29 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
   let applyBtn = null;
 
   async function fetchData(days) {
-    const [metricsRes, seriesRes, eventsRes, summaryRes] = await Promise.all([
+    const results = await Promise.allSettled([
       apiFetch(`/api/v1/modules/analytics/metrics?days=${days}`),
       apiFetch(`/api/v1/modules/analytics/series?days=${days}`),
       apiFetch('/api/v1/modules/analytics/activity-log?limit=20'),
-      apiFetch(`/api/v1/modules/analytics/event-summary?days=${days}`),
+      apiFetch(`/api/v1/modules/analytics/type-summary?days=${days}`),
     ]);
+    const [metricsRes, seriesRes, eventsRes, summaryRes] = results.map(
+      (result) => (result.status === 'fulfilled' ? result.value : null),
+    );
 
-    if (metricsRes.ok) {
+    if (metricsRes?.ok) {
       const payload = await metricsRes.json();
       metricsData = payload.data ?? null;
     }
-    if (seriesRes.ok) {
+    if (seriesRes?.ok) {
       const payload = await seriesRes.json();
       seriesData = payload.data ?? [];
     }
-    if (eventsRes.ok) {
+    if (eventsRes?.ok) {
       const payload = await eventsRes.json();
       eventsData = payload.data ?? [];
     }
-    if (summaryRes.ok) {
+    if (summaryRes?.ok) {
       const payload = await summaryRes.json();
       eventSummaryData = payload.data ?? null;
     }

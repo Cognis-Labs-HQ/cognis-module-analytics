@@ -291,6 +291,21 @@ test('GET /api/v1/modules/analytics/event-summary reports event mix', async () =
   assert.deepEqual(res.json.data.byType[0], { type: 'page_view', count: 2 });
 });
 
+test('GET /api/v1/modules/analytics/type-summary reports event mix', async () => {
+  const { router } = setupRoutes({
+    eventRows: [
+      buildEventRow({ id: 'e1', event_type: 'page_view', account_id: 'u1' }),
+      buildEventRow({ id: 'e2', event_type: 'export', account_id: 'u2' }),
+    ],
+  });
+  const req = makeRequest('GET', '/api/v1/modules/analytics/type-summary?days=30');
+  const res = makeResponse();
+  await router.handle('GET', '/api/v1/modules/analytics/type-summary', req, res);
+  assert.equal(res.status, 200);
+  assert.equal(res.json.data.total, 2);
+  assert.equal(res.json.data.uniqueActors, 2);
+});
+
 test('POST /api/v1/modules/analytics/activity-log records an event and returns 201', async () => {
   const { db, router } = setupRoutes();
   const req = makeRequest('POST', '/api/v1/modules/analytics/activity-log', {

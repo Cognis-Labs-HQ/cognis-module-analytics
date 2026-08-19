@@ -32,7 +32,7 @@
     },
     {
       "path": "api/index.js",
-      "sha256": "21db5290111b492b177adaf1c3c7dfaff470080a2a70c7bc65adc0705a28e4e4"
+      "sha256": "bb142beb36e391159f733cb5bc10ddccb2e54aab5883470ae262305a18c9e629"
     },
     {
       "path": "api/invalid-access.js",
@@ -88,7 +88,7 @@
     },
     {
       "path": "routes.json",
-      "sha256": "2a9e3c8584426d0c9aaec761b3b9ad2f5dd55a8fa830b6d416b1528fed033dd8"
+      "sha256": "186fc3f8071e6e460839a99c0432fb0c2a8ab589ca39d13a4fa27ab5a08c8112"
     },
     {
       "path": "scripts/update-manifest-hashes.js",
@@ -100,11 +100,11 @@
     },
     {
       "path": "tests/module-boundaries.test.js",
-      "sha256": "15a083a50cfda48c851a86b28f900156e2fd83c34b59eea6f67be59c1ba72562"
+      "sha256": "d14f43cfc8b79822bef1aaab791f18ec07f13bdb2b075591240ee61b2bcbe57e"
     },
     {
       "path": "tests/routes.test.js",
-      "sha256": "608984f91e62082404f2d56ce202ed6ebf4a50eb9aeead3812345db373053d51"
+      "sha256": "4789304eed265d1b1026aeec9950f0f61874333743c9e3b8746278ecd4ed2cc0"
     },
     {
       "path": "tests/store.test.js",
@@ -116,7 +116,7 @@
     },
     {
       "path": "ui/admin-section.js",
-      "sha256": "d776d45b87b16d0806675c364982f4feadf255e8a9dbd819acaf029d266b6c8f"
+      "sha256": "2a29a4d11160bba6d8217827bea70822f4d268b27067627abe28fd22fae2fc1a"
     },
     {
       "path": "ui/dashboard-element.js",
