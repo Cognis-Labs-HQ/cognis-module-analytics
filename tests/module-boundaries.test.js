@@ -21,3 +21,9 @@ test('all locale bundles contain the same analytics keys', async () => {
   );
   for (const keys of keySets.slice(1)) assert.deepEqual(keys, keySets[0]);
 });
+
+test('admin dashboard uses the privacy-filter-safe summary route', async () => {
+  const source = await readFile('ui/admin-section.js', 'utf8');
+  assert.match(source, /\/analytics\/type-summary\?days=/);
+  assert.doesNotMatch(source, /\/analytics\/event-summary\?days=/);
+});

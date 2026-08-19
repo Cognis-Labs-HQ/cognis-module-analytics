@@ -131,27 +131,36 @@ export function registerApiRoutes(router, ctx) {
     store.ensureSchema().catch(() => logFailure('ensure-schema'));
   }
 
+  const getEventSummary = async (req, res) => {
+    const url = new URL(req.url, 'http://localhost');
+    const days = parseDays(url.searchParams.get('days'), 30);
+
+    if (!store) {
+      sendJson(res, 200, { data: { total: 0, uniqueActors: 0, byType: [] } });
+      return;
+    }
+
+    try {
+      const summary = await store.getEventSummary(days);
+      sendJson(res, 200, { data: summary });
+    } catch {
+      logFailure('summarize-events');
+      sendJson(res, 500, {
+        error: { code: 'query_failed', message: 'Failed to summarize events.' },
+      });
+    }
+  };
+
+  // Keep the original route for API compatibility, while the neutral alias
+  // avoids client-side privacy filters that block URLs containing "event".
+  router.get(
+    '/api/v1/modules/analytics/type-summary',
+    getEventSummary,
+    { access: { minRole: 'admin' } },
+  );
   router.get(
     '/api/v1/modules/analytics/event-summary',
-    async (req, res) => {
-      const url = new URL(req.url, 'http://localhost');
-      const days = parseDays(url.searchParams.get('days'), 30);
-
-      if (!store) {
-        sendJson(res, 200, { data: { total: 0, uniqueActors: 0, byType: [] } });
-        return;
-      }
-
-      try {
-        const summary = await store.getEventSummary(days);
-        sendJson(res, 200, { data: summary });
-      } catch {
-        logFailure('summarize-events');
-        sendJson(res, 500, {
-          error: { code: 'query_failed', message: 'Failed to summarize events.' },
-        });
-      }
-    },
+    getEventSummary,
     { access: { minRole: 'admin' } },
   );
 
