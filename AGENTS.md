@@ -69,11 +69,12 @@ Before committing, run:
 npm install
 npm test
 npm run lint
+npm run manifest:hashes
 npm run check:manifest
 git diff --check
 ```
 
-Use the repository Prettier configuration: two-space indentation, single quotes in JavaScript, and trailing commas in multiline structures. Avoid tabs and trailing whitespace. Never wrap imports in `try`/`catch`.
+Use the repository Prettier configuration: four-space indentation, double quotes in JavaScript, and trailing commas in multiline structures. Avoid tabs and trailing whitespace. Never wrap imports in `try`/`catch`.
 
 Every behavior change requires appropriate tests, logging, and documentation. Keep all four `docs/standard.*.md` variants synchronized. Do not add AI reasoning, session notes, or process commentary to product-facing files.
 

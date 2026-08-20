@@ -63,6 +63,15 @@ test("CSS source contains no comments", () => {
     assert.deepEqual(violations, []);
 });
 
+test("manifest component dependencies use UUID references", () => {
+    const manifest = JSON.parse(readFileSync(resolve(ROOT, "manifest.json")));
+    const uuid =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    assert.ok(
+        (manifest.requires ?? []).every((reference) => uuid.test(reference)),
+    );
+});
+
 test("external module metadata and declared files are consistent", () => {
     const manifest = JSON.parse(readFileSync(resolve(ROOT, "manifest.json")));
     const packageJson = JSON.parse(readFileSync(resolve(ROOT, "package.json")));
@@ -94,6 +103,28 @@ test("dashboard source avoids full-page browser navigation", () => {
         return /window\.location\.(?:href|replace|reload)\s*[=(]/.test(
             readFileSync(path, "utf8"),
         )
+            ? [relative(ROOT, path)]
+            : [];
+    });
+    assert.deepEqual(violations, []);
+});
+
+test("browser code uses host clients for gateway-owned data", () => {
+    const violations = sourceFiles().flatMap((path) => {
+        if (!path.startsWith(resolve(ROOT, "ui"))) return [];
+        const source = readFileSync(path, "utf8");
+        return /\/api\/v1\/(?:social|files|share)\//.test(source)
+            ? [relative(ROOT, path)]
+            : [];
+    });
+    assert.deepEqual(violations, []);
+});
+
+test("browser timestamps use host formatting utilities", () => {
+    const violations = sourceFiles().flatMap((path) => {
+        if (!path.startsWith(resolve(ROOT, "ui"))) return [];
+        const source = readFileSync(path, "utf8");
+        return /\.toLocale(?:DateString|TimeString|String)\(/.test(source)
             ? [relative(ROOT, path)]
             : [];
     });

@@ -204,7 +204,7 @@ function buildEventSummary(summary, { i18n, escapeHtml }) {
     `;
 }
 
-function buildEventsSection(events, { i18n, escapeHtml }) {
+function buildEventsSection(events, { i18n, escapeHtml, formatTimestamp }) {
     if (!events.length) {
         return `<p class="analytics-empty">${i18n.t("module.analytics.admin.events.empty")}</p>`;
     }
@@ -213,6 +213,7 @@ function buildEventsSection(events, { i18n, escapeHtml }) {
         .map((event) => {
             const timestamp = formatDateTime(
                 event.created_at,
+                formatTimestamp,
                 i18n.t("module.analytics.admin.events.unknown_time"),
             );
             const accountLabel = event.account_id
@@ -257,9 +258,16 @@ function buildEventsSection(events, { i18n, escapeHtml }) {
  * @param {Function} deps.apiFetch - authenticated fetch helper
  * @param {Function} deps.escapeHtml - HTML-escape utility
  * @param {Function} deps.showToast - toast notification helper
+ * @param {Function} [deps.formatTimestamp] - host timestamp formatting helper
  * @returns {{ id: string, label: string, dataReady: Promise<void>, subComposerOptions: object }}
  */
-export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
+export function createAdminSection({
+    i18n,
+    apiFetch,
+    escapeHtml,
+    showToast,
+    formatTimestamp,
+}) {
     let metricsData = null;
     let seriesData = [];
     let eventsData = [];
@@ -313,7 +321,11 @@ export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
     }
 
     function renderEvents() {
-        return buildEventsSection(eventsData, { i18n, escapeHtml });
+        return buildEventsSection(eventsData, {
+            i18n,
+            escapeHtml,
+            formatTimestamp,
+        });
     }
 
     function renderEventSummary() {

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { formatDateTime } from "../ui/reuse/timestamp.js";
 
 test("browser modules use repository-relative runtime imports", async () => {
     for (const path of ["ui/admin-section.js", "ui/dashboard-element.js"]) {
@@ -29,4 +30,23 @@ test("admin dashboard uses the privacy-filter-safe summary route", async () => {
     const source = await readFile("ui/admin-section.js", "utf8");
     assert.match(source, /\/analytics\/type-summary\?days=/);
     assert.doesNotMatch(source, /\/analytics\/event-summary\?days=/);
+});
+
+test("timestamp formatting delegates to the host formatter", () => {
+    const value = "2026-08-20T12:30:00.000Z";
+    const calls = [];
+    const formatted = formatDateTime(value, (timestamp) => {
+        calls.push(timestamp);
+        return "host-formatted timestamp";
+    });
+
+    assert.equal(formatted, "host-formatted timestamp");
+    assert.deepEqual(calls, [value]);
+});
+
+test("timestamp formatting rejects invalid boundary values", () => {
+    assert.equal(
+        formatDateTime("not-a-date", () => "unexpected", "Unknown"),
+        "Unknown",
+    );
 });

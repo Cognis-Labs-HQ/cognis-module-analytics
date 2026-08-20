@@ -33,6 +33,18 @@ test("localized resource keys use the analytics namespace", () => {
     }
 });
 
+test("manifest preference localization keys exist in every language", () => {
+    const manifest = JSON.parse(
+        readFileSync(resolve(ROOT, "manifest.json"), "utf8"),
+    );
+    for (const preference of manifest.ui?.preferences ?? []) {
+        for (const language of LANGUAGES) {
+            assert.ok(strings(language).has(preference.labelKey));
+            assert.ok(strings(language).has(preference.descriptionKey));
+        }
+    }
+});
+
 test("English title resources use Title Case", () => {
     const violations = [];
     for (const [key, value] of strings("en")) {
