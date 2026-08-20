@@ -1,98 +1,101 @@
-import { formatDateTime } from './reuse/timestamp.js';
-import { formatTemplate } from './reuse/format-template.js';
+import { formatDateTime } from "./reuse/timestamp.js";
+import { formatTemplate } from "./reuse/format-template.js";
 
-const STYLE_ID = 'analytics-admin-section-styles';
+const STYLE_ID = "analytics-admin-section-styles";
 
 function ensureStyles() {
-  if (document.getElementById(STYLE_ID)) return;
-  const link = document.createElement('link');
-  link.id = STYLE_ID;
-  link.rel = 'stylesheet';
-  link.href = '/static/modules/analytics/admin-section.css';
-  document.head.appendChild(link);
+    if (document.getElementById(STYLE_ID)) return;
+    const link = document.createElement("link");
+    link.id = STYLE_ID;
+    link.rel = "stylesheet";
+    link.href = "/static/modules/analytics/admin-section.css";
+    document.head.appendChild(link);
 }
 
 function parseDays(value, fallback = 30) {
-  const parsed = Number.parseInt(String(value ?? ''), 10);
-  if (!Number.isFinite(parsed) || parsed < 1) return fallback;
-  return Math.min(parsed, 365);
+    const parsed = Number.parseInt(String(value ?? ""), 10);
+    if (!Number.isFinite(parsed) || parsed < 1) return fallback;
+    return Math.min(parsed, 365);
 }
 
 function buildBarChart(series, { i18n, escapeHtml }) {
-  if (!series.length) {
-    return `<p class="analytics-empty">${i18n.t('module.analytics.admin.chart.no_data')}</p>`;
-  }
-
-  const chartWidth = 600;
-  const chartHeight = 160;
-  const paddingLeft = 36;
-  const paddingRight = 12;
-  const paddingTop = 12;
-  const paddingBottom = 36;
-  const barAreaWidth = chartWidth - paddingLeft - paddingRight;
-  const barAreaHeight = chartHeight - paddingTop - paddingBottom;
-  const maxCount = Math.max(...series.map((point) => point.count), 1);
-  const step = barAreaWidth / series.length;
-  const barWidth = Math.max(2, step - 2);
-
-  const midCount = Math.ceil(maxCount / 2);
-  const yLevels = [0, midCount, maxCount];
-
-  const gridLines = yLevels
-    .map((value) => {
-      const yPos =
-        paddingTop + barAreaHeight - (value / maxCount) * barAreaHeight;
-      return `<line x1="${paddingLeft}" y1="${yPos.toFixed(1)}" x2="${(chartWidth - paddingRight).toFixed(1)}" y2="${yPos.toFixed(1)}" class="analytics-chart-grid" />`;
-    })
-    .join('');
-
-  const yLabels = yLevels
-    .map((value) => {
-      const yPos =
-        paddingTop + barAreaHeight - (value / maxCount) * barAreaHeight;
-      return `<text x="${paddingLeft - 4}" y="${(yPos + 4).toFixed(1)}" text-anchor="end" class="analytics-chart-label">${value}</text>`;
-    })
-    .join('');
-
-  const bars = series
-    .map((point, index) => {
-      const barHeight = Math.max(1, (point.count / maxCount) * barAreaHeight);
-      const barX = paddingLeft + index * step + (step - barWidth) / 2;
-      const barY = paddingTop + barAreaHeight - barHeight;
-      return `<rect x="${barX.toFixed(1)}" y="${barY.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${barHeight.toFixed(1)}" class="analytics-chart-bar" aria-label="${escapeHtml(point.date)}: ${point.count}" />`;
-    })
-    .join('');
-
-  const labelStep = Math.ceil(series.length / 8);
-  const xAxisLabelIndices = [];
-  for (let index = 0; index < series.length; index += 1) {
-    if (index % labelStep === 0) {
-      xAxisLabelIndices.push(index);
+    if (!series.length) {
+        return `<p class="analytics-empty">${i18n.t("module.analytics.admin.chart.no_data")}</p>`;
     }
-  }
-  const lastIndex = series.length - 1;
-  if (!xAxisLabelIndices.includes(lastIndex)) {
-    xAxisLabelIndices.push(lastIndex);
-  }
-  if (xAxisLabelIndices.length > 1) {
-    const previousIndex = xAxisLabelIndices[xAxisLabelIndices.length - 2];
-    if (lastIndex - previousIndex < labelStep) {
-      xAxisLabelIndices.splice(xAxisLabelIndices.length - 2, 1);
+
+    const chartWidth = 600;
+    const chartHeight = 160;
+    const paddingLeft = 36;
+    const paddingRight = 12;
+    const paddingTop = 12;
+    const paddingBottom = 36;
+    const barAreaWidth = chartWidth - paddingLeft - paddingRight;
+    const barAreaHeight = chartHeight - paddingTop - paddingBottom;
+    const maxCount = Math.max(...series.map((point) => point.count), 1);
+    const step = barAreaWidth / series.length;
+    const barWidth = Math.max(2, step - 2);
+
+    const midCount = Math.ceil(maxCount / 2);
+    const yLevels = [0, midCount, maxCount];
+
+    const gridLines = yLevels
+        .map((value) => {
+            const yPos =
+                paddingTop + barAreaHeight - (value / maxCount) * barAreaHeight;
+            return `<line x1="${paddingLeft}" y1="${yPos.toFixed(1)}" x2="${(chartWidth - paddingRight).toFixed(1)}" y2="${yPos.toFixed(1)}" class="analytics-chart-grid" />`;
+        })
+        .join("");
+
+    const yLabels = yLevels
+        .map((value) => {
+            const yPos =
+                paddingTop + barAreaHeight - (value / maxCount) * barAreaHeight;
+            return `<text x="${paddingLeft - 4}" y="${(yPos + 4).toFixed(1)}" text-anchor="end" class="analytics-chart-label">${value}</text>`;
+        })
+        .join("");
+
+    const bars = series
+        .map((point, index) => {
+            const barHeight = Math.max(
+                1,
+                (point.count / maxCount) * barAreaHeight,
+            );
+            const barX = paddingLeft + index * step + (step - barWidth) / 2;
+            const barY = paddingTop + barAreaHeight - barHeight;
+            return `<rect x="${barX.toFixed(1)}" y="${barY.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${barHeight.toFixed(1)}" class="analytics-chart-bar" aria-label="${escapeHtml(point.date)}: ${point.count}" />`;
+        })
+        .join("");
+
+    const labelStep = Math.ceil(series.length / 8);
+    const xAxisLabelIndices = [];
+    for (let index = 0; index < series.length; index += 1) {
+        if (index % labelStep === 0) {
+            xAxisLabelIndices.push(index);
+        }
     }
-  }
+    const lastIndex = series.length - 1;
+    if (!xAxisLabelIndices.includes(lastIndex)) {
+        xAxisLabelIndices.push(lastIndex);
+    }
+    if (xAxisLabelIndices.length > 1) {
+        const previousIndex = xAxisLabelIndices[xAxisLabelIndices.length - 2];
+        if (lastIndex - previousIndex < labelStep) {
+            xAxisLabelIndices.splice(xAxisLabelIndices.length - 2, 1);
+        }
+    }
 
-  const xLabels = xAxisLabelIndices
-    .map((index) => {
-      const point = series[index];
-      const labelX = paddingLeft + index * step + step / 2;
-      return `<text x="${labelX.toFixed(1)}" y="${chartHeight - 6}" text-anchor="middle" class="analytics-chart-label">${escapeHtml(point.date.slice(5))}</text>`;
-    })
-    .join('');
+    const xLabels = xAxisLabelIndices
+        .map((index) => {
+            const point = series[index];
+            const labelX = paddingLeft + index * step + step / 2;
+            return `<text x="${labelX.toFixed(1)}" y="${chartHeight - 6}" text-anchor="middle" class="analytics-chart-label">${escapeHtml(point.date.slice(5))}</text>`;
+        })
+        .join("");
 
-  const axisX = paddingLeft;
-  const axisY = paddingTop + barAreaHeight;
+    const axisX = paddingLeft;
+    const axisY = paddingTop + barAreaHeight;
 
-  return `
+    return `
       <figure class="analytics-chart-figure">
         <svg viewBox="0 0 ${chartWidth} ${chartHeight}" class="analytics-chart-svg" aria-hidden="true">
           ${gridLines}
@@ -107,27 +110,27 @@ function buildBarChart(series, { i18n, escapeHtml }) {
 }
 
 function buildStatCards(metrics, { i18n }) {
-  if (!metrics) {
-    return `<p class="analytics-empty">${i18n.t('module.analytics.admin.loading')}</p>`;
-  }
+    if (!metrics) {
+        return `<p class="analytics-empty">${i18n.t("module.analytics.admin.loading")}</p>`;
+    }
 
-  const roleOrder = ['owner', 'admin', 'moderator', 'teacher', 'user'];
-  const roleBreakdown = metrics.roleBreakdown ?? {};
-  const knownRoles = roleOrder.filter((role) => roleBreakdown[role] > 0);
-  const unknownRoles = Object.keys(roleBreakdown).filter(
-    (role) => !roleOrder.includes(role) && roleBreakdown[role] > 0,
-  );
-  const allRoles = [...knownRoles, ...unknownRoles];
+    const roleOrder = ["owner", "admin", "moderator", "teacher", "user"];
+    const roleBreakdown = metrics.roleBreakdown ?? {};
+    const knownRoles = roleOrder.filter((role) => roleBreakdown[role] > 0);
+    const unknownRoles = Object.keys(roleBreakdown).filter(
+        (role) => !roleOrder.includes(role) && roleBreakdown[role] > 0,
+    );
+    const allRoles = [...knownRoles, ...unknownRoles];
 
-  const roleRows = allRoles
-    .map((role) => {
-      const count = roleBreakdown[role] ?? 0;
-      const pct =
-        metrics.totalUsers > 0
-          ? Math.round((count / metrics.totalUsers) * 100)
-          : 0;
-      const roleLabel = i18n.t(`ui.reuse.role_${role}`) || role;
-      return `
+    const roleRows = allRoles
+        .map((role) => {
+            const count = roleBreakdown[role] ?? 0;
+            const pct =
+                metrics.totalUsers > 0
+                    ? Math.round((count / metrics.totalUsers) * 100)
+                    : 0;
+            const roleLabel = i18n.t(`ui.reuse.role_${role}`) || role;
+            return `
           <div class="analytics-role-row">
             <span class="analytics-role-name">${roleLabel}</span>
             <div class="analytics-role-bar-wrap">
@@ -136,97 +139,103 @@ function buildStatCards(metrics, { i18n }) {
             <span class="analytics-role-count">${count}</span>
           </div>
         `;
-    })
-    .join('');
+        })
+        .join("");
 
-  const newUsersDaysLabel = formatTemplate(
-    i18n.t('module.analytics.admin.stat.new_users_days'),
-    { days: metrics.days },
-  );
+    const newUsersDaysLabel = formatTemplate(
+        i18n.t("module.analytics.admin.stat.new_users_days"),
+        { days: metrics.days },
+    );
 
-  return `
+    return `
       <div class="analytics-stat-cards">
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.totalUsers}</span>
-          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.total_users')}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.total_users")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.activationRate}%</span>
-          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.activation_rate')}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.activation_rate")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.enabledUsers}</span>
-          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.enabled_users')}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.enabled_users")}</span>
         </div>
         <div class="analytics-stat-card analytics-stat-card--attention">
           <span class="analytics-stat-value">${metrics.dormantUsers30d}</span>
-          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.dormant_30d')}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.dormant_30d")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.activeUsers7d}</span>
-          <span class="analytics-stat-label">${i18n.t('module.analytics.admin.stat.active_7d')}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.active_7d")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.newUsersDays}</span>
           <span class="analytics-stat-label">${newUsersDaysLabel}</span>
         </div>
       </div>
-      ${allRoles.length > 0 ? `<div class="analytics-role-breakdown">${roleRows}</div>` : ''}
+      ${allRoles.length > 0 ? `<div class="analytics-role-breakdown">${roleRows}</div>` : ""}
     `;
 }
 
 function buildEventSummary(summary, { i18n, escapeHtml }) {
-  if (!summary || summary.total === 0) {
-    return `<p class="analytics-empty">${i18n.t('module.analytics.admin.events.empty')}</p>`;
-  }
-  const peak = Math.max(...summary.byType.map((item) => item.count), 1);
-  const rows = summary.byType.slice(0, 8).map((item) => `
+    if (!summary || summary.total === 0) {
+        return `<p class="analytics-empty">${i18n.t("module.analytics.admin.events.empty")}</p>`;
+    }
+    const peak = Math.max(...summary.byType.map((item) => item.count), 1);
+    const rows = summary.byType
+        .slice(0, 8)
+        .map(
+            (item) => `
       <div class="analytics-event-type-row">
         <span>${escapeHtml(item.type)}</span>
         <div class="analytics-event-type-track"><span style="width:${(item.count / peak) * 100}%"></span></div>
         <strong>${item.count}</strong>
       </div>
-    `).join('');
-  return `
+    `,
+        )
+        .join("");
+    return `
       <div class="analytics-summary-totals">
-        <span><strong>${summary.total}</strong> ${i18n.t('module.analytics.admin.events.total')}</span>
-        <span><strong>${summary.uniqueActors}</strong> ${i18n.t('module.analytics.admin.events.unique_actors')}</span>
+        <span><strong>${summary.total}</strong> ${i18n.t("module.analytics.admin.events.total")}</span>
+        <span><strong>${summary.uniqueActors}</strong> ${i18n.t("module.analytics.admin.events.unique_actors")}</span>
       </div>
       <div class="analytics-event-types">${rows}</div>
     `;
 }
 
-function buildEventsSection(events, { i18n, escapeHtml }) {
-  if (!events.length) {
-    return `<p class="analytics-empty">${i18n.t('module.analytics.admin.events.empty')}</p>`;
-  }
+function buildEventsSection(events, { i18n, escapeHtml, formatTimestamp }) {
+    if (!events.length) {
+        return `<p class="analytics-empty">${i18n.t("module.analytics.admin.events.empty")}</p>`;
+    }
 
-  const rows = events
-    .map((event) => {
-      const timestamp = formatDateTime(
-        event.created_at,
-        i18n.t('module.analytics.admin.events.unknown_time'),
-      );
-      const accountLabel = event.account_id
-        ? escapeHtml(String(event.account_id))
-        : i18n.t('module.analytics.admin.events.system');
-      return `
+    const rows = events
+        .map((event) => {
+            const timestamp = formatDateTime(
+                event.created_at,
+                formatTimestamp,
+                i18n.t("module.analytics.admin.events.unknown_time"),
+            );
+            const accountLabel = event.account_id
+                ? escapeHtml(String(event.account_id))
+                : i18n.t("module.analytics.admin.events.system");
+            return `
           <tr class="analytics-events-row">
             <td class="analytics-events-cell analytics-events-cell--type">${escapeHtml(event.event_type)}</td>
             <td class="analytics-events-cell analytics-events-cell--actor">${accountLabel}</td>
             <td class="analytics-events-cell analytics-events-cell--time">${escapeHtml(timestamp)}</td>
           </tr>
         `;
-    })
-    .join('');
+        })
+        .join("");
 
-  return `
+    return `
       <table class="analytics-events-table">
         <thead>
           <tr>
-            <th class="analytics-events-cell">${i18n.t('module.analytics.admin.events.col.type')}</th>
-            <th class="analytics-events-cell">${i18n.t('module.analytics.admin.events.col.actor')}</th>
-            <th class="analytics-events-cell">${i18n.t('module.analytics.admin.events.col.time')}</th>
+            <th class="analytics-events-cell">${i18n.t("module.analytics.admin.events.col.type")}</th>
+            <th class="analytics-events-cell">${i18n.t("module.analytics.admin.events.col.actor")}</th>
+            <th class="analytics-events-cell">${i18n.t("module.analytics.admin.events.col.time")}</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
@@ -249,181 +258,192 @@ function buildEventsSection(events, { i18n, escapeHtml }) {
  * @param {Function} deps.apiFetch - authenticated fetch helper
  * @param {Function} deps.escapeHtml - HTML-escape utility
  * @param {Function} deps.showToast - toast notification helper
+ * @param {Function} [deps.formatTimestamp] - host timestamp formatting helper
  * @returns {{ id: string, label: string, dataReady: Promise<void>, subComposerOptions: object }}
  */
-export function createAdminSection({ i18n, apiFetch, escapeHtml, showToast }) {
-  let metricsData = null;
-  let seriesData = [];
-  let eventsData = [];
-  let eventSummaryData = null;
-  let activeDays = 30;
-  let isLoading = false;
+export function createAdminSection({
+    i18n,
+    apiFetch,
+    escapeHtml,
+    showToast,
+    formatTimestamp,
+}) {
+    let metricsData = null;
+    let seriesData = [];
+    let eventsData = [];
+    let eventSummaryData = null;
+    let activeDays = 30;
+    let isLoading = false;
 
-  let statsEl = null;
-  let chartEl = null;
-  let eventsEl = null;
-  let eventSummaryEl = null;
-  let applyBtn = null;
+    let statsEl = null;
+    let chartEl = null;
+    let eventsEl = null;
+    let eventSummaryEl = null;
+    let applyBtn = null;
 
-  async function fetchData(days) {
-    const results = await Promise.allSettled([
-      apiFetch(`/api/v1/modules/analytics/metrics?days=${days}`),
-      apiFetch(`/api/v1/modules/analytics/series?days=${days}`),
-      apiFetch('/api/v1/modules/analytics/activity-log?limit=20'),
-      apiFetch(`/api/v1/modules/analytics/type-summary?days=${days}`),
-    ]);
-    const [metricsRes, seriesRes, eventsRes, summaryRes] = results.map(
-      (result) => (result.status === 'fulfilled' ? result.value : null),
-    );
+    async function fetchData(days) {
+        const results = await Promise.allSettled([
+            apiFetch(`/api/v1/modules/analytics/metrics?days=${days}`),
+            apiFetch(`/api/v1/modules/analytics/series?days=${days}`),
+            apiFetch("/api/v1/modules/analytics/activity-log?limit=20"),
+            apiFetch(`/api/v1/modules/analytics/type-summary?days=${days}`),
+        ]);
+        const [metricsRes, seriesRes, eventsRes, summaryRes] = results.map(
+            (result) => (result.status === "fulfilled" ? result.value : null),
+        );
 
-    if (metricsRes?.ok) {
-      const payload = await metricsRes.json();
-      metricsData = payload.data ?? null;
-    }
-    if (seriesRes?.ok) {
-      const payload = await seriesRes.json();
-      seriesData = payload.data ?? [];
-    }
-    if (eventsRes?.ok) {
-      const payload = await eventsRes.json();
-      eventsData = payload.data ?? [];
-    }
-    if (summaryRes?.ok) {
-      const payload = await summaryRes.json();
-      eventSummaryData = payload.data ?? null;
-    }
-  }
-
-  const dataReady = fetchData(activeDays).catch(() => {});
-
-  function renderStats() {
-    return buildStatCards(metricsData, { i18n });
-  }
-
-  function renderChart() {
-    return buildBarChart(seriesData, { i18n, escapeHtml });
-  }
-
-  function renderEvents() {
-    return buildEventsSection(eventsData, { i18n, escapeHtml });
-  }
-
-  function renderEventSummary() {
-    return buildEventSummary(eventSummaryData, { i18n, escapeHtml });
-  }
-
-  function updateView() {
-    if (statsEl instanceof HTMLElement) {
-      statsEl.innerHTML = renderStats();
-    }
-    if (chartEl instanceof HTMLElement) {
-      chartEl.innerHTML = renderChart();
-    }
-    if (eventsEl instanceof HTMLElement) {
-      eventsEl.innerHTML = renderEvents();
-    }
-    if (eventSummaryEl instanceof HTMLElement) {
-      eventSummaryEl.innerHTML = renderEventSummary();
-    }
-  }
-
-  function bindSection(rootEl) {
-    ensureStyles();
-
-    statsEl = rootEl.querySelector('.analytics-stats');
-    chartEl = rootEl.querySelector('.analytics-chart-wrap');
-    eventsEl = rootEl.querySelector('.analytics-events-wrap');
-    eventSummaryEl = rootEl.querySelector('.analytics-event-summary-wrap');
-    applyBtn = rootEl.querySelector('.analytics-apply');
-
-    const rangeSelect = rootEl.querySelector('[name="analyticsRange"]');
-
-    if (rangeSelect instanceof HTMLSelectElement) {
-      rangeSelect.value = String(activeDays);
+        if (metricsRes?.ok) {
+            const payload = await metricsRes.json();
+            metricsData = payload.data ?? null;
+        }
+        if (seriesRes?.ok) {
+            const payload = await seriesRes.json();
+            seriesData = payload.data ?? [];
+        }
+        if (eventsRes?.ok) {
+            const payload = await eventsRes.json();
+            eventsData = payload.data ?? [];
+        }
+        if (summaryRes?.ok) {
+            const payload = await summaryRes.json();
+            eventSummaryData = payload.data ?? null;
+        }
     }
 
-    if (applyBtn instanceof HTMLButtonElement) {
-      applyBtn.addEventListener('click', async () => {
-        if (isLoading) return;
+    const dataReady = fetchData(activeDays).catch(() => {});
+
+    function renderStats() {
+        return buildStatCards(metricsData, { i18n });
+    }
+
+    function renderChart() {
+        return buildBarChart(seriesData, { i18n, escapeHtml });
+    }
+
+    function renderEvents() {
+        return buildEventsSection(eventsData, {
+            i18n,
+            escapeHtml,
+            formatTimestamp,
+        });
+    }
+
+    function renderEventSummary() {
+        return buildEventSummary(eventSummaryData, { i18n, escapeHtml });
+    }
+
+    function updateView() {
+        if (statsEl instanceof HTMLElement) {
+            statsEl.innerHTML = renderStats();
+        }
+        if (chartEl instanceof HTMLElement) {
+            chartEl.innerHTML = renderChart();
+        }
+        if (eventsEl instanceof HTMLElement) {
+            eventsEl.innerHTML = renderEvents();
+        }
+        if (eventSummaryEl instanceof HTMLElement) {
+            eventSummaryEl.innerHTML = renderEventSummary();
+        }
+    }
+
+    function bindSection(rootEl) {
+        ensureStyles();
+
+        statsEl = rootEl.querySelector(".analytics-stats");
+        chartEl = rootEl.querySelector(".analytics-chart-wrap");
+        eventsEl = rootEl.querySelector(".analytics-events-wrap");
+        eventSummaryEl = rootEl.querySelector(".analytics-event-summary-wrap");
+        applyBtn = rootEl.querySelector(".analytics-apply");
+
+        const rangeSelect = rootEl.querySelector('[name="analyticsRange"]');
+
         if (rangeSelect instanceof HTMLSelectElement) {
-          activeDays = parseDays(rangeSelect.value, 30);
+            rangeSelect.value = String(activeDays);
         }
-        isLoading = true;
-        applyBtn.disabled = true;
-        try {
-          await fetchData(activeDays);
-          updateView();
-        } catch {
-          showToast(i18n.t('module.analytics.admin.fetch_failed'), {
-            variant: 'error',
-          });
-        } finally {
-          isLoading = false;
-          applyBtn.disabled = false;
+
+        if (applyBtn instanceof HTMLButtonElement) {
+            applyBtn.addEventListener("click", async () => {
+                if (isLoading) return;
+                if (rangeSelect instanceof HTMLSelectElement) {
+                    activeDays = parseDays(rangeSelect.value, 30);
+                }
+                isLoading = true;
+                applyBtn.disabled = true;
+                try {
+                    await fetchData(activeDays);
+                    updateView();
+                } catch {
+                    showToast(i18n.t("module.analytics.admin.fetch_failed"), {
+                        variant: "error",
+                    });
+                } finally {
+                    isLoading = false;
+                    applyBtn.disabled = false;
+                }
+            });
         }
-      });
     }
-  }
 
-  function unbindSection() {
-    statsEl = null;
-    chartEl = null;
-    eventsEl = null;
-    eventSummaryEl = null;
-    applyBtn = null;
-  }
+    function unbindSection() {
+        statsEl = null;
+        chartEl = null;
+        eventsEl = null;
+        eventSummaryEl = null;
+        applyBtn = null;
+    }
 
-  return {
-    id: 'analytics',
-    label: i18n.t('module.analytics.admin.label'),
-    dataReady,
-    subComposerOptions: {
-      allowCustomization: false,
-      preferenceKey: 'administration-analytics-layout',
-      heading: i18n.t('module.analytics.admin.heading'),
-      elements: [
-        {
-          id: 'analytics-content',
-          label: i18n.t('module.analytics.admin.label'),
-          pinned: true,
-          render: () => `
+    return {
+        id: "analytics",
+        label: i18n.t("module.analytics.admin.label"),
+        dataReady,
+        subComposerOptions: {
+            allowCustomization: false,
+            preferenceKey: "administration-analytics-layout",
+            heading: i18n.t("module.analytics.admin.heading"),
+            elements: [
+                {
+                    id: "analytics-content",
+                    label: i18n.t("module.analytics.admin.label"),
+                    pinned: true,
+                    render: () => `
                       <section class="analytics-panel">
                         <div class="analytics-filter-row">
                           <label class="analytics-filter">
-                            ${i18n.t('module.analytics.admin.filter.time_range')}
+                            ${i18n.t("module.analytics.admin.filter.time_range")}
                             <select name="analyticsRange" class="theme-select">
-                              <option value="7">${i18n.t('module.analytics.admin.filter.days_7')}</option>
-                              <option value="30">${i18n.t('module.analytics.admin.filter.days_30')}</option>
-                              <option value="90">${i18n.t('module.analytics.admin.filter.days_90')}</option>
+                              <option value="7">${i18n.t("module.analytics.admin.filter.days_7")}</option>
+                              <option value="30">${i18n.t("module.analytics.admin.filter.days_30")}</option>
+                              <option value="90">${i18n.t("module.analytics.admin.filter.days_90")}</option>
                             </select>
                           </label>
                           <button type="button" class="btn-confirm btn-animated analytics-apply">
-                            ${i18n.t('ui.reuse.refresh')}
+                            ${i18n.t("ui.reuse.refresh")}
                           </button>
                         </div>
                         <div class="analytics-stats">${renderStats()}</div>
                         <div class="analytics-chart-section">
-                          <h4 class="analytics-chart-title">${i18n.t('module.analytics.admin.chart.registrations_title')}</h4>
+                          <h4 class="analytics-chart-title">${i18n.t("module.analytics.admin.chart.registrations_title")}</h4>
                           <div class="analytics-chart-wrap">${renderChart()}</div>
                         </div>
                         <div class="analytics-events-section">
-                          <h4 class="analytics-events-title">${i18n.t('module.analytics.admin.events.summary_title')}</h4>
+                          <h4 class="analytics-events-title">${i18n.t("module.analytics.admin.events.summary_title")}</h4>
                           <div class="analytics-event-summary-wrap">${renderEventSummary()}</div>
                         </div>
                         <div class="analytics-events-section">
-                          <h4 class="analytics-events-title">${i18n.t('module.analytics.admin.events.title')}</h4>
+                          <h4 class="analytics-events-title">${i18n.t("module.analytics.admin.events.title")}</h4>
                           <div class="analytics-events-wrap">${renderEvents()}</div>
                         </div>
                       </section>
                     `,
+                },
+            ],
+            onRender: (rootEl) => {
+                bindSection(rootEl);
+            },
+            onUnmount: () => {
+                unbindSection();
+            },
         },
-      ],
-      onRender: (rootEl) => {
-        bindSection(rootEl);
-      },
-      onUnmount: () => {
-        unbindSection();
-      },
-    },
-  };
+    };
 }

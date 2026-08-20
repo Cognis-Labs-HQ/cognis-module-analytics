@@ -1,185 +1,224 @@
 {
-  "id": "analytics",
-  "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
-  "name": "Analytics",
-  "version": "2.1.0",
-  "class": "extension",
-  "coreApiVersion": "v1",
-  "capabilities": [
-    "metrics:read",
-    "ui:admin-section",
-    "db:migrations"
-  ],
-  "entrypoints": {
-    "bootstrap": "./bootstrap.js",
-    "api": "./api/index.js",
-    "cli": "./cli/index.js",
-    "db": "./db/001_analytics.sql"
-  },
-  "publisher": "Cognis Labs HQ",
-  "files": [
-    {
-      "path": "AGENTS.md",
-      "sha256": "7b8bd8b8bf19fb7dadeef2d10984f684161e13206171cef7c32d956bce21aab5"
+    "id": "analytics",
+    "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
+    "name": "Analytics",
+    "version": "2.1.0",
+    "class": "extension",
+    "coreApiVersion": "v1",
+    "capabilities": ["metrics:read", "ui:admin-section", "db:migrations"],
+    "entrypoints": {
+        "bootstrap": "./bootstrap.js",
+        "api": "./api/index.js",
+        "cli": "./cli/index.js",
+        "db": "./db/001_analytics.sql"
     },
-    {
-      "path": "LICENSE",
-      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+    "publisher": "Cognis Labs HQ",
+    "files": [
+        {
+            "path": ".github/DOCUMENTATION_TEMPLATE.de.md",
+            "sha256": "68da4be565d7fcd6caf74a6eeddd62ee35620063f4fb3c42128c23e98e4c7313"
+        },
+        {
+            "path": ".github/DOCUMENTATION_TEMPLATE.en.md",
+            "sha256": "0430dc1ef9233808219652e78e6079d3b6cf455f04818487e00fd7aa217a07fa"
+        },
+        {
+            "path": ".github/DOCUMENTATION_TEMPLATE.id.md",
+            "sha256": "a701f0f05180972949e4ac159e3d65656fc66b8d07aa72b3832aa312d711cd24"
+        },
+        {
+            "path": ".github/DOCUMENTATION_TEMPLATE.ja.md",
+            "sha256": "8fafead6e01dbab777528e72d1ce924ff3d8e0bd250d21a0a29116fe1ef7ed44"
+        },
+        {
+            "path": ".gitignore",
+            "sha256": "16d30e4462189fb14dd611bdb708c510630c576a1f35b9383e89a4352da36c97"
+        },
+        {
+            "path": ".prettierignore",
+            "sha256": "ebebb0fe677b8152cac2b29c7d7ef39d41527ab1a14b935df9c8f6f6e66ec936"
+        },
+        {
+            "path": ".prettierrc",
+            "sha256": "fa9273146be8edfd6bbddaff9d0654effb7b4cd67c6163b67e971195d796ead3"
+        },
+        {
+            "path": "AGENTS.md",
+            "sha256": "b2f7722c6f4f07861e9b1aaa7da55b40a0424828eb05d38eac18e5359fedc1f4"
+        },
+        {
+            "path": "LICENSE",
+            "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+        },
+        {
+            "path": "README.md",
+            "sha256": "d5516619d9ec1712fe1ee447be528239527fd310b743394a18cd39650d6880e7"
+        },
+        {
+            "path": "api/index.js",
+            "sha256": "75a97e3348151dfacab036dd5ea6cf3f2b0a033473d427fc5d15482d4eba4b25"
+        },
+        {
+            "path": "api/invalid-access.js",
+            "sha256": "fca06693e8fd754d86a38ed572b81d2fc9f3bb55dbe7dca975f7ddc3a19c5108"
+        },
+        {
+            "path": "api/store.js",
+            "sha256": "07a933254104cfcb89ca04f3e1d2b24669ae64d3cecc1b03d014c6b226011a77"
+        },
+        {
+            "path": "assets/banner.svg",
+            "sha256": "54e4fe479eb05c3f35c86f1a677a5f0dd95913524a540ec3de2dd97be9e8e6d4"
+        },
+        {
+            "path": "assets/icon.svg",
+            "sha256": "f91440ab48ea9b470596b74e5554224c1bf72e8d31f8273a5b93f319694ccd04"
+        },
+        {
+            "path": "bootstrap.js",
+            "sha256": "eaeb08f857754a47715259bb3c5fdbed1b718fa6b6a00edcb51759a25f84a0b5"
+        },
+        {
+            "path": "cli/index.js",
+            "sha256": "2939aa95faa49306a8e30481a569297e04408163fae9e791fb6b676405db3af8"
+        },
+        {
+            "path": "db/001_analytics.sql",
+            "sha256": "ce32c37e42fb73ced351b34b3bfd1b08b49912bd1c018280aa28fd096644a114"
+        },
+        {
+            "path": "docs/standard.de.md",
+            "sha256": "e960bc33012949c8f46a00dd671d3cc414d37339918fd2688879b7a56dd47e24"
+        },
+        {
+            "path": "docs/standard.en.md",
+            "sha256": "96cdfe3e00c5d3f8dd4beae11ebac4afc2c92e1f176b5ce918c536c577e7ea55"
+        },
+        {
+            "path": "docs/standard.id.md",
+            "sha256": "22e13f9aa48c600cee4555ca0d3bc5878c0b6b58700625a632ad4a0b87e55ca8"
+        },
+        {
+            "path": "docs/standard.ja.md",
+            "sha256": "d6fddd84d317e4b7bec80ccc5c26a37a9cf1562acabee78a931be03d5883fb4b"
+        },
+        {
+            "path": "package-lock.json",
+            "sha256": "5087810d4d39b6eb5e855b628a0298e9a37a0c25f7f367a666d0b0524290967d"
+        },
+        {
+            "path": "package.json",
+            "sha256": "e77233f399198194b568415994fdd9ef2dae12ea9b5fe42de44873fc3089aa92"
+        },
+        {
+            "path": "routes.json",
+            "sha256": "75b956f240e0c13b92b93f5957ebe35bfb9bcb44b55219f5fc3c29d27f868699"
+        },
+        {
+            "path": "scripts/update-manifest-hashes.js",
+            "sha256": "db03051ff02c1ef362ba025e4f69329928d167e0a674e76c1f242cb5ce467c5c"
+        },
+        {
+            "path": "scripts/validate-manifest.js",
+            "sha256": "98d89ae4f391c0a2a4ea6a46d54b6ae87b894960af2510e562f6460fd9551ea4"
+        },
+        {
+            "path": "tests/ambiguous-names.test.js",
+            "sha256": "d1496921f024d3f8e1532d5e79e6c397eed38dcc200172827b4c0b62b48f2fc0"
+        },
+        {
+            "path": "tests/documentation-convention.test.js",
+            "sha256": "a3d6579931fbf979f590fa41ea0e0c9297794e74f62e7477b3ff895c2d5be720"
+        },
+        {
+            "path": "tests/localization-quality.test.js",
+            "sha256": "90787dad093c0f015880c539e0ba14c6a9cb42a6adf19397c083cbe8a133169d"
+        },
+        {
+            "path": "tests/module-boundaries.test.js",
+            "sha256": "6faa1086ee638b510e21d8be522d9f7829b3eb2f7a534d11ae0410722f090fc2"
+        },
+        {
+            "path": "tests/routes.test.js",
+            "sha256": "62e3a962de18d5cf1d147fce749a7d86e5362c4eb067c0e8fccef2343cab34f6"
+        },
+        {
+            "path": "tests/store.test.js",
+            "sha256": "a731cf20048467da69f32345fb6750d9a4008b41bb2011613bc8f8a72c62b5d0"
+        },
+        {
+            "path": "tests/structural-compliance.test.js",
+            "sha256": "44376f585c2bd515897cd0b015d4785587add7cc2cca335729541745be801b2e"
+        },
+        {
+            "path": "tooling/scripts/lint-placeholder.mjs",
+            "sha256": "c869f4af45abd4f82500f836d5e50af93b9988a56283477ae45bd0aa45f47fd1"
+        },
+        {
+            "path": "tooling/scripts/lint-readable.mjs",
+            "sha256": "fff2e006b2709345baafe18b4147c00541cd3f83d78ff113bb82032f2abcb45f"
+        },
+        {
+            "path": "ui/admin-section.css",
+            "sha256": "452001d87f3b57323952ea485300ac564180a2ccfd5ba6091200a40e35c60fee"
+        },
+        {
+            "path": "ui/admin-section.js",
+            "sha256": "99789ae0e939952d23f9787c5beac06b7479df60c4e6cebb83cf4cb792ede0fe"
+        },
+        {
+            "path": "ui/dashboard-element.js",
+            "sha256": "8fb0a14be33289d9a4eeb15d6613cde4a527ed8dd31dc37f87abd03a92a4718f"
+        },
+        {
+            "path": "ui/languages/de/strings.xml",
+            "sha256": "b73c2e8979c55a3357d27446a3133b525f26d47fb7033a785606f348faee47d9"
+        },
+        {
+            "path": "ui/languages/en/strings.xml",
+            "sha256": "99e0116010b08c40552eb981fe35cb5154226cefb67c817bb786798bc478957d"
+        },
+        {
+            "path": "ui/languages/id/strings.xml",
+            "sha256": "3da133b16411545d504f626b659f51edf237189a181a4ca3a442f2a475a0f20f"
+        },
+        {
+            "path": "ui/languages/ja/strings.xml",
+            "sha256": "6827e71b306e184f72a293d1135d2ec0a4c6ff2d0a84a4716918d005e9c8f691"
+        },
+        {
+            "path": "ui/pages/analytics.html",
+            "sha256": "adb8cc4d484d5107685ea9a3ef7bcf0a9068740143837cfe40eb691690dbdd35"
+        },
+        {
+            "path": "ui/reuse/escape-html.js",
+            "sha256": "006367c8c886279551af7bdaa2d1d7673f9d1616597346ad9f19e4dbeee5d9b4"
+        },
+        {
+            "path": "ui/reuse/format-template.js",
+            "sha256": "a14ac493e90f03a191dfe6f0279b400e468f11ae442fd1fecd2f615d5e694eba"
+        },
+        {
+            "path": "ui/reuse/i18n.js",
+            "sha256": "95d2d0c31d9cacf51f1a0e3323fabfab1b3ba17075ad69c77c908306d5e69abb"
+        },
+        {
+            "path": "ui/reuse/timestamp.js",
+            "sha256": "b821eb636df54196c0db2ccb087372a0289816974240bdbc256eb1d7c7370565"
+        }
+    ],
+    "summary": "Privacy-conscious account health, adoption, and event insights.",
+    "description": "Understand Cognis adoption through account health, registration trends, event summaries, and operational dashboards.",
+    "categories": ["Productivity"],
+    "repository": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics",
+    "assets": {
+        "screenshots": [],
+        "icon": "assets/icon.svg",
+        "banner": "assets/banner.svg"
     },
-    {
-      "path": "README.md",
-      "sha256": "d5516619d9ec1712fe1ee447be528239527fd310b743394a18cd39650d6880e7"
-    },
-    {
-      "path": "api/index.js",
-      "sha256": "bb142beb36e391159f733cb5bc10ddccb2e54aab5883470ae262305a18c9e629"
-    },
-    {
-      "path": "api/invalid-access.js",
-      "sha256": "90cae1c1d26277712ecb9fa6c91c14e0a572a94a9fdbb9ae1a6da2cdb38157c9"
-    },
-    {
-      "path": "api/store.js",
-      "sha256": "94ea93fc2dddc86497535e5fc819f718844c83748e4165232fc361f736cbd71e"
-    },
-    {
-      "path": "assets/banner.svg",
-      "sha256": "54e4fe479eb05c3f35c86f1a677a5f0dd95913524a540ec3de2dd97be9e8e6d4"
-    },
-    {
-      "path": "assets/icon.svg",
-      "sha256": "f91440ab48ea9b470596b74e5554224c1bf72e8d31f8273a5b93f319694ccd04"
-    },
-    {
-      "path": "bootstrap.js",
-      "sha256": "bafda86559bbe707cbc7da29115a0f24d2cd403e2e904ecb525e8c54ae5510b1"
-    },
-    {
-      "path": "cli/index.js",
-      "sha256": "af18bfcfbd4b18e14b43ea6368bab19d505a88bb2a7fa9cc650a1ed016642941"
-    },
-    {
-      "path": "db/001_analytics.sql",
-      "sha256": "ce32c37e42fb73ced351b34b3bfd1b08b49912bd1c018280aa28fd096644a114"
-    },
-    {
-      "path": "docs/standard.de.md",
-      "sha256": "ecc8e724c9fe199873d6bf16f169c51e5f3e48ddd1eec58d6cda5fecacdd687e"
-    },
-    {
-      "path": "docs/standard.en.md",
-      "sha256": "e9ea9de728eff4682bdd1ddc0d2ebe57583b5f4b77249b505c482211df38720c"
-    },
-    {
-      "path": "docs/standard.id.md",
-      "sha256": "43b4fcecee04f9f1a67ce611c997a9c587dc41da4e9cfe2ce19ae86a42e26e79"
-    },
-    {
-      "path": "docs/standard.ja.md",
-      "sha256": "b8c329cb6cec6192d7fbc6ca97fe5d1c2bc3a47474dc0e712379c930453896a5"
-    },
-    {
-      "path": "package-lock.json",
-      "sha256": "9223ccf030dcbd2d82039df28876c03e661dcc0c71caa71ef399ccaabdac8616"
-    },
-    {
-      "path": "package.json",
-      "sha256": "b0e7f1cb578d8b0e198d16e150b141c8e0f04c2c0ce592f52331ce50d0441aa7"
-    },
-    {
-      "path": "routes.json",
-      "sha256": "186fc3f8071e6e460839a99c0432fb0c2a8ab589ca39d13a4fa27ab5a08c8112"
-    },
-    {
-      "path": "scripts/update-manifest-hashes.js",
-      "sha256": "030fda12a259c5dba697e23677fce7fbbf325e0e53b8cd1866402df806eca752"
-    },
-    {
-      "path": "scripts/validate-manifest.js",
-      "sha256": "0716ef3392221a778995c53d1df551642cd219a715c06fc76c869ab132431d87"
-    },
-    {
-      "path": "tests/module-boundaries.test.js",
-      "sha256": "d14f43cfc8b79822bef1aaab791f18ec07f13bdb2b075591240ee61b2bcbe57e"
-    },
-    {
-      "path": "tests/routes.test.js",
-      "sha256": "4789304eed265d1b1026aeec9950f0f61874333743c9e3b8746278ecd4ed2cc0"
-    },
-    {
-      "path": "tests/store.test.js",
-      "sha256": "7d99742decf94e5ae759cd26728979bc399443712939a60033c79bec2a441bf7"
-    },
-    {
-      "path": "ui/admin-section.css",
-      "sha256": "f52b6362a88f6f00ebf3b9859b6e1c5b86e646835c144afa600efda1300da162"
-    },
-    {
-      "path": "ui/admin-section.js",
-      "sha256": "2a29a4d11160bba6d8217827bea70822f4d268b27067627abe28fd22fae2fc1a"
-    },
-    {
-      "path": "ui/dashboard-element.js",
-      "sha256": "23338a08e1d9f716e1899a7aa9aca57cdb83b2d6b9c6dcbec325cd871bf8e111"
-    },
-    {
-      "path": "ui/languages/de/strings.xml",
-      "sha256": "b73c2e8979c55a3357d27446a3133b525f26d47fb7033a785606f348faee47d9"
-    },
-    {
-      "path": "ui/languages/en/strings.xml",
-      "sha256": "345327f8f410b392da04ea35f2ebc9578541de995290e56ffa857a83f8a9cf9a"
-    },
-    {
-      "path": "ui/languages/id/strings.xml",
-      "sha256": "3da133b16411545d504f626b659f51edf237189a181a4ca3a442f2a475a0f20f"
-    },
-    {
-      "path": "ui/languages/ja/strings.xml",
-      "sha256": "6827e71b306e184f72a293d1135d2ec0a4c6ff2d0a84a4716918d005e9c8f691"
-    },
-    {
-      "path": "ui/pages/analytics.html",
-      "sha256": "2f35df75612d02f8afd5debf8183731e87423e77952b6802a3992d708b84f71f"
-    },
-    {
-      "path": "ui/reuse/escape-html.js",
-      "sha256": "3555ba6a4ce8298417eee387d7839b54c6a449b47e3765e3e9a6860ffefa837a"
-    },
-    {
-      "path": "ui/reuse/format-template.js",
-      "sha256": "95d6626c806ffd4daa0a7a98ca181087af03eb9909d2744bf6fd7a1f8596da96"
-    },
-    {
-      "path": "ui/reuse/i18n.js",
-      "sha256": "c7378cef60c4a79f5a0d8e090c3865b0c3d176847bcaf9e8dbc393c830604f30"
-    },
-    {
-      "path": "ui/reuse/timestamp.js",
-      "sha256": "63691290c4af153ff9890b786b22710272aa666b1a1d2d95a2bb7fbe207d1130"
-    }
-  ],
-  "summary": "Privacy-conscious account health, adoption, and event insights.",
-  "description": "Understand Cognis adoption through account health, registration trends, event summaries, and operational dashboards.",
-  "categories": [
-    "Productivity"
-  ],
-  "repository": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics",
-  "assets": {
-    "screenshots": [],
-    "icon": "assets/icon.svg",
-    "banner": "assets/banner.svg"
-  },
-  "tags": [
-    "analytics",
-    "insights",
-    "reporting",
-    "adoption"
-  ],
-  "homepage": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics#readme",
-  "support": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics/issues",
-  "requiresCapabilities": [
-    "db:executor"
-  ],
-  "license": "AGPL-3.0-or-later"
+    "tags": ["analytics", "insights", "reporting", "adoption"],
+    "homepage": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics#readme",
+    "support": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics/issues",
+    "requiresCapabilities": ["db:executor"],
+    "license": "AGPL-3.0-or-later"
 }

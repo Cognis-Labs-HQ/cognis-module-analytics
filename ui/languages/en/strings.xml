@@ -15,7 +15,7 @@
   <string name="module.analytics.admin.filter.days_90">Last 90 Days</string>
   <string name="module.analytics.admin.chart.registrations_title">Registration Trend</string>
   <string name="module.analytics.admin.chart.no_data">No data available for the selected period.</string>
-  <string name="module.analytics.admin.events.summary_title">Event mix</string>
+  <string name="module.analytics.admin.events.summary_title">Event Mix</string>
   <string name="module.analytics.admin.events.total">events</string>
   <string name="module.analytics.admin.events.unique_actors">unique actors</string>
   <string name="module.analytics.admin.events.title">Custom Events</string>
