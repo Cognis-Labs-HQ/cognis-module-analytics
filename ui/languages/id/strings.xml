@@ -28,4 +28,12 @@
   <string name="module.analytics.dashboard.element.label">Ringkasan analitik</string>
   <string name="module.analytics.dashboard.element.description">Tinjau wawasan penggunaan dan laporan administratif.</string>
   <string name="module.analytics.dashboard.element.open">Buka analitik</string>
+  <string name="module.analytics.name">Analitik</string>
+  <string name="module.analytics.summary">Wawasan sadar privasi tentang kesehatan akun, adopsi, dan peristiwa.</string>
+  <string name="module.analytics.description">Pahami adopsi Cognis melalui kesehatan akun, tren pendaftaran, ringkasan peristiwa, dan dasbor operasional.</string>
+  <string name="module.analytics.category_productivity">Produktivitas</string>
+  <string name="module.analytics.tag_analytics">Analitik</string>
+  <string name="module.analytics.tag_insights">Wawasan</string>
+  <string name="module.analytics.tag_reporting">Pelaporan</string>
+  <string name="module.analytics.tag_adoption">Adopsi</string>
 </resources>

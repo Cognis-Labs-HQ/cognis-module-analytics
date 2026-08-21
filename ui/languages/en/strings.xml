@@ -28,4 +28,12 @@
   <string name="module.analytics.dashboard.element.label">Analytics overview</string>
   <string name="module.analytics.dashboard.element.description">Review usage insights and administrative reports.</string>
   <string name="module.analytics.dashboard.element.open">Open analytics</string>
+  <string name="module.analytics.name">Analytics</string>
+  <string name="module.analytics.summary">Privacy-conscious account health, adoption, and event insights.</string>
+  <string name="module.analytics.description">Understand Cognis adoption through account health, registration trends, event summaries, and operational dashboards.</string>
+  <string name="module.analytics.category_productivity">Productivity</string>
+  <string name="module.analytics.tag_analytics">Analytics</string>
+  <string name="module.analytics.tag_insights">Insights</string>
+  <string name="module.analytics.tag_reporting">Reporting</string>
+  <string name="module.analytics.tag_adoption">Adoption</string>
 </resources>

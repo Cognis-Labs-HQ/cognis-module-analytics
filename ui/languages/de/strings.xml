@@ -28,4 +28,12 @@
   <string name="module.analytics.dashboard.element.label">Analyseübersicht</string>
   <string name="module.analytics.dashboard.element.description">Nutzungsdaten und Verwaltungsberichte anzeigen.</string>
   <string name="module.analytics.dashboard.element.open">Analytik öffnen</string>
+  <string name="module.analytics.name">Analysen</string>
+  <string name="module.analytics.summary">Datenschutzbewusste Einblicke in Kontozustand, Nutzung und Ereignisse.</string>
+  <string name="module.analytics.description">Cognis-Nutzung anhand von Kontozustand, Registrierungstrends, Ereignisübersichten und operativen Dashboards verstehen.</string>
+  <string name="module.analytics.category_productivity">Produktivität</string>
+  <string name="module.analytics.tag_analytics">Analysen</string>
+  <string name="module.analytics.tag_insights">Einblicke</string>
+  <string name="module.analytics.tag_reporting">Berichte</string>
+  <string name="module.analytics.tag_adoption">Nutzung</string>
 </resources>

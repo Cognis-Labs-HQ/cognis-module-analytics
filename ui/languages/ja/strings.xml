@@ -28,4 +28,12 @@
   <string name="module.analytics.dashboard.element.label">分析概要</string>
   <string name="module.analytics.dashboard.element.description">利用状況の分析と管理レポートを確認します。</string>
   <string name="module.analytics.dashboard.element.open">分析を開く</string>
+  <string name="module.analytics.name">アナリティクス</string>
+  <string name="module.analytics.summary">プライバシーに配慮したアカウント状態、利用状況、イベントの分析。</string>
+  <string name="module.analytics.description">アカウント状態、登録傾向、イベント概要、運用ダッシュボードから Cognis の利用状況を把握します。</string>
+  <string name="module.analytics.category_productivity">生産性</string>
+  <string name="module.analytics.tag_analytics">アナリティクス</string>
+  <string name="module.analytics.tag_insights">インサイト</string>
+  <string name="module.analytics.tag_reporting">レポート</string>
+  <string name="module.analytics.tag_adoption">利用状況</string>
 </resources>
