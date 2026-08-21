@@ -16,7 +16,7 @@ Use `rg` rather than recursive `grep` for searches.
 
 This repository delivers exactly one external Cognis module. Keep `manifest.json`, `package.json`, `routes.json`, `bootstrap.js`, and all declared entrypoints at the repository root or their declared repository-relative paths.
 
-Preserve the module UUID permanently. Every required component reference must be a UUID. Keep the versions in `manifest.json`, `package.json`, and `package-lock.json` synchronized, keep `package.json` configured with `"type": "module"`, and keep `routes.json` as an array. Ensure every declared entrypoint and asset is a regular repository-relative file with exact filename casing.
+Preserve the module UUID permanently. Every required component reference must be a UUID. Always set `ui.stringsBaseUrl` in `manifest.json` to the module-owned locale bundle base URL so Cognis can resolve localized manifest metadata before the module UI loads. Keep the versions in `manifest.json`, `package.json`, and `package-lock.json` synchronized, keep `package.json` configured with `"type": "module"`, and keep `routes.json` as an array. Ensure every declared entrypoint and asset is a regular repository-relative file with exact filename casing.
 
 After the final file change, run `npm run manifest:hashes` to regenerate every SHA-256 digest in `manifest.files`. Do not include `manifest.json` in its own digest list. Verify all declared digests before committing. Keep repository, homepage, and support metadata pointed at this project. Do not add generated secrets, credentials, personal data, or unnecessary dependencies.
 
