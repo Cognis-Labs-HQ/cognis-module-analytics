@@ -335,7 +335,7 @@ export function registerApiRoutes(router, ctx) {
 export function registerUi(ctx) {
     ctx.registerAdminSection({
         id: "analytics",
-        label: "Analytics",
+        label: "module.analytics.name",
         scriptUrl: "/static/modules/analytics/admin-section.js",
         stringsBaseUrl: "/static/modules/analytics/languages",
         access: { minRole: "admin" },

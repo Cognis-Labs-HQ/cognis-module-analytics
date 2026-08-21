@@ -94,3 +94,5 @@ git diff --check
 ```
 
 `npm run manifest:hashes` membangun ulang `manifest.files` dengan digest SHA-256 dan memformat manifes memakai konfigurasi Prettier repositori. `npm run check:manifest` memverifikasi versi, entrypoint, rute, path paket, dan digest berkas.
+
+Saat Cognis menghapus instalasi modul, memilih penghapusan konten akan menghapus semua peristiwa analitik milik modul. Jika penghapusan konten tidak dipilih, peristiwa tersebut dipertahankan. Tindakan pembersihan dicatat melalui pencatat log host tanpa muatan peristiwa.

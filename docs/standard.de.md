@@ -94,3 +94,5 @@ git diff --check
 ```
 
 `npm run manifest:hashes` erstellt `manifest.files` mit SHA-256-Hashes neu und formatiert das Manifest mit der Prettier-Konfiguration des Repositorys. `npm run check:manifest` prüft Versionen, Einstiegspunkte, Routen, Paketpfade und Datei-Hashes.
+
+Wenn Cognis das Modul deinstalliert, entfernt die Auswahl zur Inhaltslöschung alle moduleigenen Analyseereignisse. Ohne ausgewählte Inhaltslöschung bleiben diese Ereignisse erhalten. Die Bereinigungsaktion wird ohne Ereignisnutzdaten über den Host-Logger protokolliert.

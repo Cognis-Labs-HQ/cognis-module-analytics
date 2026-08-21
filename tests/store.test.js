@@ -51,6 +51,10 @@ function makeDb(initialRows = {}) {
                 }
                 return { rows };
             }
+            if (command.option === "DELETE") {
+                tables.set(command.table, []);
+                return { rowCount: 1 };
+            }
             return {};
         },
         async transaction(callback) {
@@ -101,6 +105,17 @@ test("AnalyticsStore.recordEvent accepts null accountId and meta", async () => {
     const row = db.insertedRows[0];
     assert.equal(row.account_id, null);
     assert.equal(row.meta, null);
+});
+
+test("AnalyticsStore.deleteAllData removes every stored event", async () => {
+    const db = makeAnalyticsDb({
+        eventRows: [{ id: "event-1", event_type: "page_view" }],
+    });
+    const store = new AnalyticsStore({ db });
+
+    await store.deleteAllData();
+
+    assert.deepEqual(await store.getRecentEvents(), []);
 });
 
 test("AnalyticsStore.getRecentEvents returns rows ordered by created_at descending", async () => {

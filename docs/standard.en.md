@@ -94,3 +94,5 @@ git diff --check
 ```
 
 `npm run manifest:hashes` rebuilds `manifest.files` with SHA-256 digests and formats the manifest with the repository Prettier configuration. `npm run check:manifest` verifies versions, entrypoints, routes, packaged paths, and file digests.
+
+When Cognis uninstalls the module, choosing content deletion removes all module-owned analytics events. If content deletion is not selected, those events are retained. The cleanup action is recorded through the host logger without event payloads.

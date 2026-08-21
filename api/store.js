@@ -52,6 +52,13 @@ export class AnalyticsStore {
         });
     }
 
+    async deleteAllData() {
+        await this.db.executeCommand({
+            option: "DELETE",
+            table: ANALYTICS_EVENTS_TABLE,
+        });
+    }
+
     async getRecentEvents(limit = 50) {
         const result = await this.db.executeCommand({
             option: "SELECT",
