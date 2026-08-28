@@ -1,6 +1,6 @@
 # Menyelaraskan changelog dan instruksi AI
 
-**Cabang Fitur:** work
+**Cabang Fitur:** feature-align-changelog-structure-with-pull-request-187
 
 ## Struktur changelog yang konsisten
 

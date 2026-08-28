@@ -1,6 +1,6 @@
 # 変更履歴とAI向け指示の整合
 
-**機能ブランチ:** work
+**機能ブランチ:** feature-align-changelog-structure-with-pull-request-187
 
 ## 一貫した変更履歴の構造
 

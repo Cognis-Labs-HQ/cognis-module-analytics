@@ -1,6 +1,6 @@
 # Changelog- und KI-Anweisungen abgestimmt
 
-**Feature-Zweig:** work
+**Feature-Zweig:** feature-align-changelog-structure-with-pull-request-187
 
 ## Einheitliche Changelog-Struktur
 

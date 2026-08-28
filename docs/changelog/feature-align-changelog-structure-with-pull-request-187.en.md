@@ -1,6 +1,6 @@
 # Align changelog and AI instructions
 
-**Feature Branch:** work
+**Feature Branch:** feature-align-changelog-structure-with-pull-request-187
 
 ## Consistent changelog structure
 
