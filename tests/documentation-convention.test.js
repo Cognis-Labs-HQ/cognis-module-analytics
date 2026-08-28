@@ -24,14 +24,60 @@ function headingLevels(path) {
 
 test("documentation follows the hidden heading convention", () => {
     const expected = headingLevels(TEMPLATE).slice(0, 3);
-    const violations = markdownFiles(resolve(ROOT, "docs")).flatMap((path) => {
-        const actual = headingLevels(path).slice(0, expected.length);
-        return actual.length === expected.length &&
-            actual.every((level, index) => level === expected[index])
-            ? []
-            : [relative(ROOT, path)];
-    });
+    const violations = markdownFiles(resolve(ROOT, "docs"))
+        .filter((path) => !path.includes(`${resolve(ROOT, "docs/changelog")}/`))
+        .flatMap((path) => {
+            const actual = headingLevels(path).slice(0, expected.length);
+            return actual.length === expected.length &&
+                actual.every((level, index) => level === expected[index])
+                ? []
+                : [relative(ROOT, path)];
+        });
     assert.deepEqual(violations, []);
+});
+
+test("localized changelogs follow the release feed structure", () => {
+    const directory = resolve(ROOT, "docs/changelog");
+    const changelogs = markdownFiles(directory);
+    for (const path of changelogs) {
+        const markdown = readFileSync(path, "utf8");
+        const language = /\.(de|en|id|ja)\.md$/.exec(path)?.[1];
+        const branchLabels = {
+            de: "Feature-Zweig",
+            en: "Feature Branch",
+            id: "Cabang Fitur",
+            ja: "機能ブランチ",
+        };
+        const commitHeadings = {
+            de: "Änderungen",
+            en: "Commits",
+            id: "Commit",
+            ja: "コミット",
+        };
+        assert.ok(language, relative(ROOT, path));
+        assert.match(markdown, /^# .+\n\n\*\*[^*]+:\*\* .+\n/);
+        assert.ok(
+            markdown.includes(`**${branchLabels[language]}:**`),
+            relative(ROOT, path),
+        );
+        assert.ok(
+            markdown.includes(`## ${commitHeadings[language]}`),
+            relative(ROOT, path),
+        );
+        assert.match(
+            markdown,
+            /- \[[0-9a-f]{7}\]\(https:\/\/github\.com\/Cognis-Labs-HQ\/cognis-module-analytics\/commit\/[0-9a-f]{40}\)/,
+        );
+        const changeSections = markdown
+            .split(/^## /m)
+            .slice(1, -1)
+            .map((section) => section.trim());
+        assert.ok(changeSections.length > 0, relative(ROOT, path));
+        assert.ok(
+            changeSections.every((section) => section.includes("\n\n")),
+            relative(ROOT, path),
+        );
+    }
 });
 
 test("documentation templates exist for every supported language", () => {
