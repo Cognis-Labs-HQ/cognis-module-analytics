@@ -78,6 +78,21 @@ Use the repository Prettier configuration: four-space indentation, double quotes
 
 Every behavior change requires appropriate tests, logging, and documentation. Keep all four `docs/standard.*.md` variants synchronized. Do not add AI reasoning, session notes, or process commentary to product-facing files.
 
+## Changelogs
+
+Store pull-request changelogs as localized file families under `docs/changelog/`, using the pull request's stable slug in filenames such as `<slug>.en.md`. Every family must include German, English, Indonesian, and Japanese variants.
+
+Changelog entry structure is mandatory:
+
+- `# ...` — a localized title.
+- `**Feature Branch:** ...` — the source branch immediately after the title (translate the label in non-English variants). Use `N/A` only when no feature branch exists.
+- `## ...` — one change point per heading, followed by explanatory body content. Cognis uses these headings and details in release surfaces.
+- A final localized `## Commits` section containing canonical `https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/<sha>` links. Use seven-character visible labels and complete commit hashes in link targets.
+
+Translate each file into the language it represents; do not copy English prose into non-English files. Do not create a global monolithic changelog. Existing changelog entries are historical records and must remain immutable except for factual corrections.
+
+Every implementation commit described by the current pull request's changelog must be recorded by a dedicated final provenance commit. That final commit changes only the localized changelog family (and generated manifest digests required by the external module contract), links the immediately preceding implementation commit, does not link itself, and contains no unrelated work.
+
 ## Review discipline
 
 Treat human and automated review comments as actionable engineering feedback. Implement sound corrections unless they conflict with higher-priority instructions. Record intentionally deferred items in root `TODO.md` with a concrete technical reason. Keep changes focused while improving directly adjacent violations.

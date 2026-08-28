@@ -32,6 +32,10 @@
             "sha256": "8fafead6e01dbab777528e72d1ce924ff3d8e0bd250d21a0a29116fe1ef7ed44"
         },
         {
+            "path": ".github/copilot-instructions.md",
+            "sha256": "d490efdd320f3168623122ebe9531fe1b5c98629f4fba5789bd358d990c8ccb3"
+        },
+        {
             "path": ".gitignore",
             "sha256": "16d30e4462189fb14dd611bdb708c510630c576a1f35b9383e89a4352da36c97"
         },
@@ -45,7 +49,7 @@
         },
         {
             "path": "AGENTS.md",
-            "sha256": "9a3f23a823c9c8d416a4d7322a10085e5312ec7843ef6c8d9956ced75cdc628e"
+            "sha256": "ae7c12ce0c291b32b201e803e2988a47d833b2582a70271711e42fa02f799455"
         },
         {
             "path": "LICENSE",
@@ -104,6 +108,22 @@
             "sha256": "ce32c37e42fb73ced351b34b3bfd1b08b49912bd1c018280aa28fd096644a114"
         },
         {
+            "path": "docs/changelog/align-changelog-structure.de.md",
+            "sha256": "20095ef1b5a7ddb31a08e15d79d273f78f5490ffbc73b5761e8e7f09bd1e7b20"
+        },
+        {
+            "path": "docs/changelog/align-changelog-structure.en.md",
+            "sha256": "850e3092f5382ad4b6c41f4f8aec40a7c333e7d9ea01f20df16e17e7b1ee6bfa"
+        },
+        {
+            "path": "docs/changelog/align-changelog-structure.id.md",
+            "sha256": "cc6984bcbf9b3f2210f4f92e4a7d0d7cfd78c3daa00edd834c7101db5e9e5db0"
+        },
+        {
+            "path": "docs/changelog/align-changelog-structure.ja.md",
+            "sha256": "dbe59c145b18f672f291bc91aaea86842ff4665db21ddbb7ad629b8681f05b4b"
+        },
+        {
             "path": "docs/standard.de.md",
             "sha256": "f6be9cb5f62da99894e12d3271750e2ce4e469b9af3a480d1ab5f33e7018dc53"
         },
@@ -149,7 +169,7 @@
         },
         {
             "path": "tests/documentation-convention.test.js",
-            "sha256": "a3d6579931fbf979f590fa41ea0e0c9297794e74f62e7477b3ff895c2d5be720"
+            "sha256": "6ae308568558dfbfa08669481240d0e86f33026981c29ba72664fafef7e5588d"
         },
         {
             "path": "tests/localization-quality.test.js",
