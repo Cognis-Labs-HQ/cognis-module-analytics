@@ -33,7 +33,12 @@ const expectedPaths = execFileSync(
 )
     .trim()
     .split("\n")
-    .filter((path) => path && path !== "manifest.json")
+    .filter(
+        (path) =>
+            path &&
+            path !== "manifest.json" &&
+            !path.startsWith("docs/changelog/"),
+    )
     .sort();
 const packagedPaths = manifest.files.map((file) => file.path).sort();
 assert.deepEqual(

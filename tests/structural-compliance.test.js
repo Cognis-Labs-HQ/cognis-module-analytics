@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import {
+    lstatSync,
+    readlinkSync,
+    readdirSync,
+    readFileSync,
+    statSync,
+} from "node:fs";
 import { join, relative, resolve } from "node:path";
 import test from "node:test";
 
@@ -23,6 +29,12 @@ function sourceFiles() {
         [...SOURCE_EXTENSIONS].some((extension) => path.endsWith(extension)),
     );
 }
+
+test("AGENTS.md resolves to the Copilot instruction source", () => {
+    const agentsPath = resolve(ROOT, "AGENTS.md");
+    assert.ok(lstatSync(agentsPath).isSymbolicLink());
+    assert.equal(readlinkSync(agentsPath), ".github/copilot-instructions.md");
+});
 
 test("source files stay under the 1000-line guardrail", () => {
     const violations = sourceFiles().flatMap((path) => {
@@ -87,6 +99,10 @@ test("external module metadata and declared files are consistent", () => {
         assert.ok(statSync(resolve(ROOT, entrypoint)).isFile());
     }
     for (const file of manifest.files) {
+        assert.ok(
+            !file.path.startsWith("docs/changelog/"),
+            `${file.path} must remain outside the manifest digest inventory`,
+        );
         const path = resolve(ROOT, file.path);
         assert.ok(statSync(path).isFile(), file.path);
         assert.equal(

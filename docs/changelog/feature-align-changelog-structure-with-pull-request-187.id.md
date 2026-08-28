@@ -12,4 +12,4 @@ Pengujian dokumentasi kini menangani changelog secara terpisah dari dokumentasi 
 
 ## Commit
 
-- [6b14122](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/6b141220e74bfae6d797ec6138e663134cef1e63)
+- [a3e22d1](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/a3e22d17caab05201d7039455721bb19090692cc)
