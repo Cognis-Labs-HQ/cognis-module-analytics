@@ -21,7 +21,5 @@ Converted the remaining absolute chart-label font size to a preference-relative 
 ## Commits
 
 - [c651362](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c6513623d385236dfac25f3d11fdf881eee73237)
-
 - [8da06b8](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/8da06b87b83b2335c17cdcd5c351f95d564dd6e0)
-
 - [7773003](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/7773003e1c1c7913b3e4e5eb534141a7e90f252d)
