@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.1.3",
+    "version": "2.1.4",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": ["metrics:read", "ui:admin-section", "db:migrations"],
@@ -85,6 +85,10 @@
             "sha256": "ad71b5ec5b2c291242e0a10c5edd1bb22dab2b005a20bfaf314844dfc7dab20f"
         },
         {
+            "path": "api/invalid-access.js",
+            "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+        },
+        {
             "path": "api/store.js",
             "sha256": "0876635d4f957285e6e0a67a8c0e69700017a9114d3039ba1baf9db70adbd9b9"
         },
@@ -110,27 +114,27 @@
         },
         {
             "path": "docs/standard.de.md",
-            "sha256": "9493bce7ed4c69a1093e26c653d245f20d7ecde3881008b7d9bc62fe143542d3"
+            "sha256": "291905b7aa2b3074509e8eb32379fbb114e5f3998c45fbf54762e17a54957f08"
         },
         {
             "path": "docs/standard.en.md",
-            "sha256": "3d68fca9826edb6f299324ead0a0dc738c6ebce45cb72a063c492d9089211a71"
+            "sha256": "a5cd035614a76343587fdb7187ebb76adc505e9c05e4218a87789a75c12e607d"
         },
         {
             "path": "docs/standard.id.md",
-            "sha256": "20a27a04588fdff0dfd2d9ebf0b7bf30485e47c2bbab4da4ea6fb8b77f0b51a1"
+            "sha256": "83a4873d5e9b09d896c7ba791cd66663308f968cfd237f8227c8724574b6afac"
         },
         {
             "path": "docs/standard.ja.md",
-            "sha256": "cb3c1f56b5ff6173b476257f71ea52f498d5f1a38fe538582960252a0ac274d0"
+            "sha256": "ae024f00e55084c9b0c1a23c4372a41faaf6f2cf8dd485acfae969697ba12ca9"
         },
         {
             "path": "package-lock.json",
-            "sha256": "38fd50de3ff6cad614b119d00264b7df881621cdba0b45cebf4175da85f4cf16"
+            "sha256": "eea9051c351171625b109b703ceff131eb0e1aaf233548429fe7f68e76e2b090"
         },
         {
             "path": "package.json",
-            "sha256": "e5dd81ff18b12f30aee07fc107e81b045eee8475d3ba61ec2bc509381d410900"
+            "sha256": "a1060238a6aae919a0d6e83483878ec05a40914634b9ac40c4cb1fd30a921070"
         },
         {
             "path": "routes.json",
@@ -166,7 +170,7 @@
         },
         {
             "path": "tests/module-boundaries.test.js",
-            "sha256": "afdd25fef36cbc08c71a4c8728fad4b5d13f133fac9a2732410e78d2616ecded"
+            "sha256": "9b211c7d6357c372b66ea50e4d94718e0efd37e76f7d32f2bcbca02fce79fb08"
         },
         {
             "path": "tests/routes.test.js",
@@ -190,7 +194,7 @@
         },
         {
             "path": "ui/admin-section.css",
-            "sha256": "452001d87f3b57323952ea485300ac564180a2ccfd5ba6091200a40e35c60fee"
+            "sha256": "ea044e2118f4039dc05696fadc63f3f98783a1ef1a35456cb883cdcc7b030dba"
         },
         {
             "path": "ui/admin-section.js",

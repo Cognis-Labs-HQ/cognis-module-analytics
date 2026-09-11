@@ -45,6 +45,12 @@ test("runtime sources address only the analytics API namespace", async () => {
     assert.deepEqual(violations, []);
 });
 
+test("runtime styles use preference-relative font sizes", async () => {
+    const stylesheet = await readFile("ui/admin-section.css", "utf8");
+
+    assert.doesNotMatch(stylesheet, /font-size\s*:\s*[\d.]+px\b/);
+});
+
 test("browser modules use repository-relative runtime imports", async () => {
     for (const path of ["ui/admin-section.js", "ui/dashboard-element.js"]) {
         const source = await readFile(path, "utf8");
