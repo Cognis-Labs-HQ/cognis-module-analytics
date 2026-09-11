@@ -1,6 +1,6 @@
 # Analytics モジュールの有効化を復旧
 
-**機能ブランチ:** work
+**機能ブランチ:** feature-align-module-with-lifecycle-changes
 
 ## ライフサイクル境界への準拠
 

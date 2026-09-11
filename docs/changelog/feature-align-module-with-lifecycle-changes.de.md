@@ -1,6 +1,6 @@
 # Aktivierung des Analytics-Moduls wiederherstellen
 
-**Feature-Zweig:** work
+**Feature-Zweig:** feature-align-module-with-lifecycle-changes
 
 ## Einhaltung der Lebenszyklusgrenzen
 

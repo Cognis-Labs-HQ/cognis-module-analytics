@@ -1,6 +1,6 @@
 # Memulihkan Pengaktifan Modul Analytics
 
-**Cabang Fitur:** work
+**Cabang Fitur:** feature-align-module-with-lifecycle-changes
 
 ## Kepatuhan batas siklus hidup
 
