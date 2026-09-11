@@ -2,13 +2,14 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": ["metrics:read", "ui:admin-section", "db:migrations"],
     "entrypoints": {
         "bootstrap": "./bootstrap.js",
         "api": "./api/index.js",
+        "disabledApi": "./api/disabled.js",
         "cli": "./cli/index.js",
         "db": "./db/001_analytics.sql"
     },
@@ -76,6 +77,10 @@
             "sha256": "594b55645ee973ed5f65d1d411c8476ac5c4d3b0c23b7a6d3103931e320a0d3d"
         },
         {
+            "path": "api/disabled.js",
+            "sha256": "624ce4d207185688bcd332f789f9ddb9e12089cb8561a25261a722d82dd45eb7"
+        },
+        {
             "path": "api/index.js",
             "sha256": "ad71b5ec5b2c291242e0a10c5edd1bb22dab2b005a20bfaf314844dfc7dab20f"
         },
@@ -105,27 +110,27 @@
         },
         {
             "path": "docs/standard.de.md",
-            "sha256": "3fffb37c7c44acbbfcff2cc3e0857c22065e75aad8df31d5a5eadc5a808e4823"
+            "sha256": "9493bce7ed4c69a1093e26c653d245f20d7ecde3881008b7d9bc62fe143542d3"
         },
         {
             "path": "docs/standard.en.md",
-            "sha256": "23b76abfbbd5cbf773be2e66cc86f122f33539d2f493b276a06e0b364f4a17c4"
+            "sha256": "3d68fca9826edb6f299324ead0a0dc738c6ebce45cb72a063c492d9089211a71"
         },
         {
             "path": "docs/standard.id.md",
-            "sha256": "9b864b52b2259184ae14b2ea2753128c9309ddd7599ba225820c5601acf427df"
+            "sha256": "20a27a04588fdff0dfd2d9ebf0b7bf30485e47c2bbab4da4ea6fb8b77f0b51a1"
         },
         {
             "path": "docs/standard.ja.md",
-            "sha256": "fffeb5a3a4d0b919a44d85be506ab889c9be3cc458ad0615046656a0cef5c982"
+            "sha256": "cb3c1f56b5ff6173b476257f71ea52f498d5f1a38fe538582960252a0ac274d0"
         },
         {
             "path": "package-lock.json",
-            "sha256": "da53d11cb30acbfb7bd31c1d60b3f33dab704ce82ac313a5be6b87540c63d2d8"
+            "sha256": "38fd50de3ff6cad614b119d00264b7df881621cdba0b45cebf4175da85f4cf16"
         },
         {
             "path": "package.json",
-            "sha256": "e2497caf94836195ca999353ca10a57f9c9eecfc2830aa741b7155e1b3128b0c"
+            "sha256": "e5dd81ff18b12f30aee07fc107e81b045eee8475d3ba61ec2bc509381d410900"
         },
         {
             "path": "routes.json",
@@ -146,6 +151,10 @@
         {
             "path": "tests/bootstrap.test.js",
             "sha256": "c328cbc92cea6e813a9df83586bccaa56b54103aea181dd8d8bce519379914a3"
+        },
+        {
+            "path": "tests/disabled-api.test.js",
+            "sha256": "57bce96007e5e40a18225c0df1ea3610215d9b7e168f0836bc610b939a046f66"
         },
         {
             "path": "tests/documentation-convention.test.js",
@@ -169,7 +178,7 @@
         },
         {
             "path": "tests/structural-compliance.test.js",
-            "sha256": "775b4e07bb28801314b64cb9e0dc76275e40934840c180e69dfa3ba37bbbbfde"
+            "sha256": "b1b9f3ef55915bcad6b4968f5d46eb64047d564d16388562800c710f69f7605c"
         },
         {
             "path": "tooling/scripts/lint-placeholder.mjs",
