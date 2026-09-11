@@ -2,13 +2,14 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.1.1",
+    "version": "2.1.4",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": ["metrics:read", "ui:admin-section", "db:migrations"],
     "entrypoints": {
         "bootstrap": "./bootstrap.js",
         "api": "./api/index.js",
+        "disabledApi": "./api/disabled.js",
         "cli": "./cli/index.js",
         "db": "./db/001_analytics.sql"
     },
@@ -76,12 +77,16 @@
             "sha256": "594b55645ee973ed5f65d1d411c8476ac5c4d3b0c23b7a6d3103931e320a0d3d"
         },
         {
+            "path": "api/disabled.js",
+            "sha256": "624ce4d207185688bcd332f789f9ddb9e12089cb8561a25261a722d82dd45eb7"
+        },
+        {
             "path": "api/index.js",
             "sha256": "ad71b5ec5b2c291242e0a10c5edd1bb22dab2b005a20bfaf314844dfc7dab20f"
         },
         {
             "path": "api/invalid-access.js",
-            "sha256": "fca06693e8fd754d86a38ed572b81d2fc9f3bb55dbe7dca975f7ddc3a19c5108"
+            "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
         },
         {
             "path": "api/store.js",
@@ -109,27 +114,27 @@
         },
         {
             "path": "docs/standard.de.md",
-            "sha256": "f6be9cb5f62da99894e12d3271750e2ce4e469b9af3a480d1ab5f33e7018dc53"
+            "sha256": "291905b7aa2b3074509e8eb32379fbb114e5f3998c45fbf54762e17a54957f08"
         },
         {
             "path": "docs/standard.en.md",
-            "sha256": "50d8ed7bdad476ca5d2974fb5048fe1440c0816d45695238b712cb0cca1cd682"
+            "sha256": "a5cd035614a76343587fdb7187ebb76adc505e9c05e4218a87789a75c12e607d"
         },
         {
             "path": "docs/standard.id.md",
-            "sha256": "147088d77983e562e04cf6810c33d15a9a05d8580236a3818a938c2247615bfd"
+            "sha256": "83a4873d5e9b09d896c7ba791cd66663308f968cfd237f8227c8724574b6afac"
         },
         {
             "path": "docs/standard.ja.md",
-            "sha256": "c732c00c45275e64af75583b9adee735b45cd860d4103dd3d0cc70f6223539de"
+            "sha256": "ae024f00e55084c9b0c1a23c4372a41faaf6f2cf8dd485acfae969697ba12ca9"
         },
         {
             "path": "package-lock.json",
-            "sha256": "72936839277d3614ef1de7bf230b48b66ae7832c10f016f3cda65c1c3716e6e2"
+            "sha256": "eea9051c351171625b109b703ceff131eb0e1aaf233548429fe7f68e76e2b090"
         },
         {
             "path": "package.json",
-            "sha256": "d4faa10ca8cafefdd2ed4c752824f48cc39cbbf05bf1483173db15a92cb0643f"
+            "sha256": "a1060238a6aae919a0d6e83483878ec05a40914634b9ac40c4cb1fd30a921070"
         },
         {
             "path": "routes.json",
@@ -152,6 +157,10 @@
             "sha256": "c328cbc92cea6e813a9df83586bccaa56b54103aea181dd8d8bce519379914a3"
         },
         {
+            "path": "tests/disabled-api.test.js",
+            "sha256": "57bce96007e5e40a18225c0df1ea3610215d9b7e168f0836bc610b939a046f66"
+        },
+        {
             "path": "tests/documentation-convention.test.js",
             "sha256": "6ae308568558dfbfa08669481240d0e86f33026981c29ba72664fafef7e5588d"
         },
@@ -161,7 +170,7 @@
         },
         {
             "path": "tests/module-boundaries.test.js",
-            "sha256": "6faa1086ee638b510e21d8be522d9f7829b3eb2f7a534d11ae0410722f090fc2"
+            "sha256": "9b211c7d6357c372b66ea50e4d94718e0efd37e76f7d32f2bcbca02fce79fb08"
         },
         {
             "path": "tests/routes.test.js",
@@ -173,7 +182,7 @@
         },
         {
             "path": "tests/structural-compliance.test.js",
-            "sha256": "775b4e07bb28801314b64cb9e0dc76275e40934840c180e69dfa3ba37bbbbfde"
+            "sha256": "b1b9f3ef55915bcad6b4968f5d46eb64047d564d16388562800c710f69f7605c"
         },
         {
             "path": "tooling/scripts/lint-placeholder.mjs",
@@ -185,7 +194,7 @@
         },
         {
             "path": "ui/admin-section.css",
-            "sha256": "452001d87f3b57323952ea485300ac564180a2ccfd5ba6091200a40e35c60fee"
+            "sha256": "ea044e2118f4039dc05696fadc63f3f98783a1ef1a35456cb883cdcc7b030dba"
         },
         {
             "path": "ui/admin-section.js",
