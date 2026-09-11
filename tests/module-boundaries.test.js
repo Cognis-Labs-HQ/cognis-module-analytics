@@ -1,7 +1,49 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
+import { extname, join, relative, resolve } from "node:path";
 import test from "node:test";
 import { formatDateTime } from "../ui/reuse/timestamp.js";
+
+const ROOT = resolve(import.meta.dirname, "..");
+
+async function runtimeSourceFiles(directory) {
+    const entries = await readdir(directory, { withFileTypes: true });
+    const files = await Promise.all(
+        entries.map(async (entry) => {
+            const path = join(directory, entry.name);
+            if (entry.isDirectory()) return runtimeSourceFiles(path);
+            return extname(path) === ".js" ? [path] : [];
+        }),
+    );
+    return files.flat();
+}
+
+test("runtime sources address only the analytics API namespace", async () => {
+    const sourceFiles = (
+        await Promise.all(
+            ["api", "bootstrap.js", "cli", "ui"].map(async (path) => {
+                const absolutePath = resolve(ROOT, path);
+                return extname(absolutePath) === ".js"
+                    ? [absolutePath]
+                    : runtimeSourceFiles(absolutePath);
+            }),
+        )
+    ).flat();
+    const violations = [];
+
+    for (const path of sourceFiles) {
+        const source = await readFile(path, "utf8");
+        for (const match of source.matchAll(
+            /\/api\/v1\/modules\/([^/"'`?]+)/g,
+        )) {
+            if (match[1] !== "analytics") {
+                violations.push(`${relative(ROOT, path)}: ${match[0]}`);
+            }
+        }
+    }
+
+    assert.deepEqual(violations, []);
+});
 
 test("browser modules use repository-relative runtime imports", async () => {
     for (const path of ["ui/admin-section.js", "ui/dashboard-element.js"]) {

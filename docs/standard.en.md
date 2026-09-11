@@ -40,7 +40,7 @@ A successful event write returns HTTP `201` with the generated event ID. Do not 
 
 ### Installation and lifecycle
 
-Install the module through the Cognis Module Marketplace or place the complete repository in the configured external-modules directory. Cognis loads `bootstrap.js`, which registers the admin section and API routes through `ctx`. The module requires the host `db:executor` capability. The module-owned event schema is ensured during startup; schema initialization failures are logged with safe component and operation metadata.
+Install the module through the Cognis Module Marketplace or place the complete repository in the configured external-modules directory. Cognis validates every runtime source before loading `bootstrap.js`, which registers the admin section and API routes through `ctx`. All runtime API URLs remain within `/api/v1/modules/analytics` and satisfy the host boundary contract during enablement. The module requires the host `db:executor` capability. The module-owned event schema is ensured during startup; schema initialization failures are logged with safe component and operation metadata.
 
 Keep `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, database migration, localized resources, documentation, assets, and manifest hashes together when distributing the module. The module UUID is permanent.
 

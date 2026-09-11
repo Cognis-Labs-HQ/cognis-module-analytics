@@ -40,7 +40,7 @@ Content-Type: application/json
 
 ### インストールとライフサイクル
 
-Cognis Module Marketplace からインストールするか、完全なリポジトリを設定済みの外部モジュールディレクトリへ配置します。Cognis は `bootstrap.js` を読み込み、`ctx` を通じて管理セクションと API ルートを登録します。モジュールにはホストの `db:executor` Capability が必要です。モジュール所有のイベントスキーマは起動時に確保され、初期化失敗は安全なコンポーネントおよび操作メタデータとともに記録されます。
+Cognis Module Marketplace からインストールするか、完全なリポジトリを設定済みの外部モジュールディレクトリへ配置します。Cognis はすべてのランタイムソースを検証してから `bootstrap.js` を読み込み、`ctx` を通じて管理セクションと API ルートを登録します。ランタイムの API URL はすべて `/api/v1/modules/analytics` 内に収まり、有効化時のホスト境界契約を満たします。モジュールにはホストの `db:executor` Capability が必要です。モジュール所有のイベントスキーマは起動時に確保され、初期化失敗は安全なコンポーネントおよび操作メタデータとともに記録されます。
 
 配布時は `manifest.json`、`package.json`、`package-lock.json`、`routes.json`、`bootstrap.js`、API、CLI、UI、データベースマイグレーション、言語リソース、文書、アセット、マニフェストハッシュを一緒に保持してください。モジュール UUID は恒久的です。
 

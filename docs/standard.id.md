@@ -40,7 +40,7 @@ Penulisan yang berhasil mengembalikan HTTP `201` beserta ID peristiwa yang dibua
 
 ### Instalasi dan siklus hidup
 
-Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap di direktori modul eksternal yang dikonfigurasi. Cognis memuat `bootstrap.js`, yang mendaftarkan bagian admin dan rute API melalui `ctx`. Modul memerlukan kapabilitas host `db:executor`. Skema peristiwa milik modul dipastikan saat startup; kegagalan inisialisasi dicatat dengan metadata komponen dan operasi yang aman.
+Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap di direktori modul eksternal yang dikonfigurasi. Cognis memvalidasi setiap sumber runtime sebelum memuat `bootstrap.js`, yang mendaftarkan bagian admin dan rute API melalui `ctx`. Semua URL API runtime tetap berada di bawah `/api/v1/modules/analytics` dan memenuhi kontrak batas host selama pengaktifan. Modul memerlukan kapabilitas host `db:executor`. Skema peristiwa milik modul dipastikan saat startup; kegagalan inisialisasi dicatat dengan metadata komponen dan operasi yang aman.
 
 Saat mendistribusikan modul, pertahankan `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, migrasi basis data, sumber daya bahasa, dokumentasi, aset, dan hash manifes sebagai satu kesatuan. UUID modul bersifat permanen.
 
