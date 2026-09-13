@@ -93,8 +93,8 @@
             "sha256": "0876635d4f957285e6e0a67a8c0e69700017a9114d3039ba1baf9db70adbd9b9"
         },
         {
-            "path": "assets/banner.svg",
-            "sha256": "54e4fe479eb05c3f35c86f1a677a5f0dd95913524a540ec3de2dd97be9e8e6d4"
+            "path": "assets/banner.png",
+            "sha256": "111e71d75c3ab2e9ef3fea463d0b29eb8ecedae19ff92d19f73b5759d32dc350"
         },
         {
             "path": "assets/icon.svg",
@@ -248,7 +248,7 @@
     "assets": {
         "screenshots": [],
         "icon": "assets/icon.svg",
-        "banner": "assets/banner.svg"
+        "banner": "assets/banner.png"
     },
     "tags": [
         "module.analytics.tag_analytics",
