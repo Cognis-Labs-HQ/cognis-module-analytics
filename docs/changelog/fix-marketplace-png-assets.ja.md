@@ -1,6 +1,6 @@
 # Marketplace の PNG バナーを使用
 
-**機能ブランチ:** work
+**機能ブランチ:** feature-fix-broken-commit-for-banner.png-and-icon.png
 
 ## アイコンとバナーの参照を修正
 

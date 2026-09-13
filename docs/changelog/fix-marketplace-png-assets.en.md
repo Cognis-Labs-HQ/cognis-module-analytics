@@ -1,6 +1,6 @@
 # Use the Marketplace PNG banner
 
-**Feature Branch:** work
+**Feature Branch:** feature-fix-broken-commit-for-banner.png-and-icon.png
 
 ## Correct icon and banner references
 

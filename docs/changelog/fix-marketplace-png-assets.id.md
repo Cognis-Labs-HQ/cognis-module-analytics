@@ -1,6 +1,6 @@
 # Gunakan banner PNG Marketplace
 
-**Cabang Fitur:** work
+**Cabang Fitur:** feature-fix-broken-commit-for-banner.png-and-icon.png
 
 ## Memperbaiki referensi ikon dan banner
 

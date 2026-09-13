@@ -1,6 +1,6 @@
 # PNG-Banner im Marketplace verwenden
 
-**Feature-Zweig:** work
+**Feature-Zweig:** feature-fix-broken-commit-for-banner.png-and-icon.png
 
 ## Verweise auf Symbol und Banner korrigiert
 
