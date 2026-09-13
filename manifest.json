@@ -114,19 +114,19 @@
         },
         {
             "path": "docs/standard.de.md",
-            "sha256": "291905b7aa2b3074509e8eb32379fbb114e5f3998c45fbf54762e17a54957f08"
+            "sha256": "5825a6d37feef038b7128c1cedf9fc833eaa0570cdda3ab75e8f87e6022aba2d"
         },
         {
             "path": "docs/standard.en.md",
-            "sha256": "a5cd035614a76343587fdb7187ebb76adc505e9c05e4218a87789a75c12e607d"
+            "sha256": "669e6313113d5df3674d3f5e9bebc771d9650c78f75965de7f82338c48f501aa"
         },
         {
             "path": "docs/standard.id.md",
-            "sha256": "83a4873d5e9b09d896c7ba791cd66663308f968cfd237f8227c8724574b6afac"
+            "sha256": "7255bc97be0bed55464626e6a29a589857d8777cf853105a4bef8bd6f0901ee6"
         },
         {
             "path": "docs/standard.ja.md",
-            "sha256": "ae024f00e55084c9b0c1a23c4372a41faaf6f2cf8dd485acfae969697ba12ca9"
+            "sha256": "6ea6fa39aadf293c098bf6aa42f9667258d2dce819a059d8feb08fd981614a98"
         },
         {
             "path": "package-lock.json",
@@ -182,7 +182,7 @@
         },
         {
             "path": "tests/structural-compliance.test.js",
-            "sha256": "b1b9f3ef55915bcad6b4968f5d46eb64047d564d16388562800c710f69f7605c"
+            "sha256": "c36993989cd38a9c6e2d460d309f05dc6b072f3082a809f4c52b484e92b10dcb"
         },
         {
             "path": "tooling/scripts/lint-placeholder.mjs",

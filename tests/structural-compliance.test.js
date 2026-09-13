@@ -100,6 +100,12 @@ test("external module metadata and declared files are consistent", () => {
     for (const entrypoint of Object.values(manifest.entrypoints)) {
         assert.ok(statSync(resolve(ROOT, entrypoint)).isFile());
     }
+    const packagedPaths = new Set(manifest.files.map((file) => file.path));
+    for (const asset of [manifest.assets.icon, manifest.assets.banner]) {
+        assert.ok(!asset.startsWith("/") && !asset.includes(".."), asset);
+        assert.ok(statSync(resolve(ROOT, asset)).isFile(), asset);
+        assert.ok(packagedPaths.has(asset), `${asset} must be packaged`);
+    }
     for (const file of manifest.files) {
         assert.ok(
             !file.path.startsWith("docs/changelog/"),

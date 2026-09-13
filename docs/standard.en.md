@@ -44,6 +44,8 @@ Install the module through the Cognis Module Marketplace or place the complete r
 
 Keep `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, database migration, localized resources, documentation, assets, and manifest hashes together when distributing the module. The module UUID is permanent.
 
+The marketplace artwork uses the files declared by `assets.icon` and `assets.banner` in `manifest.json`; both files are included in the verified package inventory.
+
 ### Administration interface
 
 The admin section is restricted to the `admin` role. It reports:

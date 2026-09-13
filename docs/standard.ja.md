@@ -44,6 +44,8 @@ Cognis Module Marketplace からインストールするか、完全なリポジ
 
 配布時は `manifest.json`、`package.json`、`package-lock.json`、`routes.json`、`bootstrap.js`、API、CLI、UI、データベースマイグレーション、言語リソース、文書、アセット、マニフェストハッシュを一緒に保持してください。モジュール UUID は恒久的です。
 
+Marketplace のアートワークには、`manifest.json` の `assets.icon` と `assets.banner` で宣言されたファイルを使用します。どちらのファイルも検証済みパッケージ一覧に含まれます。
+
 ### 管理インターフェース
 
 管理セクションは `admin` ロールに制限され、次を表示します。
