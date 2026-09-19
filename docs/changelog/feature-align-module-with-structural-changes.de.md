@@ -1,6 +1,6 @@
 # Analytics an die aktuelle Struktur externer Module anpassen
 
-**Feature-Zweig:** work
+**Feature-Zweig:** feature-align-module-with-structural-changes
 
 ## Laden ausschließlich über Bootstrap
 

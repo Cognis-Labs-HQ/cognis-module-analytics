@@ -1,6 +1,6 @@
 # Analytics を現在の外部モジュール構造に対応
 
-**機能ブランチ:** work
+**機能ブランチ:** feature-align-module-with-structural-changes
 
 ## Bootstrap のみによる読み込み
 
