@@ -320,6 +320,7 @@ export function registerApiRoutes(router, ctx) {
                 await store.recordEvent(id, eventType, null, meta);
                 sendJson(res, 201, { data: { id } });
             } catch {
+                logFailure("record-activity");
                 sendJson(res, 500, {
                     error: {
                         code: "record_failed",
