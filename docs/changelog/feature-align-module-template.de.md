@@ -10,6 +10,10 @@ Vorlagenrichtlinien, domänenspezifische Routenpfade, übersetzte Integrationsdo
 
 Berichte verwenden die öffentliche Konto-Capability von Auth statt fremder Tabellen und führen eigene ctx-Abläufe aus. Explizite Limits bleiben erhalten, ohne Limit werden alle Ereignisse geliefert und ungültige Bereiche abgewiesen. Installierte Befehle verwenden `modules:analytics:*`. Styles und Fehlermeldungen nutzen Host-Verträge; unregistrierte Dashboard-Vorlagen und der leere Deaktivierungs-Einstiegspunkt entfallen.
 
+## Marketplace-Banner anpassen
+
+Das Analytics-Bild erhält ein breites Hero-Layout mit sicheren Rändern für Logo, Titel und Diagramm, um vertikales Abschneiden in den Cognis-Moduldetails zu vermeiden.
+
 ## Änderungen
 
 - [b98c771](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/b98c7711c22d4b2e2488ef00653b78a64d22d9ad)
