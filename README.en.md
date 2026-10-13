@@ -4,7 +4,7 @@
 
 Privacy-conscious usage insights and administrative reporting for Cognis. Track registration trends, activation, account health, role distribution, and module-owned events without introducing a third-party analytics service.
 
-This repository is a self-contained Cognis extension module. Install it through the Module Marketplace or place it in the configured external modules directory. See [`docs/standard.en.md`](docs/standard.en.md) for configuration, capabilities, routes, and operational guidance; equivalent German, Indonesian, and Japanese references are available alongside it.
+This repository is a self-contained Cognis extension module. Install it through the Module Marketplace or place it in the configured external modules directory. See [`docs/index.en.md`](docs/index.en.md) for configuration, capabilities, routes, and operational guidance; equivalent German, Indonesian, and Japanese references are available alongside it.
 
 ## Analytics coverage
 

@@ -4,7 +4,7 @@
 
 Datenschutzbewusste Nutzungsanalysen und administrative Berichte für Cognis. Erfasse Registrierungstrends, Aktivierung, Kontozustand, Rollenverteilung und moduleigene Ereignisse, ohne einen externen Analysedienst einzubinden.
 
-Dieses Repository ist ein eigenständiges Cognis-Erweiterungsmodul. Installiere es über den Modul-Marktplatz oder lege es im konfigurierten Verzeichnis für externe Module ab. Informationen zu Konfiguration, Capabilities, Routen und Betrieb findest du in [`docs/standard.de.md`](docs/standard.de.md); gleichwertige englische, indonesische und japanische Referenzen liegen daneben.
+Dieses Repository ist ein eigenständiges Cognis-Erweiterungsmodul. Installiere es über den Modul-Marktplatz oder lege es im konfigurierten Verzeichnis für externe Module ab. Informationen zu Konfiguration, Capabilities, Routen und Betrieb findest du in [`docs/index.de.md`](docs/index.de.md); gleichwertige englische, indonesische und japanische Referenzen liegen daneben.
 
 ## Analyseumfang
 

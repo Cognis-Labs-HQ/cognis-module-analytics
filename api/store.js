@@ -4,7 +4,7 @@ const ANALYTICS_EVENTS_TABLE = "sample_analytics_events";
  * Persistence layer for the Analytics module.
  *
  * Manages the analytics events table via the structured DbExecutor abstraction.
- * The accounts table is queried directly in route handlers; this store only
+ * Account reporting uses its owner capability; this store only
  * manages custom event records contributed by the analytics module itself.
  *
  * @param {{
@@ -59,13 +59,15 @@ export class AnalyticsStore {
         });
     }
 
-    async getRecentEvents(limit = 50) {
+    async getRecentEvents(limit) {
+        if (limit !== undefined && (!Number.isSafeInteger(limit) || limit < 1))
+            throw new Error("invalid_limit");
         const result = await this.db.executeCommand({
             option: "SELECT",
             table: ANALYTICS_EVENTS_TABLE,
             columns: ["id", "event_type", "account_id", "created_at"],
             orderBy: [{ column: "created_at", direction: "DESC" }],
-            limit,
+            ...(limit === undefined ? {} : { limit }),
         });
         return result.rows ?? [];
     }

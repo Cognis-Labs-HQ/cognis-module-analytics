@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { existsSync, statSync } from "node:fs";
+import { existsSync, lstatSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { format, resolveConfig } from "prettier";
@@ -16,9 +16,10 @@ const paths = execFileSync(
         (path) =>
             path &&
             path !== "manifest.json" &&
+            path !== "README.md" &&
             !path.startsWith("docs/changelog/") &&
             existsSync(path) &&
-            statSync(path).isFile(),
+            lstatSync(path).isFile(),
     )
     .sort();
 manifest.files = await Promise.all(
@@ -29,11 +30,9 @@ manifest.files = await Promise.all(
             .digest("hex"),
     })),
 );
-const prettierOptions = (await resolveConfig("manifest.json")) ?? {};
-await writeFile(
-    "manifest.json",
-    await format(JSON.stringify(manifest), {
-        ...prettierOptions,
-        parser: "json",
-    }),
-);
+const prettierConfig = (await resolveConfig("manifest.json")) ?? {};
+const formattedManifest = await format(JSON.stringify(manifest), {
+    ...prettierConfig,
+    parser: "json",
+});
+await writeFile("manifest.json", formattedManifest);

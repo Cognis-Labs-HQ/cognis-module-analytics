@@ -9,16 +9,16 @@ Buka bagian **Analytics** di Administrasi Cognis untuk melihat jumlah akun, akun
 Gunakan kontrak yang sama melalui CLI:
 
 ```sh
-cognisctl analytics:metrics
-cognisctl analytics:series 30
-cognisctl analytics:event-summary 30
-cognisctl analytics:activity-log 20
+cognisctl modules:analytics:metrics
+cognisctl modules:analytics:series 30
+cognisctl modules:analytics:eventSummary 30
+cognisctl modules:analytics:activityLog 20
 ```
 
 Catat peristiwa milik modul dengan metadata JSON opsional:
 
 ```sh
-cognisctl analytics:activity-log:record report_exported '{"format":"csv"}'
+cognisctl modules:analytics:activityLog:record report_exported '{"format":"csv"}'
 ```
 
 Klien yang berwenang dapat memakai API HTTP secara langsung:
@@ -40,7 +40,7 @@ Penulisan yang berhasil mengembalikan HTTP `201` beserta ID peristiwa yang dibua
 
 ### Instalasi dan siklus hidup
 
-Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap di direktori modul eksternal yang dikonfigurasi. Manifes mendeklarasikan `bootstrap.js` sebagai satu-satunya titik masuk modul aktif. Cognis memvalidasi setiap sumber runtime sebelum memuatnya, lalu `bootstrapModule(ctx)` mendaftarkan bagian admin dan rute API melalui konteks host tercakup. Semua URL API runtime tetap berada di bawah `/api/v1/modules/analytics`, dan ukuran font antarmuka memakai unit relatif terhadap preferensi, sehingga memenuhi kontrak batas host selama pengaktifan dan pemutakhiran. Saat dinonaktifkan, Cognis memuat titik masuk khusus `api/disabled.js`, yang sengaja tidak mendaftarkan rute atau kapabilitas karena Analytics tidak memiliki konfigurasi pra-pengaktifan. Modul memerlukan kapabilitas host `db:executor`. Skema peristiwa milik modul dipastikan saat startup; kegagalan inisialisasi dicatat dengan metadata komponen dan operasi yang aman.
+Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap di direktori modul eksternal yang dikonfigurasi. Manifes mendeklarasikan `bootstrap.js` sebagai satu-satunya titik masuk modul aktif. Cognis memvalidasi setiap sumber runtime sebelum memuatnya, lalu `bootstrapModule(ctx)` mendaftarkan bagian admin dan rute API melalui konteks host tercakup. Semua URL API runtime tetap berada di bawah `/api/v1/modules/analytics`, dan ukuran font antarmuka memakai unit relatif terhadap preferensi, sehingga memenuhi kontrak batas host selama pengaktifan dan pemutakhiran. Analytics tidak memerlukan konfigurasi sebelum pengaktifan; modul yang dinonaktifkan tidak menyediakan API atau UI runtime dan tidak menjalankan bootstrap aktif. Modul memerlukan kapabilitas host `db:executor` dan `auth:accountStore`. Skema peristiwa milik modul dipastikan saat startup; kegagalan inisialisasi dicatat dengan metadata komponen dan operasi yang aman.
 
 Saat mendistribusikan modul, pertahankan `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, migrasi basis data, sumber daya bahasa, dokumentasi, aset, dan hash manifes sebagai satu kesatuan. UUID modul bersifat permanen.
 
@@ -62,10 +62,10 @@ Teks UI berasal dari sumber daya XML modul dalam bahasa Jerman, Inggris, Indones
 
 Semua rute memerlukan peran `admin`.
 
-- `GET /api/v1/modules/analytics/metrics?days=<n>` mengembalikan metrik kesehatan akun. `days` bernilai default `30`, harus positif, dan dibatasi hingga `365`.
+- `GET /api/v1/modules/analytics/metrics?days=<n>`: Rentang hari default adalah 30 dan harus berupa bilangan bulat dari 1 hingga 365; nilai tidak valid menghasilkan 400, bukan dibatasi diam-diam.
 - `GET /api/v1/modules/analytics/series?days=<n>` mengembalikan satu titik `{ date, count }` per tanggal UTC dalam rentang dengan aturan `days` yang sama.
 - `GET /api/v1/modules/analytics/type-summary?days=<n>` mengembalikan `{ total, uniqueActors, byType }`. Jalur `event-summary` adalah rute kompatibilitas yang setara; UI browser memakai `type-summary` untuk menghindari filter privasi yang memblokir URL berisi `event`.
-- `GET /api/v1/modules/analytics/activity-log?limit=<n>` mengembalikan peristiwa terbaru tanpa metadata tersimpan. `limit` bernilai default `50`, harus positif, dan dibatasi hingga `200`.
+- `GET /api/v1/modules/analytics/activity-log?limit=<n>`: Tanpa limit, semua peristiwa yang cocok dikembalikan. Limit eksplisit harus berupa bilangan bulat positif yang aman dan diterapkan tepat; nilai tidak valid menghasilkan 400.
 - `POST /api/v1/modules/analytics/activity-log` menerima `{ eventType, meta }`. Body JSON UTF-8 dibatasi 16 KiB, `eventType` dipangkas dan dibatasi 64 karakter, dan `meta` hanya disimpan jika berupa objek non-array.
 
 ### Respons dan kegagalan
@@ -74,13 +74,13 @@ Pembacaan berhasil mengembalikan HTTP `200` dengan properti `data`. Jika penyimp
 
 ### Persistensi dan privasi
 
-Metrik akun membaca tabel `accounts` milik host melalui `db:executor`; modul tidak menyalin catatan akun. Peristiwa kustom disimpan di tabel milik modul `sample_analytics_events` dengan ID, jenis peristiwa, ID akun opsional, metadata terserialisasi, dan waktu pembuatan. Peristiwa yang dibuat API saat ini memakai ID akun null. Respons peristiwa terbaru tidak menyertakan metadata, sedangkan ringkasan mengagregasi jenis peristiwa dan aktor tidak-null.
+Metrik akun membaca kapabilitas publik `auth:accountStore`; modul tidak menyalin catatan akun. Peristiwa kustom disimpan di tabel milik modul `sample_analytics_events` dengan ID, jenis peristiwa, ID akun opsional, metadata terserialisasi, dan waktu pembuatan. Peristiwa yang dibuat API saat ini memakai ID akun null. Respons peristiwa terbaru tidak menyertakan metadata, sedangkan ringkasan mengagregasi jenis peristiwa dan aktor tidak-null.
 
 Modul tidak menghubungi penyedia analitik eksternal. Operator bertanggung jawab menetapkan nama peristiwa yang tepat, meminimalkan metadata, menerapkan aturan retensi pada tabel modul, dan membatasi akses administratif.
 
 ### Kontrak CLI
 
-`analytics:metrics`, `analytics:series [days]`, `analytics:event-summary [days]`, dan `analytics:activity-log [limit]` memanggil rute modul terautentikasi yang sesuai. `analytics:activity-log:record <event-type> [meta-json]` mengurai metadata opsional sebagai JSON sebelum mengirim POST. CLI melaporkan JSON tidak valid dan argumen wajib yang hilang.
+`modules:analytics:metrics`, `modules:analytics:series [days]`, `modules:analytics:eventSummary [days]`, dan `modules:analytics:activityLog [limit]` memanggil rute modul terautentikasi yang sesuai. `modules:analytics:activityLog:record <event-type> [meta-json]` mengurai metadata opsional sebagai JSON sebelum mengirim POST. CLI melaporkan JSON tidak valid dan argumen wajib yang hilang.
 
 ### Verifikasi operasional
 
@@ -98,3 +98,15 @@ git diff --check
 `npm run manifest:hashes` membangun ulang `manifest.files` dengan digest SHA-256 dan memformat manifes memakai konfigurasi Prettier repositori. `npm run check:manifest` memverifikasi versi, entrypoint, rute, path paket, dan digest berkas.
 
 Saat Cognis menghapus instalasi modul, memilih penghapusan konten akan menghapus semua peristiwa analitik milik modul. Jika penghapusan konten tidak dipilih, peristiwa tersebut dipertahankan. Tindakan pembersihan dicatat melalui pencatat log host tanpa muatan peristiwa.
+
+### Alur tindakan milik modul
+
+Metrik akun dan seri pendaftaran menggunakan `auth:accountStore.list()` dan `getInfo()`; tabel komponen lain tidak diakses. Hanya peristiwa milik modul yang menggunakan `db:executor`.
+
+Operasi HTTP berjalan melalui alur ctx milik modul dengan tahap validasi, eksekusi, dan penyajian. Pengujian menjalankan tahap-tahap ini dan mencegah penyimpanan ketika validasi atau inisialisasi skema gagal.
+
+### Struktur kontributor dan kepemilikan host
+
+Mulai modul baru dari [cognis-module-template](https://github.com/Cognis-Labs-HQ/cognis-module-template); repositori ini mengikuti revisi panduan yang dicatat dalam `AGENTS.md`. `bootstrap.js` mengatur siklus hidup, `api/index.js` menghubungkan dependensi ctx, `api/routes/<domain>/index.js` menangani HTTP, dan `api/reuse/` berisi kode server yang dipakai ulang. Fitur browser berada di `ui/`, gaya di `ui/styles/`, templat bersama di `ui/templates/`, dan dokumentasi terjemahan di `docs/index.<locale>.md`. Riwayat rilis berada di `docs/changelog/` dan dikecualikan dari hash paket. Bagian opsional yang tidak didukung tidak dibuat.
+
+Gunakan kapabilitas ctx publik dan alur yang dideklarasikan; jangan mengimpor bagian internal Cognis atau modul lain. Penyedia kapabilitas dan navigasi dasbor mengekspor `mountProvider(scopedUiCtx)` dan mengembalikan fungsi pembersihan sumber daya miliknya. Impor tidak boleh mendaftarkan perilaku modul. Host menghapus kapabilitas, kait alur, listener, dan status penyedia saat dinonaktifkan, lalu memasang kembali penyedia yang tersimpan saat diaktifkan ulang. Pabrik pengaturan, administrasi, dan penyedia deskriptor footer autentikasi mengikuti kontrak host masing-masing. Uji kontrak dengan pengganti mandiri, jalankan pemeriksaan struktur, perbarui hash setelah perubahan paket terakhir, lalu jalankan lint, pengujian, dan validasi manifes sebelum publikasi.

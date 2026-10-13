@@ -1,16 +1,6 @@
+import { importReuseModule, uiCtx } from "./reuse/resources.js";
 import { formatDateTime } from "./reuse/timestamp.js";
 import { formatTemplate } from "./reuse/format-template.js";
-
-const STYLE_ID = "analytics-admin-section-styles";
-
-function ensureStyles() {
-    if (document.getElementById(STYLE_ID)) return;
-    const link = document.createElement("link");
-    link.id = STYLE_ID;
-    link.rel = "stylesheet";
-    link.href = "/static/modules/analytics/admin-section.css";
-    document.head.appendChild(link);
-}
 
 function parseDays(value, fallback = 30) {
     const parsed = Number.parseInt(String(value ?? ""), 10);
@@ -20,7 +10,7 @@ function parseDays(value, fallback = 30) {
 
 function buildBarChart(series, { i18n, escapeHtml }) {
     if (!series.length) {
-        return `<p class="analytics-empty">${i18n.t("module.analytics.admin.chart.no_data")}</p>`;
+        return `<p class="analytics-empty">${i18n.t("module.analytics.admin.chart.no.data")}</p>`;
     }
 
     const chartWidth = 600;
@@ -143,7 +133,7 @@ function buildStatCards(metrics, { i18n }) {
         .join("");
 
     const newUsersDaysLabel = formatTemplate(
-        i18n.t("module.analytics.admin.stat.new_users_days"),
+        i18n.t("module.analytics.admin.stat.new.users.days"),
         { days: metrics.days },
     );
 
@@ -151,23 +141,23 @@ function buildStatCards(metrics, { i18n }) {
       <div class="analytics-stat-cards">
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.totalUsers}</span>
-          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.total_users")}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.total.users")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.activationRate}%</span>
-          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.activation_rate")}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.activation.rate")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.enabledUsers}</span>
-          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.enabled_users")}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.enabled.users")}</span>
         </div>
         <div class="analytics-stat-card analytics-stat-card--attention">
           <span class="analytics-stat-value">${metrics.dormantUsers30d}</span>
-          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.dormant_30d")}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.dormant.30d")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.activeUsers7d}</span>
-          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.active_7d")}</span>
+          <span class="analytics-stat-label">${i18n.t("module.analytics.admin.stat.active.7d")}</span>
         </div>
         <div class="analytics-stat-card">
           <span class="analytics-stat-value">${metrics.newUsersDays}</span>
@@ -198,7 +188,7 @@ function buildEventSummary(summary, { i18n, escapeHtml }) {
     return `
       <div class="analytics-summary-totals">
         <span><strong>${summary.total}</strong> ${i18n.t("module.analytics.admin.events.total")}</span>
-        <span><strong>${summary.uniqueActors}</strong> ${i18n.t("module.analytics.admin.events.unique_actors")}</span>
+        <span><strong>${summary.uniqueActors}</strong> ${i18n.t("module.analytics.admin.events.unique.actors")}</span>
       </div>
       <div class="analytics-event-types">${rows}</div>
     `;
@@ -214,7 +204,7 @@ function buildEventsSection(events, { i18n, escapeHtml, formatTimestamp }) {
             const timestamp = formatDateTime(
                 event.created_at,
                 formatTimestamp,
-                i18n.t("module.analytics.admin.events.unknown_time"),
+                i18n.t("module.analytics.admin.events.unknown.time"),
             );
             const accountLabel = event.account_id
                 ? escapeHtml(String(event.account_id))
@@ -247,7 +237,7 @@ function buildEventsSection(events, { i18n, escapeHtml, formatTimestamp }) {
  * Analytics admin section for the Administration page.
  *
  * Displays user activity metrics (total users, active users, registration
- * trends) derived from the accounts table, plus a log of custom analytics
+ * trends) derived from public account facts, plus a log of custom analytics
  * events. Supports time-range filtering.
  *
  * Exports createAdminSection which returns an admin section descriptor
@@ -261,13 +251,17 @@ function buildEventsSection(events, { i18n, escapeHtml, formatTimestamp }) {
  * @param {Function} [deps.formatTimestamp] - host timestamp formatting helper
  * @returns {{ id: string, label: string, dataReady: Promise<void>, subComposerOptions: object }}
  */
-export function createAdminSection({
+export async function createAdminSection({
     i18n,
     apiFetch,
     escapeHtml,
     showToast,
     formatTimestamp,
 }) {
+    const { ensurePageStylesheet } = await importReuseModule("page-styles.js");
+    await ensurePageStylesheet(
+        "/static/modules/analytics/styles/admin-section.css",
+    );
     let metricsData = null;
     let seriesData = [];
     let eventsData = [];
@@ -288,6 +282,12 @@ export function createAdminSection({
             apiFetch("/api/v1/modules/analytics/activity-log?limit=20"),
             apiFetch(`/api/v1/modules/analytics/type-summary?days=${days}`),
         ]);
+        if (
+            results.some(
+                (result) => result.status === "rejected" || !result.value?.ok,
+            )
+        )
+            throw new Error("analytics_request_failed");
         const [metricsRes, seriesRes, eventsRes, summaryRes] = results.map(
             (result) => (result.status === "fulfilled" ? result.value : null),
         );
@@ -310,7 +310,22 @@ export function createAdminSection({
         }
     }
 
-    const dataReady = fetchData(activeDays).catch(() => {});
+    function reportFailure(error) {
+        uiCtx.capabilities.get("ui:log")?.(
+            "error",
+            "Analytics data loading failed.",
+            {
+                component: "analytics",
+                operation: "loadReports",
+                errorName: error.name,
+            },
+        );
+        showToast(i18n.t("module.analytics.admin.fetch.failed"), {
+            variant: "error",
+        });
+    }
+
+    const dataReady = fetchData(activeDays).catch(reportFailure);
 
     function renderStats() {
         return buildStatCards(metricsData, { i18n });
@@ -348,8 +363,6 @@ export function createAdminSection({
     }
 
     function bindSection(rootEl) {
-        ensureStyles();
-
         statsEl = rootEl.querySelector(".analytics-stats");
         chartEl = rootEl.querySelector(".analytics-chart-wrap");
         eventsEl = rootEl.querySelector(".analytics-events-wrap");
@@ -373,10 +386,8 @@ export function createAdminSection({
                 try {
                     await fetchData(activeDays);
                     updateView();
-                } catch {
-                    showToast(i18n.t("module.analytics.admin.fetch_failed"), {
-                        variant: "error",
-                    });
+                } catch (error) {
+                    reportFailure(error);
                 } finally {
                     isLoading = false;
                     applyBtn.disabled = false;
@@ -410,11 +421,11 @@ export function createAdminSection({
                       <section class="analytics-panel">
                         <div class="analytics-filter-row">
                           <label class="analytics-filter">
-                            ${i18n.t("module.analytics.admin.filter.time_range")}
+                            ${i18n.t("module.analytics.admin.filter.time.range")}
                             <select name="analyticsRange" class="theme-select">
-                              <option value="7">${i18n.t("module.analytics.admin.filter.days_7")}</option>
-                              <option value="30">${i18n.t("module.analytics.admin.filter.days_30")}</option>
-                              <option value="90">${i18n.t("module.analytics.admin.filter.days_90")}</option>
+                              <option value="7">${i18n.t("module.analytics.admin.filter.days.7")}</option>
+                              <option value="30">${i18n.t("module.analytics.admin.filter.days.30")}</option>
+                              <option value="90">${i18n.t("module.analytics.admin.filter.days.90")}</option>
                             </select>
                           </label>
                           <button type="button" class="btn-confirm btn-animated analytics-apply">
@@ -423,11 +434,11 @@ export function createAdminSection({
                         </div>
                         <div class="analytics-stats">${renderStats()}</div>
                         <div class="analytics-chart-section">
-                          <h4 class="analytics-chart-title">${i18n.t("module.analytics.admin.chart.registrations_title")}</h4>
+                          <h4 class="analytics-chart-title">${i18n.t("module.analytics.admin.chart.registrations.title")}</h4>
                           <div class="analytics-chart-wrap">${renderChart()}</div>
                         </div>
                         <div class="analytics-events-section">
-                          <h4 class="analytics-events-title">${i18n.t("module.analytics.admin.events.summary_title")}</h4>
+                          <h4 class="analytics-events-title">${i18n.t("module.analytics.admin.events.summary.title")}</h4>
                           <div class="analytics-event-summary-wrap">${renderEventSummary()}</div>
                         </div>
                         <div class="analytics-events-section">

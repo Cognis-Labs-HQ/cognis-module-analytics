@@ -4,7 +4,7 @@
 
 Wawasan penggunaan dan pelaporan administratif yang menjaga privasi untuk Cognis. Pantau tren pendaftaran, aktivasi, kesehatan akun, distribusi peran, dan peristiwa milik modul tanpa menambahkan layanan analitik pihak ketiga.
 
-Repositori ini merupakan modul ekstensi Cognis yang mandiri. Pasang melalui Marketplace Modul atau tempatkan di direktori modul eksternal yang telah dikonfigurasi. Lihat [`docs/standard.id.md`](docs/standard.id.md) untuk konfigurasi, kapabilitas, rute, dan panduan operasional; referensi setara dalam bahasa Jerman, Inggris, dan Jepang tersedia di sebelahnya.
+Repositori ini merupakan modul ekstensi Cognis yang mandiri. Pasang melalui Marketplace Modul atau tempatkan di direktori modul eksternal yang telah dikonfigurasi. Lihat [`docs/index.id.md`](docs/index.id.md) untuk konfigurasi, kapabilitas, rute, dan panduan operasional; referensi setara dalam bahasa Jerman, Inggris, dan Jepang tersedia di sebelahnya.
 
 ## Cakupan analitik
 
