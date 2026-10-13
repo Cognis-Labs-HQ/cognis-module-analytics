@@ -12,4 +12,4 @@ Laporan memakai kapabilitas akun publik Auth, bukan tabel komponen lain, dan men
 
 ## Commit
 
-- [18d275a](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/18d275abab31c87c35e0f44dcf87918ec6b40b8d)
+- [b98c771](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/b98c7711c22d4b2e2488ef00653b78a64d22d9ad)
