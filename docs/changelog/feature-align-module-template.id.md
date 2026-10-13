@@ -17,3 +17,4 @@ Sesuaikan ilustrasi Analytics ke tata letak hero lebar dengan margin aman untuk 
 ## Commit
 
 - [b98c771](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/b98c7711c22d4b2e2488ef00653b78a64d22d9ad)
+- [c49c2e4](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c49c2e4a0303c438866b635449ffd0bc2827830c)
