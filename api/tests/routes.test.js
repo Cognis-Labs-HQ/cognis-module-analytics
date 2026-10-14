@@ -1,6 +1,7 @@
+import { withActionFlows } from "./reuse/flow-runtime.js";
 import test from "node:test";
 import assert from "node:assert/strict";
-import { registerApiRoutes } from "../api/index.js";
+import { registerApiRoutes } from "../index.js";
 
 function buildAccountRow(overrides = {}) {
     const now = new Date().toISOString();
@@ -25,10 +26,7 @@ function buildEventRow(overrides = {}) {
 }
 
 function makeDb({ accountRows = [], eventRows = [] } = {}) {
-    const tables = new Map([
-        ["accounts", [...accountRows]],
-        ["sample_analytics_events", [...eventRows]],
-    ]);
+    const tables = new Map([["sample_analytics_events", [...eventRows]]]);
     const insertedRows = [];
 
     return {
@@ -37,6 +35,11 @@ function makeDb({ accountRows = [], eventRows = [] } = {}) {
             if (!tables.has(def.name)) tables.set(def.name, []);
         },
         async executeCommand(command) {
+            assert.equal(
+                command.table,
+                "sample_analytics_events",
+                "Account facts must be obtained through their owner capability",
+            );
             if (command.option === "INSERT") {
                 const rows = tables.get(command.table) ?? [];
                 rows.push(command.values);
@@ -133,11 +136,30 @@ function makeResponse() {
 }
 
 function setupRoutes(options = {}) {
-    const db = makeDb(options);
+    const database = makeDb(options);
     const router = makeRouter();
-    const ctx = { getCapability: () => db };
-    registerApiRoutes(router, ctx);
-    return { db, router };
+    const accounts = (options.accountRows ?? []).map((row, index) => ({
+        username: `account-${index}`,
+        enabled: row.enabled !== 0 && row.enabled !== false,
+        role: row.role,
+        createdAt: row.created_at,
+        lastLogin: row.last_login,
+    }));
+    const accountStore = {
+        list: async () => accounts,
+        getInfo: async (username) =>
+            accounts.find((account) => account.username === username),
+    };
+    const ctx = {
+        getCapability: (name) =>
+            name === "db:executor"
+                ? database
+                : name === "auth:accountStore"
+                  ? accountStore
+                  : undefined,
+    };
+    registerApiRoutes(router, withActionFlows(ctx));
+    return { db: database, router };
 }
 
 test("GET /api/v1/modules/analytics/metrics returns total user count", async () => {
@@ -201,10 +223,10 @@ test("GET /api/v1/modules/analytics/metrics counts active users within 7 days", 
     assert.equal(data.activeUsers7d, 2);
 });
 
-test("GET /api/v1/modules/analytics/metrics returns 503 when db is unavailable", async () => {
+test("GET /api/v1/modules/analytics/metrics returns 503 when the account capability is unavailable", async () => {
     const router = makeRouter();
     const ctx = { getCapability: () => undefined };
-    registerApiRoutes(router, ctx);
+    registerApiRoutes(router, withActionFlows(ctx));
     const req = makeRequest("GET", "/api/v1/modules/analytics/metrics");
     const res = makeResponse();
     await router.handle("GET", "/api/v1/modules/analytics/metrics", req, res);
@@ -336,7 +358,7 @@ test("GET /api/v1/modules/analytics/type-summary reports event mix", async () =>
 });
 
 test("POST /api/v1/modules/analytics/activity-log records an event and returns 201", async () => {
-    const { db, router } = setupRoutes();
+    const { db: database, router } = setupRoutes();
     const req = makeRequest("POST", "/api/v1/modules/analytics/activity-log", {
         eventType: "custom_action",
         meta: { page: "/home" },
@@ -351,9 +373,12 @@ test("POST /api/v1/modules/analytics/activity-log records an event and returns 2
     assert.equal(res.status, 201);
     const { data } = res.json;
     assert.ok(data.id);
-    assert.equal(db.insertedRows.length, 1);
-    assert.equal(db.insertedRows[0].event_type, "custom_action");
-    assert.equal(db.insertedRows[0].meta, JSON.stringify({ page: "/home" }));
+    assert.equal(database.insertedRows.length, 1);
+    assert.equal(database.insertedRows[0].event_type, "custom_action");
+    assert.equal(
+        database.insertedRows[0].meta,
+        JSON.stringify({ page: "/home" }),
+    );
 });
 
 test("POST /api/v1/modules/analytics/activity-log rejects missing eventType with 400", async () => {
@@ -394,4 +419,47 @@ test("POST /api/v1/modules/analytics/activity-log rejects invalid JSON body with
     assert.equal(res.status, 400);
     const { error } = res.json;
     assert.equal(error.code, "invalid_body");
+});
+
+test("activity reads return all results unless an explicit limit is supplied", async () => {
+    const { router } = setupRoutes({
+        eventRows: Array.from({ length: 240 }, (_, index) =>
+            buildEventRow({ id: `event-${index}` }),
+        ),
+    });
+    for (const [query, count] of [
+        ["", 240],
+        ["?limit=210", 210],
+    ]) {
+        const response = makeResponse();
+        await router.handle(
+            "GET",
+            "/api/v1/modules/analytics/activity-log",
+            makeRequest(
+                "GET",
+                `/api/v1/modules/analytics/activity-log${query}`,
+            ),
+            response,
+        );
+        assert.equal(response.status, 200);
+        assert.equal(response.json.data.length, count);
+    }
+});
+
+test("invalid requested ranges fail validation rather than being clamped", async () => {
+    const { router } = setupRoutes();
+    for (const [route, query] of [
+        ["activity-log", "limit=0"],
+        ["activity-log", "limit=2x"],
+        ["metrics", "days=366"],
+    ]) {
+        const response = makeResponse();
+        await router.handle(
+            "GET",
+            `/api/v1/modules/analytics/${route}`,
+            makeRequest("GET", `/api/v1/modules/analytics/${route}?${query}`),
+            response,
+        );
+        assert.equal(response.status, 400);
+    }
 });

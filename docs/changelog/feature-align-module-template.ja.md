@@ -1,0 +1,25 @@
+# モジュールを開発者テンプレートに統一
+
+**機能ブランチ:** feature-align-module-template
+
+## 標準構成と所有範囲を守る統合
+
+テンプレートの指針、ドメイン別ルート、翻訳された統合文書、実行可能な構成チェック、最終パッケージハッシュを同期します。公開URLとモジュール識別子は維持します。ブラウザーの提供機能は担当ホストのライフサイクル契約に従います。
+
+## 公開アカウント情報と範囲検証
+
+レポートは他のコンポーネントのテーブルではなくAuthの公開アカウント機能を使用し、所有するctxフローを実行します。指定された件数を維持し、省略時はすべてのイベントを返し、不正な範囲を拒否します。コマンドは`modules:analytics:*`を使用します。スタイルとエラー表示はホスト契約に従い、未登録のダッシュボード雛形と空の無効時エントリーポイントを削除します。
+
+## Marketplace バナーを調整する
+
+Analytics の画像を横長の Hero レイアウトに調整し、ロゴ、タイトル、グラフに余白を設けて Cognis のモジュール詳細で上下が切れないようにします。
+
+## 表示範囲内に画像を収める
+
+バナーを横長に再構成し、中央の安全領域で上下の切り抜き後もロゴ、タイトル、グラフ全体を表示します。ベクターアイコンをグラフの正方形 PNG 切り抜きに置き換えます。
+
+## コミット
+
+- [b98c771](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/b98c7711c22d4b2e2488ef00653b78a64d22d9ad)
+- [c49c2e4](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c49c2e4a0303c438866b635449ffd0bc2827830c)
+- [8b274ba](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/8b274ba8cb8201721b49badceb9ac320f81cad03)

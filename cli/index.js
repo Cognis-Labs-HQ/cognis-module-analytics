@@ -1,6 +1,6 @@
 export function registerCommands({ register, apiGet, apiPost }) {
     register(
-        "analytics:metrics",
+        "modules:analytics:metrics",
         async ({ apiBaseUrl, getApiToken }) => {
             return apiGet(
                 apiBaseUrl,
@@ -9,7 +9,7 @@ export function registerCommands({ register, apiGet, apiPost }) {
             );
         },
         {
-            usage: "cognisctl analytics:metrics",
+            usage: "cognisctl modules:analytics:metrics",
             description: "Show analytics metrics from module API.",
         },
     );
@@ -18,7 +18,7 @@ export function registerCommands({ register, apiGet, apiPost }) {
 
 export function registerActivityCommands({ register, apiGet, apiPost }) {
     register(
-        "analytics:series",
+        "modules:analytics:series",
         async ({ args, apiBaseUrl, getApiToken }) => {
             const days = args[0] ? `?days=${encodeURIComponent(args[0])}` : "";
             return apiGet(
@@ -28,13 +28,13 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
             );
         },
         {
-            usage: "cognisctl analytics:series [days]",
+            usage: "cognisctl modules:analytics:series [days]",
             description: "Show analytics registration series from module API.",
         },
     );
 
     register(
-        "analytics:activity-log",
+        "modules:analytics:activityLog",
         async ({ args, apiBaseUrl, getApiToken }) => {
             const limit = args[0]
                 ? `?limit=${encodeURIComponent(args[0])}`
@@ -46,14 +46,14 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
             );
         },
         {
-            usage: "cognisctl analytics:activity-log [limit]",
+            usage: "cognisctl modules:analytics:activityLog [limit]",
             description:
                 "Show recent analytics activity events from module API.",
         },
     );
 
     register(
-        "analytics:event-summary",
+        "modules:analytics:eventSummary",
         async ({ args, apiBaseUrl, getApiToken }) => {
             const days = args[0] ? `?days=${encodeURIComponent(args[0])}` : "";
             return apiGet(
@@ -63,18 +63,18 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
             );
         },
         {
-            usage: "cognisctl analytics:event-summary [days]",
+            usage: "cognisctl modules:analytics:eventSummary [days]",
             description:
                 "Summarize event volume and unique actors by event type.",
         },
     );
 
     register(
-        "analytics:activity-log:record",
+        "modules:analytics:activityLog:record",
         async ({ args, apiBaseUrl, getApiToken }) => {
             if (!args[0]) {
                 throw new Error(
-                    "Not enough arguments (missing: event-type)\n\nUsage:\n  cognisctl analytics:activity-log:record <event-type> [meta-json]",
+                    "Not enough arguments (missing: event-type)\n\nUsage:\n  cognisctl modules:analytics:activityLog:record <event-type> [meta-json]",
                 );
             }
             const meta = args[1] ? JSON.parse(args[1]) : null;
@@ -86,7 +86,7 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
             );
         },
         {
-            usage: "cognisctl analytics:activity-log:record <event-type> [meta-json]",
+            usage: "cognisctl modules:analytics:activityLog:record <event-type> [meta-json]",
             description:
                 "Record an analytics activity event through the module API.",
         },

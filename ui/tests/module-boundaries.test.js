@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import { extname, join, relative, resolve } from "node:path";
 import test from "node:test";
-import { formatDateTime } from "../ui/reuse/timestamp.js";
+import { formatDateTime } from "../reuse/timestamp.js";
 
-const ROOT = resolve(import.meta.dirname, "..");
+const ROOT = resolve(import.meta.dirname, "../..");
 
 async function runtimeSourceFiles(directory) {
     const entries = await readdir(directory, { withFileTypes: true });
@@ -46,13 +46,13 @@ test("runtime sources address only the analytics API namespace", async () => {
 });
 
 test("runtime styles use preference-relative font sizes", async () => {
-    const stylesheet = await readFile("ui/admin-section.css", "utf8");
+    const stylesheet = await readFile("ui/styles/admin-section.css", "utf8");
 
     assert.doesNotMatch(stylesheet, /font-size\s*:\s*[\d.]+px\b/);
 });
 
 test("browser modules use repository-relative runtime imports", async () => {
-    for (const path of ["ui/admin-section.js", "ui/dashboard-element.js"]) {
+    for (const path of ["ui/admin-section.js"]) {
         const source = await readFile(path, "utf8");
         assert.doesNotMatch(source, /from\s+['"]\/static\//);
     }
