@@ -44,7 +44,7 @@ Installieren Sie das Modul über den Cognis Module Marketplace oder legen Sie da
 
 Bei der Verteilung müssen `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, Datenbankmigration, Sprachressourcen, Dokumentation, Assets und Manifest-Hashes zusammenbleiben. Die Modul-UUID ist dauerhaft.
 
-Die Marketplace-Grafiken verwenden die in `manifest.json` unter `assets.icon` und `assets.banner` deklarierten Dateien; beide Dateien sind im verifizierten Paketbestand enthalten. Titel, Logo und Diagramm bleiben im sicheren Bereich des breiten Banners, damit die Marketplace-Darstellung bei begrenzter Höhe in Cognis lesbar bleibt.
+Die Marketplace-Grafiken verwenden die in `manifest.json` unter `assets.icon` und `assets.banner` deklarierten Dateien; beide Dateien sind im verifizierten Paketbestand enthalten. Das Banner hält das vollständige Logo, den Titel und das Diagramm in einem mittigen sicheren Bereich für Cognis’ höhenbegrenzte Darstellung. Das quadratische PNG-Icon ist ein Ausschnitt des Diagramms im Banner.
 
 ### Administrationsoberfläche
 

@@ -44,7 +44,7 @@ Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap
 
 Saat mendistribusikan modul, pertahankan `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, migrasi basis data, sumber daya bahasa, dokumentasi, aset, dan hash manifes sebagai satu kesatuan. UUID modul bersifat permanen.
 
-Ilustrasi Marketplace menggunakan berkas yang dideklarasikan oleh `assets.icon` dan `assets.banner` di `manifest.json`; kedua berkas disertakan dalam inventaris paket yang terverifikasi. Tempatkan judul, logo dan grafik di area aman banner lebar agar gambar Marketplace tetap terbaca saat Cognis membatasi tinggi tampilannya.
+Ilustrasi Marketplace menggunakan berkas yang dideklarasikan oleh `assets.icon` dan `assets.banner` di `manifest.json`; kedua berkas disertakan dalam inventaris paket yang terverifikasi. Banner menempatkan seluruh logo, judul dan grafik di pita tengah yang aman untuk tampilan Cognis dengan tinggi terbatas. Ikon PNG persegi merupakan cuplikan grafik dari banner.
 
 ### Antarmuka administrasi
 

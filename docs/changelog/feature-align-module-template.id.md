@@ -14,6 +14,10 @@ Laporan memakai kapabilitas akun publik Auth, bukan tabel komponen lain, dan men
 
 Sesuaikan ilustrasi Analytics ke tata letak hero lebar dengan margin aman untuk logo, judul dan grafik agar tidak terpotong secara vertikal pada detail modul Cognis.
 
+## Pertahankan ilustrasi dalam potongan terlihat
+
+Susun ulang banner dengan tata letak lebar dan pita tengah yang aman agar seluruh logo, judul dan grafik tetap terlihat saat dipotong vertikal. Ganti ikon vektor dengan cuplikan grafik PNG persegi.
+
 ## Commit
 
 - [b98c771](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/b98c7711c22d4b2e2488ef00653b78a64d22d9ad)

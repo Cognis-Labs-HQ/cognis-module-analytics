@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.1.7",
+    "version": "2.1.8",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -112,11 +112,11 @@
         },
         {
             "path": "assets/banner.png",
-            "sha256": "d3bbca101753e0274605321edffcf567da12c5e9282d266ba95627705984053c"
+            "sha256": "6739f660bd6d801394d2a01669774725233f16157461699ab1f0968352a4d408"
         },
         {
-            "path": "assets/icon.svg",
-            "sha256": "f91440ab48ea9b470596b74e5554224c1bf72e8d31f8273a5b93f319694ccd04"
+            "path": "assets/icon.png",
+            "sha256": "06361f9973b6694d1881df8a004d17394d15a006051e56fef3add9e2ded1a883"
         },
         {
             "path": "bootstrap.js",
@@ -136,27 +136,27 @@
         },
         {
             "path": "docs/index.de.md",
-            "sha256": "b4bf6d1ec3be6597e67ddc6abbbc1fb36c9938525e2c6706300339d540074e8a"
+            "sha256": "e082e51a38341f151865e68520e484301c41a2e4f3d9d2c07a76139b66587436"
         },
         {
             "path": "docs/index.en.md",
-            "sha256": "41dbe6d78bdcf5021a144d2f044df1b0157ef7b4c11826fcf2fa917f4682477a"
+            "sha256": "940ac0f5bf0a856dcf1524ebbc41599fd47343900df1d4658d2a590c099a189d"
         },
         {
             "path": "docs/index.id.md",
-            "sha256": "0d928d09cbb29d5c7c85764143da794b106bc3bdfb784fa4a35588b0cdb92775"
+            "sha256": "3ebbcf53b087d95044c7f08650ed637cbc98c07792d32bd0b4e8c7135d46fa98"
         },
         {
             "path": "docs/index.ja.md",
-            "sha256": "4c79356203f86ff5b85de1c725942713dc4e4fcefb500c9f53dd1b950f1b6465"
+            "sha256": "ee5925198d444851d8ae597bd7342c0154328677d51f0406564c25ae900bc30d"
         },
         {
             "path": "package-lock.json",
-            "sha256": "bc1644bff70554d055931ebd694a3b16dc69ed770004b15c22a7d105e04f6acb"
+            "sha256": "92980c9feec6611b2eff0ab19aecc4e39015f16188f142c0544be4b4b2ca89c4"
         },
         {
             "path": "package.json",
-            "sha256": "d055b1364a0b444b8d46228c92caa41663a2d847ea7032c978b092bfb16fccbe"
+            "sha256": "6996ba579b326d23c8d157e9093048b6652250083300d81e33d6997efc41e80c"
         },
         {
             "path": "routes.json",
@@ -261,7 +261,7 @@
     "repository": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics",
     "assets": {
         "screenshots": [],
-        "icon": "assets/icon.svg",
+        "icon": "assets/icon.png",
         "banner": "assets/banner.png"
     },
     "tags": [
