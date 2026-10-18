@@ -8,4 +8,4 @@
 
 ## コミット
 
-- [403cdf6](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/403cdf671712eebb72a46bdc5cfa9b2a9481ed06)
+- [1d1d308](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/1d1d30813d47b1fa59ebf132eaa972694ffb7ef9)
