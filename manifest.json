@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.1.8",
+    "version": "2.1.9",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -68,7 +68,7 @@
         },
         {
             "path": "api/index.js",
-            "sha256": "f21e796226b225322dfc850938b1e7bd3fcdb4885c8a5fac47fc0ba42d07d378"
+            "sha256": "68858a2624f5204a2e816e63c5d953f230829b7050493471a904e506a20b4fc3"
         },
         {
             "path": "api/invalid-access.js",
@@ -80,19 +80,31 @@
         },
         {
             "path": "api/reuse/action-flows.js",
-            "sha256": "d16dc64e5b60a5a79d9ca0027b8aafd8d951bbee82170fad94d58e27ad0ae83f"
+            "sha256": "2e86f9aa9c2038587fdc47be61b508fb8f5442189c40ab67ea8cbdd71931461a"
+        },
+        {
+            "path": "api/reuse/activity.js",
+            "sha256": "8b261ce2ae1e11b469b04156ff77f681a79490cfebb527ec5d0c6469a3c4bbec"
         },
         {
             "path": "api/routes/activity/index.js",
             "sha256": "92fcaa4e872dfb9f1b4f03bc89b4f3f7d1d1631eb6f8b812e7d182099bf6546f"
         },
         {
+            "path": "api/routes/collection/index.js",
+            "sha256": "77e53ed78347cda274d4ddbe40e2bef6f00c1ce8c21c5e6e53648e8f56528548"
+        },
+        {
             "path": "api/store.js",
-            "sha256": "8ba7c72d5a0d3da089c35659456343122b40302c7ca55a0ea6e84d4d126f90c1"
+            "sha256": "a4401e448d892848c8c2ff6337e43eb6836ec0fda4a522d1ca2b95df6cab3aa5"
         },
         {
             "path": "api/tests/action-flows.test.js",
             "sha256": "ce6f0bf8dfb79dee655dc1bcc2e7c8a785ed83fcbf55c7cf48fa9cdfc5c6ac02"
+        },
+        {
+            "path": "api/tests/collection.test.js",
+            "sha256": "2f197324b677abbf8f737ca858c43ea3e2e6b095a2e151a4ae5a0b0d0dd15f8a"
         },
         {
             "path": "api/tests/module-structure.test.js",
@@ -104,7 +116,7 @@
         },
         {
             "path": "api/tests/routes.test.js",
-            "sha256": "0fc824a738bd3d90e79ba18ac876d7c410df1f863578db058b8ab291919d1e5c"
+            "sha256": "bc23808d32e6e3abaf8f701f04f0ad8eca02a19f559f12d3b43b3eeda9369d73"
         },
         {
             "path": "api/tests/store.test.js",
@@ -136,31 +148,31 @@
         },
         {
             "path": "docs/index.de.md",
-            "sha256": "e082e51a38341f151865e68520e484301c41a2e4f3d9d2c07a76139b66587436"
+            "sha256": "15d657a187bd26fe90105951d8a77564f7a803bb91098aa556847c00b4d7cbeb"
         },
         {
             "path": "docs/index.en.md",
-            "sha256": "940ac0f5bf0a856dcf1524ebbc41599fd47343900df1d4658d2a590c099a189d"
+            "sha256": "64665edc697470c0c0a3d34146c606fa07e3bab18fababfee9f7d4281fda48ad"
         },
         {
             "path": "docs/index.id.md",
-            "sha256": "3ebbcf53b087d95044c7f08650ed637cbc98c07792d32bd0b4e8c7135d46fa98"
+            "sha256": "9cdec9f764477e2486d790b0f712d909ea722a7b2b915858ca7895379cf95329"
         },
         {
             "path": "docs/index.ja.md",
-            "sha256": "ee5925198d444851d8ae597bd7342c0154328677d51f0406564c25ae900bc30d"
+            "sha256": "f2ee1dae26645763cd8129e7ee6f2a0242471342cd977c8d04b6da114bccaabb"
         },
         {
             "path": "package-lock.json",
-            "sha256": "92980c9feec6611b2eff0ab19aecc4e39015f16188f142c0544be4b4b2ca89c4"
+            "sha256": "50a20cd54e1e12d0bd2a93e18f68787bced51a6e8833f7046e9cecb3f68a4ce0"
         },
         {
             "path": "package.json",
-            "sha256": "6996ba579b326d23c8d157e9093048b6652250083300d81e33d6997efc41e80c"
+            "sha256": "66431cb92f472e69fcbfe0f10bb19de5c9faeb8567785845b1a68582f37a2439"
         },
         {
             "path": "routes.json",
-            "sha256": "ee827d67e54f49490721883058be8a72a2a309c5bf544bcded3e50d45585692a"
+            "sha256": "abe442237d5cee456b9f36b72a9471413ebba1e1a8f858bced1d5f1478d63dff"
         },
         {
             "path": "scripts/module-structure.js",
@@ -197,6 +209,10 @@
         {
             "path": "tooling/scripts/lint-readable.mjs",
             "sha256": "fff2e006b2709345baafe18b4147c00541cd3f83d78ff113bb82032f2abcb45f"
+        },
+        {
+            "path": "ui/activity-provider.js",
+            "sha256": "996b91f04e2a78bd944fb4d8a96c3be1b6a0805218f3ba6e4825fa222bc5e310"
         },
         {
             "path": "ui/admin-section.js",
@@ -243,6 +259,10 @@
             "sha256": "ea044e2118f4039dc05696fadc63f3f98783a1ef1a35456cb883cdcc7b030dba"
         },
         {
+            "path": "ui/tests/activity-provider.test.js",
+            "sha256": "975d6416965ba46630b41413df47d3079d02da6c554ecfe4a91a69229ddb4b07"
+        },
+        {
             "path": "ui/tests/admin-contract.test.js",
             "sha256": "520687fa03d65e76c6be411f9d6c72e4e8517ccd734b1836ed72521cd36a06e8"
         },
@@ -272,6 +292,12 @@
     ],
     "homepage": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics#readme",
     "support": "https://github.com/Cognis-Labs-HQ/cognis-module-analytics/issues",
-    "requiresCapabilities": ["db:executor", "ui:reuse", "auth:accountStore"],
+    "requiresCapabilities": [
+        "db:executor",
+        "ui:reuse",
+        "auth:accountStore",
+        "auth:requireAuth",
+        "offline:outbox"
+    ],
     "license": "AGPL-3.0-or-later"
 }
