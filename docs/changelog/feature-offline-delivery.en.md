@@ -8,6 +8,10 @@ Analytics records authenticated activity through `POST /api/v1/modules/analytics
 
 The host exposes `offline:outbox`, `offline:state` and `offline:accessPolicy` through ctx. Components register delivery handlers for their provider lifetime and submit stable operation IDs through `offline:enqueue`; `offline:flush` authorizes and delivers. The durable account-bound queue holds at most 1,000 records and 1 MB for seven days, without tokens. It preserves original IDs and timestamps, retries transient failures and removes acknowledged or permanently rejected records. A localized warning reports rejected records. Logout clears the account queue; changing accounts never replays another account’s data. Disabling Offline Mode stops new queued writes. Pending writes may still deliver online.
 
+## Background queue warnings
+
+Analytics registers its delivery owner with `protectOnClose: false` on the host outbox. Navigation and activity records remain durable and replay after authorized recovery, including a manual connectivity recheck, but no longer trigger the browser close warning. User edits retain the host’s default protection. This requires the updated host close-warning classification contract.
+
 ## Commits
 
 - [16f40d7](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/16f40d7bbb2a045da8b745f656150bcdc31c3489)

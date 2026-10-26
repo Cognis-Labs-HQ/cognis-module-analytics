@@ -21,7 +21,9 @@ export function mountProvider(ctx) {
             });
         return (await response.json()).data;
     };
-    const release = outbox.register("analytics.activity", send, ctx.signal);
+    const release = outbox.register("analytics.activity", send, ctx.signal, {
+        protectOnClose: false,
+    });
     ctx.registerFlow("analytics:recordActivity", ["validate", "deliver"]);
     ctx.extendFlow(
         "analytics:recordActivity",

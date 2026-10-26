@@ -8,6 +8,10 @@ Analytics mencatat aktivitas terautentikasi melalui `POST /api/v1/modules/analyt
 
 Host menyediakan `offline:outbox`, `offline:state`, dan `offline:accessPolicy` melalui ctx. Komponen mendaftarkan pengirim selama masa hidup penyedia dan ID operasi stabil melalui `offline:enqueue`; `offline:flush` mengotorisasi dan mengirim. Antrean permanen per akun dibatasi 1.000 catatan dan 1 MB selama tujuh hari, tanpa token. ID serta waktu asli dipertahankan; kegagalan sementara dicoba ulang, catatan yang dikonfirmasi atau ditolak permanen dihapus. Penolakan menampilkan peringatan terlokalisasi. Keluar menghapus antrean akun; pergantian akun tidak mengirim data akun lain. Menonaktifkan Mode Offline menghentikan catatan baru. Antrean lama tetap dapat dikirim saat online.
 
+## Peringatan antrean latar
+
+Analytics mendaftarkan pemilik pengirimannya dengan `protectOnClose: false` pada antrean host. Rekaman navigasi dan aktivitas tetap tersimpan secara persisten dan dikirim setelah pemulihan terotorisasi, termasuk pemeriksaan koneksi manual, tetapi tidak lagi memicu peringatan penutupan browser. Edit pengguna tetap memakai perlindungan bawaan host. Fitur ini memerlukan kontrak klasifikasi peringatan host yang diperbarui.
+
 ## Commit
 
 - [16f40d7](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/16f40d7bbb2a045da8b745f656150bcdc31c3489)

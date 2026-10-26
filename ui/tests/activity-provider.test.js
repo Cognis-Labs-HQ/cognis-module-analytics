@@ -8,7 +8,8 @@ const handlers = new Map();
 const requests = [];
 const capabilities = new Map();
 const outbox = {
-    register(owner, send, signal) {
+    register(owner, send, signal, options) {
+        assert.equal(options.protectOnClose, false);
         handlers.set(owner, send);
         const dispose = () => handlers.delete(owner);
         signal.addEventListener("abort", dispose, { once: true });
