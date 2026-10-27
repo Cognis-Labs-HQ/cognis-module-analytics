@@ -27,6 +27,7 @@ export class AnalyticsStore {
                 { name: "event_type", type: "text", notNull: true },
                 { name: "account_id", type: "text" },
                 { name: "meta", type: "text" },
+                { name: "occurred_at", type: "text" },
                 {
                     name: "created_at",
                     type: "timestamp",
@@ -38,17 +39,49 @@ export class AnalyticsStore {
         });
     }
 
-    async recordEvent(id, eventType, accountId = null, meta = null) {
+    async recordEvent(
+        id,
+        eventType,
+        accountId = null,
+        meta = null,
+        occurredAt = new Date().toISOString(),
+    ) {
         await this.db.executeCommand({
             option: "INSERT",
             table: ANALYTICS_EVENTS_TABLE,
+            conflict: { action: "ignore", target: ["id"] },
             values: {
                 id,
                 event_type: eventType,
                 account_id: accountId ?? null,
                 meta: meta !== null ? JSON.stringify(meta) : null,
-                created_at: new Date().toISOString(),
+                occurred_at: occurredAt,
+                created_at: occurredAt,
             },
+        });
+        const existing = await this.db.executeCommand({
+            option: "SELECT",
+            table: ANALYTICS_EVENTS_TABLE,
+            where: [{ column: "id", value: id }],
+        });
+        const row = existing.rows?.[0];
+        if (
+            !row ||
+            row.event_type !== eventType ||
+            row.account_id !== accountId ||
+            row.meta !== (meta === null ? null : JSON.stringify(meta)) ||
+            row.occurred_at !== occurredAt
+        )
+            throw new Error("activity_conflict");
+    }
+
+    async deleteAccountActivity(accountDigest) {
+        if (typeof accountDigest !== "string" || !accountDigest)
+            throw new Error("invalid_account_digest");
+        await this.db.executeCommand({
+            option: "DELETE",
+            table: ANALYTICS_EVENTS_TABLE,
+            where: [{ column: "account_id", value: accountDigest }],
         });
     }
 
@@ -65,11 +98,20 @@ export class AnalyticsStore {
         const result = await this.db.executeCommand({
             option: "SELECT",
             table: ANALYTICS_EVENTS_TABLE,
-            columns: ["id", "event_type", "account_id", "created_at"],
+            columns: [
+                "id",
+                "event_type",
+                "account_id",
+                "created_at",
+                "occurred_at",
+            ],
             orderBy: [{ column: "created_at", direction: "DESC" }],
             ...(limit === undefined ? {} : { limit }),
         });
-        return result.rows ?? [];
+        return (result.rows ?? []).map(({ occurred_at, ...row }) => ({
+            ...row,
+            created_at: occurred_at ?? row.created_at,
+        }));
     }
 
     async getEventSummary(days = 30) {

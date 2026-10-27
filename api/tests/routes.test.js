@@ -152,11 +152,13 @@ function setupRoutes(options = {}) {
     };
     const ctx = {
         getCapability: (name) =>
-            name === "db:executor"
-                ? database
-                : name === "auth:accountStore"
-                  ? accountStore
-                  : undefined,
+            name === "auth:requireAuth"
+                ? async () => ({ sub: "fixture-admin", role: "admin" })
+                : name === "db:executor"
+                  ? database
+                  : name === "auth:accountStore"
+                    ? accountStore
+                    : undefined,
     };
     registerApiRoutes(router, withActionFlows(ctx));
     return { db: database, router };
@@ -225,7 +227,12 @@ test("GET /api/v1/modules/analytics/metrics counts active users within 7 days", 
 
 test("GET /api/v1/modules/analytics/metrics returns 503 when the account capability is unavailable", async () => {
     const router = makeRouter();
-    const ctx = { getCapability: () => undefined };
+    const ctx = {
+        getCapability: (name) =>
+            name === "auth:requireAuth"
+                ? async () => ({ sub: "fixture-admin", role: "admin" })
+                : undefined,
+    };
     registerApiRoutes(router, withActionFlows(ctx));
     const req = makeRequest("GET", "/api/v1/modules/analytics/metrics");
     const res = makeResponse();
