@@ -2,6 +2,10 @@
 
 **機能ブランチ:** feature-offline-delivery
 
+## アカウント活動の削除
+
+ライフサイクルに紐付く `analytics:deleteAccountActivity` フックは、`deprovision-user` の `cleanup-dependencies` を拡張します。アカウントの削除が永続化された後、スキーマの準備を待ち、削除された識別情報のダイジェストに一致するイベントのみを削除します。認証済み活動の記録と同じ SHA-256 導出を使用します。他のアカウントと匿名の管理者イベントは保持されます。無効化、アーカイブ、拒否された削除要求では活動を保持します。失敗は記録して呼び出し元に伝え、再有効化の前にホストがモジュールの終了処理でフックを解除します。
+
 ## 送信待ちと同意
 
 Analytics は `POST /api/v1/modules/analytics/activity` とブラウザーフロー `analytics:recordActivity` で認証済みの活動を記録します。アカウント別の冪等キーで重複を防ぎ、元の発生時刻を維持します。移動と Study 操作には安全なスカラーメタデータ（`component`、`action`、`result`、`count`、`durationMs`）のみを含め、その他のデータは保存前に拒否します。レポートのアカウントはハッシュ化されます。無効化すると送信処理とリスナーを解除します。

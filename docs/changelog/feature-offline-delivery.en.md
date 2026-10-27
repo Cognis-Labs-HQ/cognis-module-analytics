@@ -2,6 +2,10 @@
 
 **Feature Branch:** feature-offline-delivery
 
+## Account Activity Cleanup
+
+The scoped `analytics:deleteAccountActivity` hook extends `deprovision-user` at `cleanup-dependencies`. After a persisted account deletion, it waits for schema readiness and deletes only events whose account digest matches the deleted identity, using the same SHA-256 derivation as authenticated ingestion. Other accounts and anonymous administrator events remain intact. Disable, archive and rejected deletion requests retain activity. Failures are logged and propagated; scoped host teardown removes the hook before re-enable.
+
 ## Queued Delivery and Consent
 
 Analytics records authenticated activity through `POST /api/v1/modules/analytics/activity` and the staged `analytics:recordActivity` browser flow. Events use account-scoped idempotency keys and original occurrence times. Navigation and queued Study actions contribute safe scalar metadata only (`component`, `action`, `result`, `count`, `durationMs`); arbitrary payloads are rejected before persistence. Accounts are hashed in reports. Disabling the provider detaches handlers and listeners.

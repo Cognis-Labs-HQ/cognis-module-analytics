@@ -2,6 +2,10 @@
 
 **Cabang Fitur:** feature-offline-delivery
 
+## Pembersihan Aktivitas Akun
+
+Hook `analytics:deleteAccountActivity` yang terikat siklus hidup memperluas `deprovision-user` pada `cleanup-dependencies`. Setelah penghapusan akun tersimpan, hook menunggu kesiapan skema dan hanya menghapus peristiwa yang ringkasan akunnya cocok dengan identitas yang dihapus, menggunakan derivasi SHA-256 yang sama dengan pencatatan terautentikasi. Akun lain dan peristiwa administrator anonim tetap utuh. Penonaktifan, pengarsipan, dan permintaan penghapusan yang ditolak mempertahankan aktivitas. Kegagalan dicatat dan diteruskan; host melepas hook saat konteks modul ditutup sebelum pengaktifan ulang.
+
 ## Antrean dan Persetujuan
 
 Analytics mencatat aktivitas terautentikasi melalui `POST /api/v1/modules/analytics/activity` dan alur browser `analytics:recordActivity`. Kunci idempotensi per akun mencegah duplikasi dan mempertahankan waktu asli. Navigasi serta tindakan Study hanya menyertakan metadata skalar aman (`component`, `action`, `result`, `count`, `durationMs`); data lain ditolak sebelum disimpan. Laporan memakai hash akun. Penonaktifan penyedia melepas pengirim dan listener.

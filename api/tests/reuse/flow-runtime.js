@@ -8,14 +8,29 @@ export function createFlowRuntime() {
             if (flows.has(flow.id)) throw new Error("flow_conflict");
             flows.set(flow.id, flow.stages);
         },
+        unregisterFlow(flowId) {
+            flows.delete(flowId);
+            for (const key of hooks.keys())
+                if (key.startsWith(`${flowId}:`)) hooks.delete(key);
+        },
         flow: {
             exists: (id) => flows.has(id),
             extend(flowId, stageId, hook, handler) {
                 if (!flows.get(flowId)?.includes(stageId))
                     throw new Error("unknown_stage");
                 const key = `${flowId}:${stageId}`;
-                hooks.set(key, [...(hooks.get(key) ?? []), handler]);
+                hooks.set(key, [
+                    ...(hooks.get(key) ?? []),
+                    { ...hook, handler },
+                ]);
                 return true;
+            },
+            remove(flowId, stageId, hookId) {
+                const key = `${flowId}:${stageId}`;
+                hooks.set(
+                    key,
+                    (hooks.get(key) ?? []).filter(({ id }) => id !== hookId),
+                );
             },
             async run(flowId, input) {
                 const stages = flows.get(flowId);
@@ -26,7 +41,7 @@ export function createFlowRuntime() {
                     const key = `${flowId}:${stageId}`;
                     executions.push(key);
                     stageResults[stageId] = [];
-                    for (const handler of hooks.get(key) ?? [])
+                    for (const { handler } of hooks.get(key) ?? [])
                         stageResults[stageId].push(
                             await handler({
                                 flowId,
@@ -46,6 +61,11 @@ export function createFlowRuntime() {
 export function withActionFlows(context) {
     const runtime = createFlowRuntime();
     const hostFlow = context.flow;
+    if (!hostFlow?.exists("deprovision-user"))
+        runtime.registerFlow({
+            id: "deprovision-user",
+            stages: ["persist-state", "cleanup-dependencies"],
+        });
     context.registerFlow = runtime.registerFlow;
     context.flow = {
         ...hostFlow,

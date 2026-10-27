@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.1.10",
+    "version": "2.1.11",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -68,7 +68,7 @@
         },
         {
             "path": "api/index.js",
-            "sha256": "68858a2624f5204a2e816e63c5d953f230829b7050493471a904e506a20b4fc3"
+            "sha256": "6de295a8c010bc0c432bc8c1ad04ed3b7b4c1d11a83225e553f4220eb992556f"
         },
         {
             "path": "api/invalid-access.js",
@@ -96,7 +96,7 @@
         },
         {
             "path": "api/store.js",
-            "sha256": "a4401e448d892848c8c2ff6337e43eb6836ec0fda4a522d1ca2b95df6cab3aa5"
+            "sha256": "3bd6517d949c6030a4f3bd9f7bee26c191a7b7b764128065f973933f4b125d19"
         },
         {
             "path": "api/tests/action-flows.test.js",
@@ -107,12 +107,16 @@
             "sha256": "2f197324b677abbf8f737ca858c43ea3e2e6b095a2e151a4ae5a0b0d0dd15f8a"
         },
         {
+            "path": "api/tests/deprovision.test.js",
+            "sha256": "d506fefbfaf17d954c4d2d44358af1770eb80a4ebb7630ac081a97b36bf6b931"
+        },
+        {
             "path": "api/tests/module-structure.test.js",
             "sha256": "45cd21b2b31873c1831e52e3a1cfe97c5e52318bd99cb18ded73d21c9c74c83b"
         },
         {
             "path": "api/tests/reuse/flow-runtime.js",
-            "sha256": "600d8b435ef7cf45f11d46b63a2e41ffde8ca6fe4c3d09ec455e1963c240a9f7"
+            "sha256": "7f499a62162c448558e9c5833ca205e313a4ef212b309afb968fb9233175b29b"
         },
         {
             "path": "api/tests/routes.test.js",
@@ -148,27 +152,27 @@
         },
         {
             "path": "docs/index.de.md",
-            "sha256": "5924b798c26e47b5fe2cd94dab82d9a9f3cc9c3629cd1b75a6ebd619b727cc00"
+            "sha256": "a4bd693c9a3df67b5517f03392093ae4f0e9282bad935a212b27523da2fc527a"
         },
         {
             "path": "docs/index.en.md",
-            "sha256": "f8e0010b23445b245c3236433089a95c7507a5db5947f295d307bcfbc32c2afe"
+            "sha256": "9ecf323651690f9a367d0254a247ed3232c329aaf823a3c06cb33cefd7dcd3cc"
         },
         {
             "path": "docs/index.id.md",
-            "sha256": "bbe84b3855acaa167926539ec984549f2e3b3298e7af93fa234e180aabb8b2b4"
+            "sha256": "a569c45f5aa5126e815be48260301a547999b92a430689fc22b3cc5f4492cf69"
         },
         {
             "path": "docs/index.ja.md",
-            "sha256": "3650a056f7273b3e40990183027792543e3d1c63242c01ac35f972da54bcea59"
+            "sha256": "45cfe225cc46d84f111bd73c27a66fdecddce047d85935634cb1e29f3dc403a1"
         },
         {
             "path": "package-lock.json",
-            "sha256": "7b8f3821d335559a8ee68e9f26551e7de38b819246f16fa7668d98d15730793c"
+            "sha256": "dad216fe099cd70420a623799a3f79a5ef51d942e2043348f3f7c3642c96dc59"
         },
         {
             "path": "package.json",
-            "sha256": "c2712713945dac9a8d320f2c95337bebd27319fb47ef481d23ce06c3c4ba947b"
+            "sha256": "174c86fd1688813e9b935f1781331cc009e0fd6beffa249d9433059b4848a9a0"
         },
         {
             "path": "routes.json",

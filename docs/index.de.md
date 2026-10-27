@@ -120,3 +120,7 @@ Der Host stellt `offline:outbox`, `offline:state` und `offline:accessPolicy` üb
 ## Hintergrunddaten und Warnungen
 
 Analytics registriert seinen Übertragungsanbieter mit `protectOnClose: false` in der Host-Warteschlange. Navigations- und Aktivitätsdaten bleiben dauerhaft gespeichert und werden nach autorisierter Wiederherstellung, auch durch die manuelle Verbindungsprüfung, übertragen. Sie lösen keine Schließwarnung des Browsers mehr aus. Benutzeränderungen behalten den Standardschutz des Hosts. Dies erfordert den aktualisierten Klassifizierungsvertrag des Hosts.
+
+## Kontobezogene Bereinigung
+
+Der lebenszyklusgebundene Hook `analytics:deleteAccountActivity` erweitert `deprovision-user` in `cleanup-dependencies`. Nach einer gespeicherten Kontolöschung wartet er auf die Schemainitialisierung und löscht nur Ereignisse mit dem passenden Kontohash. Dafür verwendet er dieselbe SHA-256-Ableitung wie die authentifizierte Erfassung. Andere Konten und anonyme Administratorereignisse bleiben erhalten. Deaktivierung, Archivierung und abgelehnte Löschanfragen behalten die Aktivitäten bei. Fehler werden protokolliert und weitergegeben; der Host entfernt den Hook beim Beenden des Modulkontexts vor einer erneuten Aktivierung.

@@ -2,6 +2,10 @@
 
 **Feature-Zweig:** feature-offline-delivery
 
+## Kontobezogene Bereinigung
+
+Der lebenszyklusgebundene Hook `analytics:deleteAccountActivity` erweitert `deprovision-user` in `cleanup-dependencies`. Nach einer gespeicherten Kontolöschung wartet er auf die Schemainitialisierung und löscht nur Ereignisse mit dem passenden Kontohash. Dafür verwendet er dieselbe SHA-256-Ableitung wie die authentifizierte Erfassung. Andere Konten und anonyme Administratorereignisse bleiben erhalten. Deaktivierung, Archivierung und abgelehnte Löschanfragen behalten die Aktivitäten bei. Fehler werden protokolliert und weitergegeben; der Host entfernt den Hook beim Beenden des Modulkontexts vor einer erneuten Aktivierung.
+
 ## Übertragung und Zustimmung
 
 Analytics erfasst authentifizierte Aktivitäten über `POST /api/v1/modules/analytics/activity` und den Browserablauf `analytics:recordActivity`. Kontogebundene Idempotenzschlüssel verhindern Duplikate; ursprüngliche Zeiten bleiben erhalten. Navigation und vorgemerkte Study-Aktionen liefern nur sichere skalare Metadaten (`component`, `action`, `result`, `count`, `durationMs`); andere Daten werden vor dem Speichern abgelehnt. Berichte verwenden Konto-Hashes. Deaktivieren entfernt Handler und Listener.

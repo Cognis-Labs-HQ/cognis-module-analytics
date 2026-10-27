@@ -6,6 +6,10 @@ import { computeMetrics, computeSeries } from "./reporting/index.js";
 import { AnalyticsStore } from "./store.js";
 import { registerActivityRoutes } from "./routes/activity/index.js";
 
+function digest(value) {
+    return createHash("sha256").update(value).digest("hex");
+}
+
 export function registerApiRoutes(router, ctx) {
     const database = ctx.getCapability("db:executor");
     const requireAuth = ctx.getCapability("auth:requireAuth");
@@ -61,8 +65,6 @@ export function registerApiRoutes(router, ctx) {
                 },
                 validate: ([input]) => validateActivity(input),
                 execute: (input, account) => {
-                    const digest = (value) =>
-                        createHash("sha256").update(value).digest("hex");
                     const id = digest(
                         JSON.stringify([
                             account,
@@ -89,6 +91,35 @@ export function registerApiRoutes(router, ctx) {
             },
         },
         ready,
+    );
+
+    ctx.flow.extend(
+        "deprovision-user",
+        "cleanup-dependencies",
+        { id: "analytics:deleteAccountActivity" },
+        async ({ input, stageResults }) => {
+            const persisted = stageResults["persist-state"]?.[0];
+            if (
+                input?.action !== "delete" ||
+                typeof input.username !== "string" ||
+                !input.username ||
+                !persisted?.persisted
+            )
+                return { cleaned: false };
+            try {
+                await ready;
+                if (!store) throw new Error("analytics_store_unavailable");
+                await store.deleteAccountActivity(digest(input.username));
+                ctx.log?.("info", "Analytics account activity deleted.", {
+                    component: "analytics",
+                    operation: "deleteAccountActivity",
+                });
+                return { cleaned: true };
+            } catch (error) {
+                logFailure("deleteAccountActivity");
+                throw error;
+            }
+        },
     );
 
     registerCollectionRoutes(router, { service, logFailure });

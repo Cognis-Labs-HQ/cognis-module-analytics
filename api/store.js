@@ -75,6 +75,16 @@ export class AnalyticsStore {
             throw new Error("activity_conflict");
     }
 
+    async deleteAccountActivity(accountDigest) {
+        if (typeof accountDigest !== "string" || !accountDigest)
+            throw new Error("invalid_account_digest");
+        await this.db.executeCommand({
+            option: "DELETE",
+            table: ANALYTICS_EVENTS_TABLE,
+            where: [{ column: "account_id", value: accountDigest }],
+        });
+    }
+
     async deleteAllData() {
         await this.db.executeCommand({
             option: "DELETE",
