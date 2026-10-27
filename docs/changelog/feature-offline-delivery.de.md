@@ -21,3 +21,4 @@ Analytics registriert seinen Übertragungsanbieter mit `protectOnClose: false` i
 - [16f40d7](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/16f40d7bbb2a045da8b745f656150bcdc31c3489)
 - [c6b5760](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c6b57608b93128f46fe849c7a385805ab8ab0e55)
 - [956bf8d](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/956bf8de31d3c13e885cbd6a28611ba0b78c5175)
+- [221efac](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/221efac097286f2fe90809303620d35bfa873fef)
