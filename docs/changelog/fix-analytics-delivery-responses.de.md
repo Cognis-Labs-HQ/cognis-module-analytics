@@ -9,3 +9,4 @@ Analytics bestätigt vorgemerkte Aktivitäten erst nach einer erfolgreichen JSON
 ## Änderungen
 
 - [221efac](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/221efac097286f2fe90809303620d35bfa873fef)
+- [84316b7](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/84316b71a2250f56b4c189ff612ccc83e6b9eec7)
