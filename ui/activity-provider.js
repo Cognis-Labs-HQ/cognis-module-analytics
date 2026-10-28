@@ -19,7 +19,36 @@ export function mountProvider(ctx) {
             throw Object.assign(new Error("analytics_delivery_failed"), {
                 status: response.status,
             });
-        return (await response.json()).data;
+        if (
+            response.redirected ||
+            !/\bapplication\/(?:[a-z0-9.-]+\+)?json\b/i.test(
+                response.headers.get("content-type") ?? "",
+            )
+        )
+            throw Object.assign(
+                new Error("analytics_delivery_invalid_response"),
+                { status: 502 },
+            );
+        let payload;
+        try {
+            payload = await response.json();
+        } catch (error) {
+            log?.("error", "Analytics delivery returned invalid JSON.", {
+                component: "analytics",
+                operation: "parseDeliveryResponse",
+                responseStatus: response.status,
+            });
+            throw Object.assign(
+                new Error("analytics_delivery_invalid_response"),
+                { status: 502 },
+            );
+        }
+        if (typeof payload?.data?.id !== "string" || !payload.data.id)
+            throw Object.assign(
+                new Error("analytics_delivery_invalid_response"),
+                { status: 502 },
+            );
+        return payload.data;
     };
     const release = outbox.register("analytics.activity", send, ctx.signal, {
         protectOnClose: false,

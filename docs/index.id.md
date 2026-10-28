@@ -124,3 +124,7 @@ Analytics mendaftarkan pemilik pengirimannya dengan `protectOnClose: false` pada
 ## Pembersihan Aktivitas Akun
 
 Hook `analytics:deleteAccountActivity` yang terikat siklus hidup memperluas `deprovision-user` pada `cleanup-dependencies`. Setelah penghapusan akun tersimpan, hook menunggu kesiapan skema dan hanya menghapus peristiwa yang ringkasan akunnya cocok dengan identitas yang dihapus, menggunakan derivasi SHA-256 yang sama dengan pencatatan terautentikasi. Akun lain dan peristiwa administrator anonim tetap utuh. Penonaktifan, pengarsipan, dan permintaan penghapusan yang ditolak mempertahankan aktivitas. Kegagalan dicatat dan diteruskan; host melepas hook saat konteks modul ditutup sebelum pengaktifan ulang.
+
+## Validasi Respons Pengiriman
+
+Analytics hanya mengakui aktivitas antrean setelah menerima respons JSON berhasil tanpa pengalihan yang memuat ID peristiwa tersimpan. HTML, isi kosong atau tidak valid, serta ID yang hilang menghasilkan kesalahan pengiriman kelas 502 yang dapat dicoba ulang, mempertahankan identitas peristiwa asli untuk upaya berikutnya. JSON tidak valid dicatat dengan metadata status yang aman; isi respons tidak pernah dicatat.

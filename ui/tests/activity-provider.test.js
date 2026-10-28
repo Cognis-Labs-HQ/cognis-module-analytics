@@ -6,6 +6,7 @@ let disconnected = true;
 const pending = new Map();
 const handlers = new Map();
 const requests = [];
+let deliveryResponse;
 const capabilities = new Map();
 const outbox = {
     register(owner, send, signal, options) {
@@ -25,7 +26,10 @@ capabilities.set("ui:reuse", {
     importModule: async () => ({
         apiFetch: async (path, options) => {
             requests.push({ path, body: JSON.parse(options.body) });
-            return Response.json({ data: { id: "stored" } });
+            return (
+                deliveryResponse?.() ??
+                Response.json({ data: { id: "stored" } })
+            );
         },
         deliverOrQueue: (ctx, owner, id, payload, send) =>
             disconnected
@@ -41,8 +45,7 @@ globalThis[Symbol.for("cognis.uiCtx")] = {
 globalThis.window = new EventTarget();
 const { mountProvider } = await import("../activity-provider.js");
 
-test("browser activity participates in registered flows, preserves queued identities and releases its provider", async () => {
-    assert.equal(requests.length, 0);
+function providerFixture() {
     const runtime = createFlowRuntime();
     runtime.registerFlow({ id: "activity:record", stages: ["capture"] });
     const controller = new AbortController();
@@ -57,6 +60,12 @@ test("browser activity participates in registered flows, preserves queued identi
         },
     };
     const dispose = mountProvider(ctx);
+    return { runtime, controller, dispose };
+}
+
+test("browser activity participates in registered flows, preserves queued identities and releases its provider", async () => {
+    assert.equal(requests.length, 0);
+    const { runtime, controller, dispose } = providerFixture();
     const record = capabilities.get("analytics:recordActivity");
     const id = "788b4cf9-30e4-424b-87ad-e69f6e319cf7";
     const occurredAt = new Date().toISOString();
@@ -84,4 +93,47 @@ test("browser activity participates in registered flows, preserves queued identi
     dispose();
     await assert.rejects(record("navigation"), { name: "AbortError" });
     assert.equal(handlers.size, 0);
+});
+
+test("malformed successful responses cannot acknowledge activity and valid replay keeps the original identity", async () => {
+    const { controller, dispose } = providerFixture();
+    const activity = {
+        eventType: "navigation",
+        eventId: "788b4cf9-30e4-424b-87ad-e69f6e319cf7",
+        occurredAt: new Date().toISOString(),
+        meta: { action: "navigate" },
+    };
+    try {
+        for (const respond of [
+            () =>
+                new Response("<html>Login</html>", {
+                    headers: { "content-type": "text/html" },
+                }),
+            () =>
+                new Response("", {
+                    headers: { "content-type": "application/json" },
+                }),
+            () =>
+                new Response("broken", {
+                    headers: { "content-type": "application/json" },
+                }),
+            () => Response.json({ data: {} }),
+        ]) {
+            deliveryResponse = respond;
+            await assert.rejects(handlers.get("analytics.activity")(activity), {
+                message: "analytics_delivery_invalid_response",
+                status: 502,
+            });
+            assert.equal(requests.at(-1).body.eventId, activity.eventId);
+        }
+        deliveryResponse = undefined;
+        assert.deepEqual(await handlers.get("analytics.activity")(activity), {
+            id: "stored",
+        });
+        assert.deepEqual(requests.at(-1).body, activity);
+    } finally {
+        deliveryResponse = undefined;
+        controller.abort();
+        dispose();
+    }
 });
