@@ -36,4 +36,11 @@
   <string name="module.analytics.tag.insights">Wawasan</string>
   <string name="module.analytics.tag.reporting">Pelaporan</string>
   <string name="module.analytics.tag.adoption">Adopsi</string>
+    <string name="module.analytics.tutorial.title">Memahami Analitik</string>
+    <string name="module.analytics.tutorial.welcome.title">Buka Bagian Analitik</string>
+    <string name="module.analytics.tutorial.welcome.body">Buka Analytics di Administrasi. Laporan memerlukan akses administrator dan koneksi; tutorial ini tidak mengubah pengaturan pengumpulan.</string>
+    <string name="module.analytics.tutorial.filters.title">Pilih Periode Laporan</string>
+    <string name="module.analytics.tutorial.filters.body">Ubah pemilih periode untuk memperbarui laporan. Hanya filter ini dan kontrol tutorial yang aktif selama langkah ini.</string>
+    <string name="module.analytics.tutorial.chart.title">Baca Grafik Pendaftaran</string>
+    <string name="module.analytics.tutorial.chart.body">Grafik merangkum pendaftaran untuk periode yang dipilih. Periksa ringkasan peristiwa sebelum menyimpulkan sesuatu dari sampel kecil.</string>
 </resources>

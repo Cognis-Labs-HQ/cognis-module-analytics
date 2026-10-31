@@ -36,4 +36,11 @@
   <string name="module.analytics.tag.insights">Insights</string>
   <string name="module.analytics.tag.reporting">Reporting</string>
   <string name="module.analytics.tag.adoption">Adoption</string>
+    <string name="module.analytics.tutorial.title">Understand Analytics</string>
+    <string name="module.analytics.tutorial.welcome.title">Open The Analytics Section</string>
+    <string name="module.analytics.tutorial.welcome.body">Expand Analytics in Administration. These reports require administrator access and a connection; this play does not change collection settings.</string>
+    <string name="module.analytics.tutorial.filters.title">Choose A Reporting Window</string>
+    <string name="module.analytics.tutorial.filters.body">Change the time-window selector to refresh the report. Only this filter and the tutorial controls are active during this step.</string>
+    <string name="module.analytics.tutorial.chart.title">Read The Registration Chart</string>
+    <string name="module.analytics.tutorial.chart.body">The chart summarizes registrations for the selected period. Review the adjacent event summaries before drawing conclusions from small samples.</string>
 </resources>

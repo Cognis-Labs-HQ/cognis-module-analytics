@@ -124,3 +124,7 @@ Analytics registers its delivery owner with `protectOnClose: false` on the host 
 ## Account Activity Cleanup
 
 The scoped `analytics:deleteAccountActivity` hook extends `deprovision-user` at `cleanup-dependencies`. After a persisted account deletion, it waits for schema readiness and deletes only events whose account digest matches the deleted identity, using the same SHA-256 derivation as authenticated ingestion. Other accounts and anonymous administrator events remain intact. Disable, archive and rejected deletion requests retain activity. Failures are logged and propagated; scoped host teardown removes the hook before re-enable.
+
+## Guided tutorial
+
+[Guided tutorial](tutorials.en.md)
