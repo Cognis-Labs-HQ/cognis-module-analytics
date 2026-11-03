@@ -10,6 +10,10 @@ The module registers its own play and localized strings through ctx. The host ow
 
 Provider tests check the public contract, all four translations, availability rules, rollback and rejection of unsupported host versions.
 
+## Page-bound First Visits
+
+The host owns callouts, arrows, spotlight, accessibility and the shared floating action menu. First-time runs offer Next throughout, without Cancel or Skip. Replays offer Cancel with `btn-cancel`. Completion is stored per account in the browser. Navigation, access loss and provider removal release the session; failed mounts roll back registrations.
+
 ## Commits
 
 - [c94a229](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c94a229fbd1e0f68a8bee382180dd7734aa8e6a2)

@@ -1,5 +1,10 @@
 export const definition = {
     version: 1,
+    page: ({ pathname }) =>
+        pathname === "/administration" &&
+        [...document.querySelectorAll(".analytics-filter-row")].some(
+            (element) => element.getClientRects().length > 0,
+        ),
     id: "introduction",
     titleKey: "module.analytics.tutorial.title",
     steps: [
