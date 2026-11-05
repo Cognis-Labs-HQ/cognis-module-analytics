@@ -38,7 +38,7 @@
   <string name="module.analytics.tag.adoption">Nutzung</string>
     <string name="module.analytics.tutorial.title">Analysen verstehen</string>
     <string name="module.analytics.tutorial.welcome.title">Analysebereich öffnen</string>
-    <string name="module.analytics.tutorial.welcome.body">Klappen Sie Analytics in der Administration auf. Berichte erfordern Administratorzugriff und eine Verbindung; diese Anleitung ändert keine Erfassungseinstellungen.</string>
+    <string name="module.analytics.tutorial.welcome.body">Klappen Sie Analytics in der Administration auf, um Berichte anzuzeigen. Berichte erfordern Administratorzugriff und eine Verbindung.</string>
     <string name="module.analytics.tutorial.filters.title">Berichtszeitraum wählen</string>
     <string name="module.analytics.tutorial.filters.body">Ändern Sie den Zeitraum, um den Bericht zu aktualisieren. In diesem Schritt sind nur dieser Filter und die Anleitungssteuerung aktiv.</string>
     <string name="module.analytics.tutorial.chart.title">Registrierungsdiagramm lesen</string>
