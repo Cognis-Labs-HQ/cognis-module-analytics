@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.2.2",
+    "version": "2.2.3",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -184,11 +184,11 @@
         },
         {
             "path": "package-lock.json",
-            "sha256": "f738d85438097f71123a2da2a89952ed299e3329794f3028f8160f99e47ff913"
+            "sha256": "e29b25c52e27ce650671aac2559ec03b1365108f232ff0ab6dc86123e0f2c895"
         },
         {
             "path": "package.json",
-            "sha256": "56a02e3953e3c18bf8c3f5733c88685ca7fd104a96c2f7b3f9cb590bcad85617"
+            "sha256": "d4fdb9cd87fba1eef11a70b3b67d78c485355e308677d05df6581e81c12fcc2d"
         },
         {
             "path": "routes.json",
@@ -240,19 +240,19 @@
         },
         {
             "path": "ui/languages/de/strings.xml",
-            "sha256": "e7cceddeb2c1cea68eb9d00b0d4d712c1bbfccc8c55e8c3f95adacb220198e22"
+            "sha256": "604ede725e457e5cebfaf2efbf01d14895fe21bfe4ffb03485ab7bc7fad92eaf"
         },
         {
             "path": "ui/languages/en/strings.xml",
-            "sha256": "651a8815cdadaa2ea656640c8c96680e601a3eaad6a76c178026521a37ae93a2"
+            "sha256": "9db03d2bac1ace623b4c6a618d89ee6cf9dff6896e0669e455944a68c4470495"
         },
         {
             "path": "ui/languages/id/strings.xml",
-            "sha256": "e50c5669f4ff809f8dc12c954d749c5c0b065096b7074fa6fa517bc5799768d9"
+            "sha256": "ca7b0d30fc6f7e661826c7d28733747e4c1d054c3adae784bc1e19c02aacb830"
         },
         {
             "path": "ui/languages/ja/strings.xml",
-            "sha256": "3934d8cde1b898bdce7adaac542610c2eaeaf887c3f015b3bb16a144671e48b9"
+            "sha256": "8c06264b3aa04fe982f5cd2b1aaa054cf36e97aad6b8141deb1dbb9d4aeaa4a7"
         },
         {
             "path": "ui/reuse/escape-html.js",

@@ -40,7 +40,7 @@
     <string name="module.analytics.tutorial.welcome.title">分析セクションを開く</string>
     <string name="module.analytics.tutorial.welcome.body">管理画面で Analytics を展開してレポートを表示します。レポートには管理者権限と接続が必要です。</string>
     <string name="module.analytics.tutorial.filters.title">集計期間を選ぶ</string>
-    <string name="module.analytics.tutorial.filters.body">期間を変更してレポートを更新します。このステップでは、このフィルターとチュートリアルの操作だけを利用できます。</string>
+    <string name="module.analytics.tutorial.filters.body">期間を変更してレポートを更新します。</string>
     <string name="module.analytics.tutorial.chart.title">登録数のグラフを読む</string>
     <string name="module.analytics.tutorial.chart.body">グラフは選択した期間の登録数を示します。少数のデータから判断する前に、周辺のイベント概要も確認してください。</string>
 </resources>
