@@ -24,6 +24,18 @@ Jeder Tutorial-Schritt legt `highlightNext` ausdrücklich fest: Erklärungen, di
 
 Alle UI-Komponenten benötigen eine Anleitung. Die Beitragsrichtlinien verlangen nutzerorientierte Aufgabenabläufe und eine Prüfung bestehender Anleitungen bei neuen Funktionen oder geänderter Bedienung.
 
+## Sichtbare Tutorial-Ziele
+
+Tutorial-Ziele und Weiter-Hinweise sind ausdrücklich festgelegt.
+
+## Gemeinsame Menüwarteschlange
+
+Menüs folgen der gemeinsamen Host-Warteschlange und der Komponentenlebensdauer.
+
+## Dokumentierte Wiederherstellungsaktionen
+
+Bei fehlenden Zielen stehen Weiter und Tutorial neu starten bereit; Wiederholungen bieten auch Abbrechen.
+
 ## Änderungen
 
 - [c94a229](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c94a229fbd1e0f68a8bee382180dd7734aa8e6a2)

@@ -11,12 +11,13 @@ export const definition = {
         {
             highlightNext: true,
             id: "welcome",
+            target: "filters",
             titleKey: "module.analytics.tutorial.welcome.title",
             bodyKey: "module.analytics.tutorial.welcome.body",
             effects: {
                 callout: true,
-                arrow: false,
-                spotlight: false,
+                arrow: true,
+                spotlight: true,
             },
             missing: {
                 timeoutMs: 5000,

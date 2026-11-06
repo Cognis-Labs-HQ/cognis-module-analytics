@@ -38,7 +38,7 @@
   <string name="module.analytics.tag.adoption">Adopsi</string>
     <string name="module.analytics.tutorial.title">Memahami Analitik</string>
     <string name="module.analytics.tutorial.welcome.title">Buka Bagian Analitik</string>
-    <string name="module.analytics.tutorial.welcome.body">Buka Analytics di Administrasi untuk melihat laporan. Laporan memerlukan akses administrator dan koneksi.</string>
+    <string name="module.analytics.tutorial.welcome.body">Laporan Analytics menampilkan tren pendaftaran dari waktu ke waktu. Gunakan rentang waktu untuk memeriksa periode yang ingin dipahami.</string>
     <string name="module.analytics.tutorial.filters.title">Pilih Periode Laporan</string>
     <string name="module.analytics.tutorial.filters.body">Ubah pemilih periode untuk memperbarui laporan.</string>
     <string name="module.analytics.tutorial.chart.title">Baca Grafik Pendaftaran</string>

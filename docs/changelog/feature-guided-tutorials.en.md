@@ -24,6 +24,18 @@ Each tutorial step now explicitly declares `highlightNext`: explanations that re
 
 Tutorial coverage is required for every UI-facing component. Contributor guidance requires user-first, task-focused walkthroughs and a review of existing tutorials whenever features or UI behavior change.
 
+## Visible tutorial regions
+
+Tutorial regions and Next cues are authored explicitly.
+
+## Shared floating-menu queue
+
+Menus follow the shared queued host contract and component lifetime.
+
+## Documented recovery controls
+
+Missing-target views provide Next and Restart Tutorial; replay also provides Cancel.
+
 ## Commits
 
 - [c94a229](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c94a229fbd1e0f68a8bee382180dd7734aa8e6a2)

@@ -38,7 +38,7 @@
   <string name="module.analytics.tag.adoption">Adoption</string>
     <string name="module.analytics.tutorial.title">Understand Analytics</string>
     <string name="module.analytics.tutorial.welcome.title">Open The Analytics Section</string>
-    <string name="module.analytics.tutorial.welcome.body">Expand Analytics in Administration to view reports. Reports require administrator access and a connection.</string>
+    <string name="module.analytics.tutorial.welcome.body">Analytics reports show registration trends over time. Use the time window to inspect the period you want to understand.</string>
     <string name="module.analytics.tutorial.filters.title">Choose A Reporting Window</string>
     <string name="module.analytics.tutorial.filters.body">Change the time-window selector to refresh the report.</string>
     <string name="module.analytics.tutorial.chart.title">Read The Registration Chart</string>
