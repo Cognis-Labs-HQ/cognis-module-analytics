@@ -36,4 +36,11 @@
   <string name="module.analytics.tag.insights">Einblicke</string>
   <string name="module.analytics.tag.reporting">Berichte</string>
   <string name="module.analytics.tag.adoption">Nutzung</string>
+    <string name="module.analytics.tutorial.title">Analysen verstehen</string>
+    <string name="module.analytics.tutorial.welcome.title">Analysebereich öffnen</string>
+    <string name="module.analytics.tutorial.welcome.body">Analytics-Berichte zeigen die Entwicklung der Registrierungen. Wählen Sie den Zeitraum, den Sie untersuchen möchten.</string>
+    <string name="module.analytics.tutorial.filters.title">Berichtszeitraum wählen</string>
+    <string name="module.analytics.tutorial.filters.body">Ändern Sie den Zeitraum, um den Bericht zu aktualisieren.</string>
+    <string name="module.analytics.tutorial.chart.title">Registrierungsdiagramm lesen</string>
+    <string name="module.analytics.tutorial.chart.body">Das Diagramm fasst Registrierungen im gewählten Zeitraum zusammen. Prüfen Sie die benachbarten Ereignisübersichten, bevor Sie aus kleinen Stichproben Schlüsse ziehen.</string>
 </resources>
