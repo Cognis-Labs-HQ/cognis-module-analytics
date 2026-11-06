@@ -9,6 +9,7 @@ export const definition = {
     titleKey: "module.analytics.tutorial.title",
     steps: [
         {
+            highlightNext: true,
             id: "welcome",
             titleKey: "module.analytics.tutorial.welcome.title",
             bodyKey: "module.analytics.tutorial.welcome.body",
@@ -24,6 +25,7 @@ export const definition = {
             route: "/administration",
         },
         {
+            highlightNext: false,
             id: "filters",
             titleKey: "module.analytics.tutorial.filters.title",
             bodyKey: "module.analytics.tutorial.filters.body",
@@ -43,6 +45,7 @@ export const definition = {
             },
         },
         {
+            highlightNext: true,
             id: "chart",
             titleKey: "module.analytics.tutorial.chart.title",
             bodyKey: "module.analytics.tutorial.chart.body",
