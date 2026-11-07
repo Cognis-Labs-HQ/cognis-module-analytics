@@ -36,6 +36,10 @@ Menus follow the shared queued host contract and component lifetime.
 
 Missing-target views provide Next and Restart Tutorial; replay also provides Cancel.
 
+## Intentional tutorial guidance
+
+Tutorials explain distinct visible controls in UI order. Shared guidance covers active-view discovery, stable examples, empty states, conditional branches and lifecycle cleanup. Replay controls and reduced-motion documentation match the shared host.
+
 ## Commits
 
 - [c94a229](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c94a229fbd1e0f68a8bee382180dd7734aa8e6a2)

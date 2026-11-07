@@ -1,6 +1,6 @@
 {
     "name": "@cognis/module-analytics",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "private": false,
     "type": "module",
     "scripts": {

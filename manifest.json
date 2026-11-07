@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -32,7 +32,7 @@
         },
         {
             "path": ".github/copilot-instructions.md",
-            "sha256": "56de35ae5eeb91a53d18eda9284bc02b5f36baf4e06f1e1099f531e1cdebef9a"
+            "sha256": "16de34ce51616af3d64d49c2aa5ca9d45a155ed7d7cdd38839dc9bf701637789"
         },
         {
             "path": ".gitignore",
@@ -168,27 +168,27 @@
         },
         {
             "path": "docs/tutorials.de.md",
-            "sha256": "00e2a57899034bc12c6eeda8e27a0d2a55f09ff807d07daa5e46ae4f723465a1"
+            "sha256": "73b51db1fa51600b5570867ed17d449ce74b1a1c639f9e8311ba708fe20a6ae0"
         },
         {
             "path": "docs/tutorials.en.md",
-            "sha256": "3f718e93a9b3e37dc08190247298173db902f59404f43910e76204ff7af3534e"
+            "sha256": "0740b52ad03add0098ea460e30485f3f7e45477e6025fdd80c626324a9090aa3"
         },
         {
             "path": "docs/tutorials.id.md",
-            "sha256": "cfe95851b41215e1b6c729611145a615589cf75d101fe64279d65940b970d120"
+            "sha256": "046984fcbce24ca708680d74efdc22286e353b9ce293ffe3a9db48234b0aa8b1"
         },
         {
             "path": "docs/tutorials.ja.md",
-            "sha256": "97cf13c0a392b3e12bf83c6d364617a4c1f6ab9ba007e67c9e9a7740fc850f04"
+            "sha256": "014ec72f7e5f0fa250d778d2988905e4e56fd2f8afd8a55e188842708e125d61"
         },
         {
             "path": "package-lock.json",
-            "sha256": "34faa4c904117d44c5863ba72460a63ec473dfbc929a63c0fcc1622221f21932"
+            "sha256": "de3967deed8d5b81a41c62236b7ebfcd8ae31f575be6013f1e2844b1958dfe25"
         },
         {
             "path": "package.json",
-            "sha256": "a730278723d30de4660e9a27cc5f68bbf8d1427f6deb1f9aafcdb7679ac35640"
+            "sha256": "e6cb0d9242366003c1e6eb6d654b60356bd4ac0993d1eaf19b8c0a8208169b2b"
         },
         {
             "path": "routes.json",
@@ -296,11 +296,11 @@
         },
         {
             "path": "ui/tests/tutorials.test.js",
-            "sha256": "4ea4265dcb8e314719bf2b48a7a67d322c00eb5a0819cca8b2246df2c7228808"
+            "sha256": "2ccfc7a26c7d0d563e14fdfc5b233dd089017f527ef3d2b2ea04da820f456cbf"
         },
         {
             "path": "ui/tutorials/plays.js",
-            "sha256": "ca2485cd1204f3269b46193cea8b7527562292c0ffa15e6caaaa92d6b88c72b7"
+            "sha256": "78e04bc2e0b4fbb6e3815889377d629ea0738811131933f9d9c4a1dc6cbc0e19"
         },
         {
             "path": "ui/tutorials/provider.js",

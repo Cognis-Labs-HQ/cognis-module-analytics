@@ -9,23 +9,6 @@ export const definition = {
     titleKey: "module.analytics.tutorial.title",
     steps: [
         {
-            highlightNext: true,
-            id: "welcome",
-            target: "filters",
-            titleKey: "module.analytics.tutorial.welcome.title",
-            bodyKey: "module.analytics.tutorial.welcome.body",
-            effects: {
-                callout: true,
-                arrow: true,
-                spotlight: true,
-            },
-            missing: {
-                timeoutMs: 5000,
-                action: "retry",
-            },
-            route: "/administration",
-        },
-        {
             highlightNext: false,
             id: "filters",
             titleKey: "module.analytics.tutorial.filters.title",
