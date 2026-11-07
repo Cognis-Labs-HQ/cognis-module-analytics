@@ -49,3 +49,4 @@
 - [c4d5e25](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c4d5e251629e45a50090f40e3d003243cd744449)
 - [ed63571](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/ed6357135a3def805ecd524df994a8897de4e27a)
 - [1345101f0](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/1345101f062e36f53e25e5bc7ff168b3a1bc9e08)
+- [60f7c7523](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/60f7c75230d8874fbb3b62fa8ba79282a946c766)
