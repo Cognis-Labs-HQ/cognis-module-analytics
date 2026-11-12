@@ -24,9 +24,17 @@ export const definition = {
             },
             target: "filters",
             interaction: "target",
-            advance: {
-                event: "change",
-            },
+            waitFor: ({ target, signal }) =>
+                new Promise((resolve) => {
+                    target.addEventListener(
+                        "analytics:reportUpdated",
+                        resolve,
+                        {
+                            once: true,
+                            signal,
+                        },
+                    );
+                }),
         },
         {
             highlightNext: true,

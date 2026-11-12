@@ -44,6 +44,10 @@ Anleitungen erklären unterschiedliche sichtbare Bedienelemente in UI-Reihenfolg
 
 Übersetzungsschlüssel verwenden in Modulmetadaten und Tutorials durchgehend kleingeschriebene, durch Punkte getrennte Wörter. Katalogeinträge behalten ihre ursprünglichen Übersetzungen und entsprechen der umgebenden XML-Einrückung. Strenge Namensraumprüfungen weisen Bindestriche und Unterstriche in Übersetzungsschlüsseln zurück. Modul-IDs, UUIDs, Fähigkeiten und Tutorialabschluss-Bezeichner bleiben unverändert.
 
+## Vor dem Lesen des Diagramms aktualisieren
+
+Die Übung zum Berichtszeitraum umfasst die Auswahl eines Zeitraums und das Klicken auf Aktualisieren. Sie wird erst fortgesetzt, wenn alle Berichtsabfragen und das Einlesen der Antworten erfolgreich abgeschlossen sind und der Bericht angezeigt wird. Allein das Ändern der Auswahl, eine fehlgeschlagene Anfrage oder das Schließen des Abschnitts setzt die Übung nicht fort. Nach Fehlern stehen die Bedienelemente für einen erneuten Versuch bereit; während der Aktualisierung sind Zeitraum und Aktualisieren vorübergehend deaktiviert.
+
 ## Änderungen
 
 - [c94a229](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c94a229fbd1e0f68a8bee382180dd7734aa8e6a2)

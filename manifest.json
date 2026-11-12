@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.2.7",
+    "version": "2.2.8",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -32,7 +32,7 @@
         },
         {
             "path": ".github/copilot-instructions.md",
-            "sha256": "18383148a1e0db018f4ce2e5610e5d69a030db029dab27cc321dec0b6ca6ef62"
+            "sha256": "1005f8cabe666a8b07a8fce0d9a58f1625b29761741c8a803f530d540bba7420"
         },
         {
             "path": ".gitignore",
@@ -168,27 +168,27 @@
         },
         {
             "path": "docs/tutorials.de.md",
-            "sha256": "73b51db1fa51600b5570867ed17d449ce74b1a1c639f9e8311ba708fe20a6ae0"
+            "sha256": "686024c2853bda9381fa2fffcfdb5136dc5a001c63ad87dd3b93c7d545f5288e"
         },
         {
             "path": "docs/tutorials.en.md",
-            "sha256": "0740b52ad03add0098ea460e30485f3f7e45477e6025fdd80c626324a9090aa3"
+            "sha256": "eb8e19c583a9a81e02ff21883ae3270253df041ab74ff258353ff2aee4cec0e7"
         },
         {
             "path": "docs/tutorials.id.md",
-            "sha256": "046984fcbce24ca708680d74efdc22286e353b9ce293ffe3a9db48234b0aa8b1"
+            "sha256": "658430436a3ddd8f61935f952161d32f939ba647d5054463973dc7e04b0410ae"
         },
         {
             "path": "docs/tutorials.ja.md",
-            "sha256": "014ec72f7e5f0fa250d778d2988905e4e56fd2f8afd8a55e188842708e125d61"
+            "sha256": "1530ffa9a243d7ae1a7f99634d27bf2c55604c4a38f83f2132cca23961aa7cec"
         },
         {
             "path": "package-lock.json",
-            "sha256": "99c11c1830fb9a0ebacd0d4f04d0d5c0b3b4ca9715618be37203ac4ad0998784"
+            "sha256": "ddd833dd252c3712eeaf483bcb60e1296734c8705bbe206d63a69efb9ba90766"
         },
         {
             "path": "package.json",
-            "sha256": "a039d36b6303ccb6eab8123d1181372e3874b111e925980157be85bff87ce23a"
+            "sha256": "9e056fbb06920e05bed6e0c1a9e3b57d6d0a6581f6bbc3843a35c6ba44b8aff2"
         },
         {
             "path": "routes.json",
@@ -236,23 +236,23 @@
         },
         {
             "path": "ui/admin-section.js",
-            "sha256": "cb6994ea5a865d4dfac6fbd408cdd607e1f3a7aa7dac3422a0aad5aa3e11b3b1"
+            "sha256": "82436ec1cf086f1aa1be3953c69e8efa01695d30bc205d7121df8781422bb399"
         },
         {
             "path": "ui/languages/de/strings.xml",
-            "sha256": "409dfddb49e31a1913b06d5f0a777ad558fdac8c033e8c4cf443bf8d82d293f1"
+            "sha256": "4b8254a9142751266baa4379fb771622be68823e9cb914378cd035697811fc93"
         },
         {
             "path": "ui/languages/en/strings.xml",
-            "sha256": "922765e24c1ead22bc6d5ae1c194f15c4cb2f85857c514de31e2b0e5bce0ef4e"
+            "sha256": "aa2622cc67edc7420a8a6df2d2638a3cbc7e54865155238c3bfddfc96343a422"
         },
         {
             "path": "ui/languages/id/strings.xml",
-            "sha256": "49e31db4833c64f609f5cfe3576ec73e5fd7dcb984343b2e97bf2b87762922b2"
+            "sha256": "ba2a70bfacf92cc0af8b5400f0416db78c986161c13ef8526eb20745437ca334"
         },
         {
             "path": "ui/languages/ja/strings.xml",
-            "sha256": "6f278f03e0589bbc8f2a9c0542033f9ae576224ad035602fd610440654f4dd92"
+            "sha256": "c37261912f30d404607c21c2e876b4019e2f5d3448c8d1860780e475ea79fbfa"
         },
         {
             "path": "ui/reuse/escape-html.js",
@@ -284,7 +284,7 @@
         },
         {
             "path": "ui/tests/admin-contract.test.js",
-            "sha256": "520687fa03d65e76c6be411f9d6c72e4e8517ccd734b1836ed72521cd36a06e8"
+            "sha256": "1e8f62c9d6b5b70f948ce47243c57b3c302d811e44934cdb992877380b2925a3"
         },
         {
             "path": "ui/tests/localization-quality.test.js",
@@ -300,7 +300,7 @@
         },
         {
             "path": "ui/tutorials/plays.js",
-            "sha256": "78e04bc2e0b4fbb6e3815889377d629ea0738811131933f9d9c4a1dc6cbc0e19"
+            "sha256": "0b4f62581546b0282f47db6b2da56bff98154486d2bc8aa0e620739ee7d35c9e"
         },
         {
             "path": "ui/tutorials/provider.js",

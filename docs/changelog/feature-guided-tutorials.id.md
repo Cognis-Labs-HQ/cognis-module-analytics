@@ -44,6 +44,10 @@ Tutorial menjelaskan kontrol terlihat yang berbeda sesuai urutan UI. Petunjuk be
 
 Kunci terjemahan menggunakan kata huruf kecil yang dipisahkan titik pada metadata modul dan tutorial. Entri katalog mempertahankan nilai terjemahan asli dan mengikuti indentasi XML di sekitarnya. Pemeriksaan namespace yang ketat menolak tanda hubung dan garis bawah pada kunci terjemahan. ID modul, UUID, kapabilitas, dan identitas penyelesaian tutorial tetap sama.
 
+## Segarkan sebelum membaca grafik
+
+Latihan rentang waktu mencakup pemilihan rentang dan menekan Segarkan. Tutorial hanya berlanjut setelah semua permintaan laporan dan penguraian respons berhasil serta laporan ditampilkan. Mengubah pilihan saja, permintaan yang gagal, atau menutup bagian tidak melanjutkan tutorial. Setelah penyegaran gagal, kontrol dapat digunakan untuk mencoba lagi; selama penyegaran berlangsung, pilihan rentang dan tombol Segarkan dinonaktifkan sementara.
+
 ## Commit
 
 - [c94a229](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c94a229fbd1e0f68a8bee382180dd7734aa8e6a2)

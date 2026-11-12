@@ -40,7 +40,7 @@
   <string name="module.analytics.tutorial.welcome.title">分析セクションを開く</string>
   <string name="module.analytics.tutorial.welcome.body">Analytics のレポートで登録件数の推移を確認できます。調べたい期間を時間範囲で選びます。</string>
   <string name="module.analytics.tutorial.filters.title">集計期間を選ぶ</string>
-  <string name="module.analytics.tutorial.filters.body">期間を変更してレポートを更新します。</string>
+  <string name="module.analytics.tutorial.filters.body">レポートの期間を選び、「更新」をクリックしてください。レポートの更新が完了してからグラフを確認します。</string>
   <string name="module.analytics.tutorial.chart.title">登録数のグラフを読む</string>
-  <string name="module.analytics.tutorial.chart.body">グラフは選択した期間の登録数を示します。少数のデータから判断する前に、周辺のイベント概要も確認してください。</string>
+  <string name="module.analytics.tutorial.chart.body">このグラフは、最後に「更新」で適用した期間の登録数を示します。イベントの集計と比較し、件数が少ない場合は慎重に判断してください。</string>
 </resources>

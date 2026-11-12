@@ -40,7 +40,7 @@
   <string name="module.analytics.tutorial.welcome.title">Analysebereich öffnen</string>
   <string name="module.analytics.tutorial.welcome.body">Analytics-Berichte zeigen die Entwicklung der Registrierungen. Wählen Sie den Zeitraum, den Sie untersuchen möchten.</string>
   <string name="module.analytics.tutorial.filters.title">Berichtszeitraum wählen</string>
-  <string name="module.analytics.tutorial.filters.body">Ändern Sie den Zeitraum, um den Bericht zu aktualisieren.</string>
+  <string name="module.analytics.tutorial.filters.body">Wählen Sie einen Berichtszeitraum und klicken Sie auf Aktualisieren. Warten Sie, bis der Bericht aktualisiert wurde, bevor Sie das Diagramm ansehen.</string>
   <string name="module.analytics.tutorial.chart.title">Registrierungsdiagramm lesen</string>
-  <string name="module.analytics.tutorial.chart.body">Das Diagramm fasst Registrierungen im gewählten Zeitraum zusammen. Prüfen Sie die benachbarten Ereignisübersichten, bevor Sie aus kleinen Stichproben Schlüsse ziehen.</string>
+  <string name="module.analytics.tutorial.chart.body">Dieses Diagramm zeigt Registrierungen für den zuletzt mit Aktualisieren angewendeten Berichtszeitraum. Vergleichen Sie die Ereignisübersichten und bewerten Sie kleine Stichproben vorsichtig.</string>
 </resources>

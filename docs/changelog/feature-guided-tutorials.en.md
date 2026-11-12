@@ -44,6 +44,10 @@ Tutorials explain distinct visible controls in UI order. Shared guidance covers 
 
 Translation keys use lowercase period-delimited words throughout the module metadata and tutorials. Catalog entries retain their original translated values and match the surrounding XML indentation. Strict namespace checks reject hyphens and underscores in translation keys. Module IDs, UUIDs, capabilities and tutorial completion identities remain unchanged.
 
+## Refresh Before Reading The Chart
+
+The reporting-window exercise covers both choosing a range and pressing Refresh. It advances only after all report requests and response parsing succeed and the report is rendered. Changing the selector alone, a failed request or closing the section cannot advance it. Failed refreshes leave the controls available for retry; active refreshes temporarily disable the range and Refresh controls.
+
 ## Commits
 
 - [c94a229](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c94a229fbd1e0f68a8bee382180dd7734aa8e6a2)
