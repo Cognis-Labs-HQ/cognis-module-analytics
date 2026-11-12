@@ -36,11 +36,11 @@
   <string name="module.analytics.tag.insights">Insights</string>
   <string name="module.analytics.tag.reporting">Reporting</string>
   <string name="module.analytics.tag.adoption">Adoption</string>
-    <string name="module.analytics.tutorial.title">Understand Analytics</string>
-    <string name="module.analytics.tutorial.welcome.title">Open The Analytics Section</string>
-    <string name="module.analytics.tutorial.welcome.body">Analytics reports show registration trends over time. Use the time window to inspect the period you want to understand.</string>
-    <string name="module.analytics.tutorial.filters.title">Choose A Reporting Window</string>
-    <string name="module.analytics.tutorial.filters.body">Change the time-window selector to refresh the report.</string>
-    <string name="module.analytics.tutorial.chart.title">Read The Registration Chart</string>
-    <string name="module.analytics.tutorial.chart.body">The chart summarizes registrations for the selected period. Review the adjacent event summaries before drawing conclusions from small samples.</string>
+  <string name="module.analytics.tutorial.title">Understand Analytics</string>
+  <string name="module.analytics.tutorial.welcome.title">Open The Analytics Section</string>
+  <string name="module.analytics.tutorial.welcome.body">Analytics reports show registration trends over time. Use the time window to inspect the period you want to understand.</string>
+  <string name="module.analytics.tutorial.filters.title">Choose A Reporting Window</string>
+  <string name="module.analytics.tutorial.filters.body">Change the time-window selector to refresh the report.</string>
+  <string name="module.analytics.tutorial.chart.title">Read The Registration Chart</string>
+  <string name="module.analytics.tutorial.chart.body">The chart summarizes registrations for the selected period. Review the adjacent event summaries before drawing conclusions from small samples.</string>
 </resources>

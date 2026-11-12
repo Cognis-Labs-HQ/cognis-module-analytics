@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.2.6",
+    "version": "2.2.7",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -32,7 +32,7 @@
         },
         {
             "path": ".github/copilot-instructions.md",
-            "sha256": "9c3a02a5c55ee6a0ed74fff8ad9e5acc80d5b8121b9616a9e580a4c554391dc6"
+            "sha256": "18383148a1e0db018f4ce2e5610e5d69a030db029dab27cc321dec0b6ca6ef62"
         },
         {
             "path": ".gitignore",
@@ -184,11 +184,11 @@
         },
         {
             "path": "package-lock.json",
-            "sha256": "de3967deed8d5b81a41c62236b7ebfcd8ae31f575be6013f1e2844b1958dfe25"
+            "sha256": "99c11c1830fb9a0ebacd0d4f04d0d5c0b3b4ca9715618be37203ac4ad0998784"
         },
         {
             "path": "package.json",
-            "sha256": "e6cb0d9242366003c1e6eb6d654b60356bd4ac0993d1eaf19b8c0a8208169b2b"
+            "sha256": "a039d36b6303ccb6eab8123d1181372e3874b111e925980157be85bff87ce23a"
         },
         {
             "path": "routes.json",
@@ -240,19 +240,19 @@
         },
         {
             "path": "ui/languages/de/strings.xml",
-            "sha256": "4474b39b0946f272c6fba0d8b2c26b0cb9292189f18ec6a013836830faef08a5"
+            "sha256": "409dfddb49e31a1913b06d5f0a777ad558fdac8c033e8c4cf443bf8d82d293f1"
         },
         {
             "path": "ui/languages/en/strings.xml",
-            "sha256": "7e4b0c46478a0b3bb3573e1f526546d7e4b63ad3f9d3258faedab93bf34c65e9"
+            "sha256": "922765e24c1ead22bc6d5ae1c194f15c4cb2f85857c514de31e2b0e5bce0ef4e"
         },
         {
             "path": "ui/languages/id/strings.xml",
-            "sha256": "6ea09e1d63ea006aaddd80675d87c9f554ab75edd30a92c7f3fecf5dbfcd7d56"
+            "sha256": "49e31db4833c64f609f5cfe3576ec73e5fd7dcb984343b2e97bf2b87762922b2"
         },
         {
             "path": "ui/languages/ja/strings.xml",
-            "sha256": "e6e1a44bf6e39cdddee07aa8f42bb59ff8034a16915bc7c53bcf22c7ebac84e3"
+            "sha256": "6f278f03e0589bbc8f2a9c0542033f9ae576224ad035602fd610440654f4dd92"
         },
         {
             "path": "ui/reuse/escape-html.js",
