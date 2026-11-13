@@ -133,6 +133,10 @@ export function registerApiRoutes(router, ctx) {
 
 export function registerUi(ctx) {
     ctx.registerCapabilityProvider({
+        scriptUrl: "/static/modules/analytics/tutorials/provider.js",
+        providesCapabilities: ["analytics:tutorials"],
+    });
+    ctx.registerCapabilityProvider({
         scriptUrl: "/static/modules/analytics/activity-provider.js",
         providesCapabilities: ["analytics:recordActivity"],
     });

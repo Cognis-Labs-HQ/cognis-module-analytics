@@ -36,4 +36,11 @@
   <string name="module.analytics.tag.insights">Insights</string>
   <string name="module.analytics.tag.reporting">Reporting</string>
   <string name="module.analytics.tag.adoption">Adoption</string>
+  <string name="module.analytics.tutorial.title">Understand Analytics</string>
+  <string name="module.analytics.tutorial.welcome.title">Open The Analytics Section</string>
+  <string name="module.analytics.tutorial.welcome.body">Analytics reports show registration trends over time. Use the time window to inspect the period you want to understand.</string>
+  <string name="module.analytics.tutorial.filters.title">Choose A Reporting Window</string>
+  <string name="module.analytics.tutorial.filters.body">Choose a reporting window, then click Refresh. Wait for the report to update before reviewing the chart.</string>
+  <string name="module.analytics.tutorial.chart.title">Read The Registration Chart</string>
+  <string name="module.analytics.tutorial.chart.body">This chart shows registrations for the reporting window last applied with Refresh. Compare the event summaries and be cautious with small samples.</string>
 </resources>

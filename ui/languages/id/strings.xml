@@ -36,4 +36,11 @@
   <string name="module.analytics.tag.insights">Wawasan</string>
   <string name="module.analytics.tag.reporting">Pelaporan</string>
   <string name="module.analytics.tag.adoption">Adopsi</string>
+  <string name="module.analytics.tutorial.title">Memahami Analitik</string>
+  <string name="module.analytics.tutorial.welcome.title">Buka Bagian Analitik</string>
+  <string name="module.analytics.tutorial.welcome.body">Laporan Analytics menampilkan tren pendaftaran dari waktu ke waktu. Gunakan rentang waktu untuk memeriksa periode yang ingin dipahami.</string>
+  <string name="module.analytics.tutorial.filters.title">Pilih Periode Laporan</string>
+  <string name="module.analytics.tutorial.filters.body">Pilih rentang waktu laporan, lalu klik Segarkan. Tunggu hingga laporan diperbarui sebelum meninjau grafik.</string>
+  <string name="module.analytics.tutorial.chart.title">Baca Grafik Pendaftaran</string>
+  <string name="module.analytics.tutorial.chart.body">Grafik ini menampilkan pendaftaran untuk rentang waktu yang terakhir diterapkan melalui Segarkan. Bandingkan ringkasan peristiwa dan berhati-hatilah saat menilai sampel kecil.</string>
 </resources>

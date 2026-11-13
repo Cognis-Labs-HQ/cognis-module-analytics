@@ -274,13 +274,22 @@ export async function createAdminSection({
     let eventsEl = null;
     let eventSummaryEl = null;
     let applyBtn = null;
+    let sectionController;
 
-    async function fetchData(days) {
+    async function fetchData(days, signal) {
         const results = await Promise.allSettled([
-            apiFetch(`/api/v1/modules/analytics/metrics?days=${days}`),
-            apiFetch(`/api/v1/modules/analytics/series?days=${days}`),
-            apiFetch("/api/v1/modules/analytics/activity-log?limit=20"),
-            apiFetch(`/api/v1/modules/analytics/type-summary?days=${days}`),
+            apiFetch(`/api/v1/modules/analytics/metrics?days=${days}`, {
+                signal,
+            }),
+            apiFetch(`/api/v1/modules/analytics/series?days=${days}`, {
+                signal,
+            }),
+            apiFetch("/api/v1/modules/analytics/activity-log?limit=20", {
+                signal,
+            }),
+            apiFetch(`/api/v1/modules/analytics/type-summary?days=${days}`, {
+                signal,
+            }),
         ]);
         if (
             results.some(
@@ -288,26 +297,14 @@ export async function createAdminSection({
             )
         )
             throw new Error("analytics_request_failed");
-        const [metricsRes, seriesRes, eventsRes, summaryRes] = results.map(
-            (result) => (result.status === "fulfilled" ? result.value : null),
+        const [metrics, series, events, summary] = await Promise.all(
+            results.map((result) => result.value.json()),
         );
-
-        if (metricsRes?.ok) {
-            const payload = await metricsRes.json();
-            metricsData = payload.data ?? null;
-        }
-        if (seriesRes?.ok) {
-            const payload = await seriesRes.json();
-            seriesData = payload.data ?? [];
-        }
-        if (eventsRes?.ok) {
-            const payload = await eventsRes.json();
-            eventsData = payload.data ?? [];
-        }
-        if (summaryRes?.ok) {
-            const payload = await summaryRes.json();
-            eventSummaryData = payload.data ?? null;
-        }
+        signal?.throwIfAborted();
+        metricsData = metrics.data ?? null;
+        seriesData = series.data ?? [];
+        eventsData = events.data ?? [];
+        eventSummaryData = summary.data ?? null;
     }
 
     function reportFailure(error) {
@@ -363,6 +360,9 @@ export async function createAdminSection({
     }
 
     function bindSection(rootEl) {
+        unbindSection();
+        const controller = new AbortController();
+        sectionController = controller;
         statsEl = rootEl.querySelector(".analytics-stats");
         chartEl = rootEl.querySelector(".analytics-chart-wrap");
         eventsEl = rootEl.querySelector(".analytics-events-wrap");
@@ -376,27 +376,60 @@ export async function createAdminSection({
         }
 
         if (applyBtn instanceof HTMLButtonElement) {
-            applyBtn.addEventListener("click", async () => {
-                if (isLoading) return;
-                if (rangeSelect instanceof HTMLSelectElement) {
-                    activeDays = parseDays(rangeSelect.value, 30);
-                }
-                isLoading = true;
-                applyBtn.disabled = true;
-                try {
-                    await fetchData(activeDays);
-                    updateView();
-                } catch (error) {
-                    reportFailure(error);
-                } finally {
-                    isLoading = false;
-                    applyBtn.disabled = false;
-                }
-            });
+            const button = applyBtn;
+            controller.signal.addEventListener(
+                "abort",
+                () => {
+                    button.disabled = false;
+                    if (rangeSelect instanceof HTMLSelectElement)
+                        rangeSelect.disabled = false;
+                },
+                { once: true },
+            );
+            button.addEventListener(
+                "click",
+                async () => {
+                    if (isLoading) return;
+                    const days =
+                        rangeSelect instanceof HTMLSelectElement
+                            ? parseDays(rangeSelect.value, 30)
+                            : activeDays;
+                    isLoading = true;
+                    button.disabled = true;
+                    if (rangeSelect instanceof HTMLSelectElement)
+                        rangeSelect.disabled = true;
+                    try {
+                        await fetchData(days, controller.signal);
+                        controller.signal.throwIfAborted();
+                        activeDays = days;
+                        updateView();
+                        rootEl
+                            .querySelector(".analytics-filter-row")
+                            ?.dispatchEvent(
+                                new CustomEvent("analytics:reportUpdated", {
+                                    detail: { days },
+                                }),
+                            );
+                    } catch (error) {
+                        if (!controller.signal.aborted) reportFailure(error);
+                    } finally {
+                        if (sectionController === controller) {
+                            isLoading = false;
+                            button.disabled = false;
+                            if (rangeSelect instanceof HTMLSelectElement)
+                                rangeSelect.disabled = false;
+                        }
+                    }
+                },
+                { signal: controller.signal },
+            );
         }
     }
 
     function unbindSection() {
+        sectionController?.abort();
+        sectionController = undefined;
+        isLoading = false;
         statsEl = null;
         chartEl = null;
         eventsEl = null;
