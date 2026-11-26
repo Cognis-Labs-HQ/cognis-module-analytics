@@ -1,50 +1,10 @@
-# Modul Analytics
+# Referensi Teknis
+
+Antarmuka publik, konfigurasi, dan siklus hidup Analitik.
+
+## Antarmuka
 
 Modul Analytics memberi administrator Cognis wawasan yang sadar privasi tentang kesehatan akun, adopsi, pendaftaran, dan peristiwa milik modul tanpa mengirim telemetri ke layanan analitik pihak ketiga. Modul membaca data akun melalui kapabilitas basis data host dan hanya menyimpan peristiwa yang dikirim ke API log aktivitas miliknya sendiri.
-
-## Contoh penggunaan
-
-Buka bagian **Analytics** di Administrasi Cognis untuk melihat jumlah akun, akun aktif, aktivitas tujuh hari, dormansi 30 hari, distribusi peran, tren pendaftaran, total peristiwa, dan peristiwa terbaru. Pilih rentang 7, 30, atau 90 hari lalu segarkan tampilan untuk memperbarui laporan berbasis waktu.
-
-Gunakan kontrak yang sama melalui CLI:
-
-```sh
-cognisctl modules:analytics:metrics
-cognisctl modules:analytics:series 30
-cognisctl modules:analytics:eventSummary 30
-cognisctl modules:analytics:activityLog 20
-```
-
-Catat peristiwa milik modul dengan metadata JSON opsional:
-
-```sh
-cognisctl modules:analytics:activityLog:record report_exported '{"format":"csv"}'
-```
-
-Klien yang berwenang dapat memakai API HTTP secara langsung:
-
-```http
-GET /api/v1/modules/analytics/metrics?days=30
-GET /api/v1/modules/analytics/series?days=30
-GET /api/v1/modules/analytics/type-summary?days=30
-GET /api/v1/modules/analytics/activity-log?limit=20
-POST /api/v1/modules/analytics/activity-log
-Content-Type: application/json
-
-{"eventType":"report_exported","meta":{"format":"csv"}}
-```
-
-Penulisan yang berhasil mengembalikan HTTP `201` beserta ID peristiwa yang dibuat. Jangan masukkan rahasia, kredensial, isi pesan, atau data pribadi sensitif ke metadata peristiwa.
-
-## Spesifikasi teknis
-
-### Instalasi dan siklus hidup
-
-Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap di direktori modul eksternal yang dikonfigurasi. Manifes mendeklarasikan `bootstrap.js` sebagai satu-satunya titik masuk modul aktif. Cognis memvalidasi setiap sumber runtime sebelum memuatnya, lalu `bootstrapModule(ctx)` mendaftarkan bagian admin dan rute API melalui konteks host tercakup. Semua URL API runtime tetap berada di bawah `/api/v1/modules/analytics`, dan ukuran font antarmuka memakai unit relatif terhadap preferensi, sehingga memenuhi kontrak batas host selama pengaktifan dan pemutakhiran. Analytics tidak memerlukan konfigurasi sebelum pengaktifan; modul yang dinonaktifkan tidak menyediakan API atau UI runtime dan tidak menjalankan bootstrap aktif. Modul memerlukan kapabilitas host `db:executor` dan `auth:accountStore`. Skema peristiwa milik modul dipastikan saat startup; kegagalan inisialisasi dicatat dengan metadata komponen dan operasi yang aman.
-
-Saat mendistribusikan modul, pertahankan `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, migrasi basis data, sumber daya bahasa, dokumentasi, aset, dan hash manifes sebagai satu kesatuan. UUID modul bersifat permanen.
-
-Ilustrasi Marketplace menggunakan berkas yang dideklarasikan oleh `assets.icon` dan `assets.banner` di `manifest.json`; kedua berkas disertakan dalam inventaris paket yang terverifikasi. Banner menempatkan seluruh logo, judul dan grafik di pita tengah yang aman untuk tampilan Cognis dengan tinggi terbatas. Ikon PNG persegi merupakan cuplikan grafik dari banner.
 
 ### Antarmuka administrasi
 
@@ -67,6 +27,20 @@ Semua rute memerlukan peran `admin`.
 - `GET /api/v1/modules/analytics/type-summary?days=<n>` mengembalikan `{ total, uniqueActors, byType }`. Jalur `event-summary` adalah rute kompatibilitas yang setara; UI browser memakai `type-summary` untuk menghindari filter privasi yang memblokir URL berisi `event`.
 - `GET /api/v1/modules/analytics/activity-log?limit=<n>`: Tanpa limit, semua peristiwa yang cocok dikembalikan. Limit eksplisit harus berupa bilangan bulat positif yang aman dan diterapkan tepat; nilai tidak valid menghasilkan 400.
 - `POST /api/v1/modules/analytics/activity-log` menerima `{ eventType, meta }`. Body JSON UTF-8 dibatasi 16 KiB, `eventType` dipangkas dan dibatasi 64 karakter, dan `meta` hanya disimpan jika berupa objek non-array.
+
+## Konfigurasi
+
+Analytics tidak mendeklarasikan formulir preferensi modul. Rentang laporan dan batas daftar eksplisit adalah masukan permintaan, bukan konfigurasi tersimpan. Metrik akun memakai `auth:accountStore`; peristiwa milik modul memakai `db:executor`.
+
+## Perilaku
+
+### Instalasi dan siklus hidup
+
+Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap di direktori modul eksternal yang dikonfigurasi. Manifes mendeklarasikan `bootstrap.js` sebagai satu-satunya titik masuk modul aktif. Cognis memvalidasi setiap sumber runtime sebelum memuatnya, lalu `bootstrapModule(ctx)` mendaftarkan bagian admin dan rute API melalui konteks host tercakup. Semua URL API runtime tetap berada di bawah `/api/v1/modules/analytics`, dan ukuran font antarmuka memakai unit relatif terhadap preferensi, sehingga memenuhi kontrak batas host selama pengaktifan dan pemutakhiran. Analytics tidak memerlukan konfigurasi sebelum pengaktifan; modul yang dinonaktifkan tidak menyediakan API atau UI runtime dan tidak menjalankan bootstrap aktif. Modul memerlukan kapabilitas host `db:executor` dan `auth:accountStore`. Skema peristiwa milik modul dipastikan saat startup; kegagalan inisialisasi dicatat dengan metadata komponen dan operasi yang aman.
+
+Saat mendistribusikan modul, pertahankan `manifest.json`, `package.json`, `package-lock.json`, `routes.json`, `bootstrap.js`, API, CLI, UI, migrasi basis data, sumber daya bahasa, dokumentasi, aset, dan hash manifes sebagai satu kesatuan. UUID modul bersifat permanen.
+
+Ilustrasi Marketplace menggunakan berkas yang dideklarasikan oleh `assets.icon` dan `assets.banner` di `manifest.json`; kedua berkas disertakan dalam inventaris paket yang terverifikasi. Banner menempatkan seluruh logo, judul dan grafik di pita tengah yang aman untuk tampilan Cognis dengan tinggi terbatas. Ikon PNG persegi merupakan cuplikan grafik dari banner.
 
 ### Respons dan kegagalan
 
@@ -105,26 +79,38 @@ Metrik akun dan seri pendaftaran menggunakan `auth:accountStore.list()` dan `get
 
 Operasi HTTP berjalan melalui alur ctx milik modul dengan tahap validasi, eksekusi, dan penyajian. Pengujian menjalankan tahap-tahap ini dan mencegah penyimpanan ketika validasi atau inisialisasi skema gagal.
 
-### Struktur kontributor dan kepemilikan host
-
-Mulai modul baru dari [cognis-module-template](https://github.com/Cognis-Labs-HQ/cognis-module-template); repositori ini mengikuti revisi panduan yang dicatat dalam `AGENTS.md`. `bootstrap.js` mengatur siklus hidup, `api/index.js` menghubungkan dependensi ctx, `api/routes/<domain>/index.js` menangani HTTP, dan `api/reuse/` berisi kode server yang dipakai ulang. Fitur browser berada di `ui/`, gaya di `ui/styles/`, templat bersama di `ui/templates/`, dan dokumentasi terjemahan di `docs/index.<locale>.md`. Riwayat rilis berada di `docs/changelog/` dan dikecualikan dari hash paket. Bagian opsional yang tidak didukung tidak dibuat.
-
-Gunakan kapabilitas ctx publik dan alur yang dideklarasikan; jangan mengimpor bagian internal Cognis atau modul lain. Penyedia kapabilitas dan navigasi dasbor mengekspor `mountProvider(scopedUiCtx)` dan mengembalikan fungsi pembersihan sumber daya miliknya. Impor tidak boleh mendaftarkan perilaku modul. Host menghapus kapabilitas, kait alur, listener, dan status penyedia saat dinonaktifkan, lalu memasang kembali penyedia yang tersimpan saat diaktifkan ulang. Pabrik pengaturan, administrasi, dan penyedia deskriptor footer autentikasi mengikuti kontrak host masing-masing. Uji kontrak dengan pengganti mandiri, jalankan pemeriksaan struktur, perbarui hash setelah perubahan paket terakhir, lalu jalankan lint, pengujian, dan validasi manifes sebelum publikasi.
-
-## Antrean dan Persetujuan
+### Antrean dan Persetujuan
 
 Analytics mencatat aktivitas terautentikasi melalui `POST /api/v1/modules/analytics/activity` dan alur browser `analytics:recordActivity`. Kunci idempotensi per akun mencegah duplikasi dan mempertahankan waktu asli. Navigasi serta tindakan Study hanya menyertakan metadata skalar aman (`component`, `action`, `result`, `count`, `durationMs`); data lain ditolak sebelum disimpan. Laporan memakai hash akun. Penonaktifan penyedia melepas pengirim dan listener.
 
 Host menyediakan `offline:outbox`, `offline:state`, dan `offline:accessPolicy` melalui ctx. Komponen mendaftarkan pengirim selama masa hidup penyedia dan ID operasi stabil melalui `offline:enqueue`; `offline:flush` mengotorisasi dan mengirim. Antrean permanen per akun dibatasi 1.000 catatan dan 1 MB selama tujuh hari, tanpa token. ID serta waktu asli dipertahankan; kegagalan sementara dicoba ulang, catatan yang dikonfirmasi atau ditolak permanen dihapus. Penolakan menampilkan peringatan terlokalisasi. Keluar menghapus antrean akun; pergantian akun tidak mengirim data akun lain. Menonaktifkan Mode Offline menghentikan catatan baru. Antrean lama tetap dapat dikirim saat online.
 
-## Peringatan antrean latar
+### Peringatan antrean latar
 
 Analytics mendaftarkan pemilik pengirimannya dengan `protectOnClose: false` pada antrean host. Rekaman navigasi dan aktivitas tetap tersimpan secara persisten dan dikirim setelah pemulihan terotorisasi, termasuk pemeriksaan koneksi manual, tetapi tidak lagi memicu peringatan penutupan browser. Edit pengguna tetap memakai perlindungan bawaan host. Fitur ini memerlukan kontrak klasifikasi peringatan host yang diperbarui.
 
-## Pembersihan Aktivitas Akun
+### Pembersihan Aktivitas Akun
 
 Hook `analytics:deleteAccountActivity` yang terikat siklus hidup memperluas `deprovision-user` pada `cleanup-dependencies`. Setelah penghapusan akun tersimpan, hook menunggu kesiapan skema dan hanya menghapus peristiwa yang ringkasan akunnya cocok dengan identitas yang dihapus, menggunakan derivasi SHA-256 yang sama dengan pencatatan terautentikasi. Akun lain dan peristiwa administrator anonim tetap utuh. Penonaktifan, pengarsipan, dan permintaan penghapusan yang ditolak mempertahankan aktivitas. Kegagalan dicatat dan diteruskan; host melepas hook saat konteks modul ditutup sebelum pengaktifan ulang.
 
-## Tutorial terpandu
+### Tutorial terpandu
 
-[Tutorial terpandu](tutorials.id.md)
+[Tutorial terpandu](TECHNICAL.id.md)
+
+Pengujian penyedia memeriksa kontrak publik, keempat terjemahan, aturan ketersediaan, pembersihan saat gagal, dan penolakan versi host yang tidak didukung.
+
+Host bersama menyediakan aksi mengambang melalui antreannya. Kunjungan awal menawarkan Berikutnya/Selesai tanpa Batal atau Lewati; pemutaran ulang menawarkan Lewati sebelum tahap terlihat terakhir. Mulai Ulang Tutorial muncul setelah tahap terlihat pertama. Penyelesaian tetap berlaku setelah pembaruan konten. Flag highlightNext hanya mengaktifkan animasi berdenyut untuk penjelasan; pengurangan gerakan menonaktifkannya. Setiap tahap menyorot kontrol nyata berbeda sesuai urutan UI. Panduan tetap terikat ke tampilan aktif, menangani keadaan kosong dan opsional, serta membersihkan sumber daya saat navigasi atau pelepasan pemilik.
+
+### Segarkan sebelum membaca grafik
+
+Latihan rentang waktu mencakup pemilihan rentang dan menekan Segarkan. Tutorial hanya berlanjut setelah semua permintaan laporan dan penguraian respons berhasil serta laporan ditampilkan. Mengubah pilihan saja, permintaan yang gagal, atau menutup bagian tidak melanjutkan tutorial. Setelah penyegaran gagal, kontrol dapat digunakan untuk mencoba lagi; selama penyegaran berlangsung, pilihan rentang dan tombol Segarkan dinonaktifkan sementara.
+
+## Keamanan
+
+Pelaporan agregat memerlukan otorisasi administrator. Penerimaan aktivitas terautentikasi menentukan identitas dari klaim terverifikasi dan menerima metadata aman terbatas. Laporan memakai digest akun, bukan pengenal mentah. Retensi serta penghapusan hanya berlaku pada peristiwa modul dan mempertahankan data akun serta aplikasi lain.
+
+## Referensi
+
+- [manifest.json](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/blob/HEAD/manifest.json)
+- [bootstrap.js](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/blob/HEAD/bootstrap.js)
+- [Cognis](https://github.com/Cognis-Labs-HQ/Cognis/blob/HEAD/src/docs/modules/external/TECHNICAL.en.md)

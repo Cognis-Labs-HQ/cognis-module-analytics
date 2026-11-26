@@ -1,50 +1,10 @@
-# Analytics モジュール
+# 技術情報
+
+利用分析 の公開インターフェース、設定、ライフサイクルを説明します。
+
+## インターフェース
 
 Analytics モジュールは、外部の分析サービスへテレメトリを送信することなく、アカウント状態、利用状況、登録、およびモジュール所有イベントに関するプライバシー重視の情報を Cognis 管理者へ提供します。アカウントデータは公開された `auth:accountStore` Capability 経由で読み取り、モジュール自身のアクティビティログ API に送信されたイベントだけを保存します。
-
-## 使用例
-
-Cognis 管理画面の **Analytics** セクションを開くと、アカウント総数、有効アカウント、過去 7 日間のアクティビティ、30 日間の休眠、ロール分布、登録傾向、イベント合計、最近のイベントを確認できます。7、30、または 90 日の期間を選択し、表示を更新してください。
-
-同じ契約を CLI から利用できます。
-
-```sh
-cognisctl modules:analytics:metrics
-cognisctl modules:analytics:series 30
-cognisctl modules:analytics:eventSummary 30
-cognisctl modules:analytics:activityLog 20
-```
-
-任意の JSON メタデータを付けてモジュール所有イベントを記録します。
-
-```sh
-cognisctl modules:analytics:activityLog:record report_exported '{"format":"csv"}'
-```
-
-認可されたクライアントは HTTP API を直接利用できます。
-
-```http
-GET /api/v1/modules/analytics/metrics?days=30
-GET /api/v1/modules/analytics/series?days=30
-GET /api/v1/modules/analytics/type-summary?days=30
-GET /api/v1/modules/analytics/activity-log?limit=20
-POST /api/v1/modules/analytics/activity-log
-Content-Type: application/json
-
-{"eventType":"report_exported","meta":{"format":"csv"}}
-```
-
-書き込みが成功すると、生成されたイベント ID と HTTP `201` が返ります。イベントメタデータに秘密情報、認証情報、メッセージ本文、または機微な個人データを含めないでください。
-
-## 技術仕様
-
-### インストールとライフサイクル
-
-Cognis Module Marketplace からインストールするか、完全なリポジトリを設定済みの外部モジュールディレクトリへ配置します。マニフェストは、有効なモジュールの唯一のエントリーポイントとして `bootstrap.js` を宣言します。Cognis はすべてのランタイムソースを検証してから読み込み、`bootstrapModule(ctx)` がスコープ付きホストコンテキストを通じて管理セクションと API ルートを登録します。ランタイムの API URL はすべて `/api/v1/modules/analytics` 内に収まり、画面のフォントサイズにはユーザー設定に追従する相対単位を使用するため、有効化時と更新時のホスト境界契約を満たします。Analyticsには有効化前の設定がないため、無効なモジュールは実行時APIや画面を公開せず、有効化用のbootstrapも実行しません。モジュールにはホストの `db:executor` と `auth:accountStore` Capability が必要です。モジュール所有のイベントスキーマは起動時に確保され、初期化失敗は安全なコンポーネントおよび操作メタデータとともに記録されます。
-
-配布時は `manifest.json`、`package.json`、`package-lock.json`、`routes.json`、`bootstrap.js`、API、CLI、UI、データベースマイグレーション、言語リソース、文書、アセット、マニフェストハッシュを一緒に保持してください。モジュール UUID は恒久的です。
-
-Marketplace のアートワークには、`manifest.json` の `assets.icon` と `assets.banner` で宣言されたファイルを使用します。どちらのファイルも検証済みパッケージ一覧に含まれます。 バナーのロゴ、タイトル、グラフ全体を中央の安全領域に収め、Cognis の高さ制限に対応します。正方形 PNG アイコンはバナーのグラフの切り抜きです。
 
 ### 管理インターフェース
 
@@ -67,6 +27,26 @@ UI 文字列はモジュール所有のドイツ語、英語、インドネシ�
 - `GET /api/v1/modules/analytics/type-summary?days=<n>` は `{ total, uniqueActors, byType }` を返します。`event-summary` は同等の互換ルートです。ブラウザー UI は、`event` を含む URL を遮断するプライバシーフィルターを避けるため `type-summary` を使用します。
 - `GET /api/v1/modules/analytics/activity-log?limit=<n>`: limitを省略すると一致するすべてのイベントを返します。指定する場合は正の安全な整数とし、その値を正確に適用します。不正な値は400を返します。
 - `POST /api/v1/modules/analytics/activity-log` は `{ eventType, meta }` を受け取ります。UTF-8 JSON 本文は 16 KiB まで、`eventType` はトリム後 64 文字までで、`meta` は配列ではないオブジェクトの場合だけ保存されます。
+
+## 設定
+
+Analytics はモジュール設定フォームを宣言しません。集計期間や明示的な一覧件数は要求への入力であり、永続設定ではありません。アカウント集計は `auth:accountStore`、モジュールのイベントは `db:executor` を使います。
+
+### 開発者向け構成とホストの責任範囲
+
+新しいモジュールは[cognis-module-template](https://github.com/Cognis-Labs-HQ/cognis-module-template)から作成し、このリポジトリでは`AGENTS.md`に記載されたテンプレート版の指針に従います。`bootstrap.js`はライフサイクルの調整、`api/index.js`はctx依存関係の接続、`api/routes/<domain>/index.js`はHTTP処理、`api/reuse/`は再利用するサーバーコードを担当します。ブラウザー機能は`ui/`、スタイルは`ui/styles/`、再利用するマークアップは`ui/templates/`、翻訳された文書は`docs/TECHNICAL.<locale>.md`に配置します。過去のリリース記録は`docs/changelog/`に置き、パッケージのハッシュ対象から除外します。対応しない任意の領域は作成しません。
+
+公開ctx機能と宣言されたフローを利用し、Cognis内部や他のモジュールをインポートしないでください。ダッシュボードの機能・ナビゲーション提供スクリプトは`mountProvider(scopedUiCtx)`を公開し、所有するリソースの終了処理を返します。インポート時にモジュールの動作を登録してはいけません。ホストは無効化時に機能、フローフック、リスナー、提供状態を解除し、再有効化時にキャッシュ済みスクリプトを再マウントします。設定・管理画面のファクトリーと認証フッターの記述子は、それぞれの公開ホスト契約に従います。独立したテスト用実装で契約を検証し、構成チェックを実行し、最後のパッケージ変更後にハッシュを更新して、公開前にlint、テスト、マニフェスト検証を実行してください。
+
+## 動作
+
+### インストールとライフサイクル
+
+Cognis Module Marketplace からインストールするか、完全なリポジトリを設定済みの外部モジュールディレクトリへ配置します。マニフェストは、有効なモジュールの唯一のエントリーポイントとして `bootstrap.js` を宣言します。Cognis はすべてのランタイムソースを検証してから読み込み、`bootstrapModule(ctx)` がスコープ付きホストコンテキストを通じて管理セクションと API ルートを登録します。ランタイムの API URL はすべて `/api/v1/modules/analytics` 内に収まり、画面のフォントサイズにはユーザー設定に追従する相対単位を使用するため、有効化時と更新時のホスト境界契約を満たします。Analyticsには有効化前の設定がないため、無効なモジュールは実行時APIや画面を公開せず、有効化用のbootstrapも実行しません。モジュールにはホストの `db:executor` と `auth:accountStore` Capability が必要です。モジュール所有のイベントスキーマは起動時に確保され、初期化失敗は安全なコンポーネントおよび操作メタデータとともに記録されます。
+
+配布時は `manifest.json`、`package.json`、`package-lock.json`、`routes.json`、`bootstrap.js`、API、CLI、UI、データベースマイグレーション、言語リソース、文書、アセット、マニフェストハッシュを一緒に保持してください。モジュール UUID は恒久的です。
+
+Marketplace のアートワークには、`manifest.json` の `assets.icon` と `assets.banner` で宣言されたファイルを使用します。どちらのファイルも検証済みパッケージ一覧に含まれます。 バナーのロゴ、タイトル、グラフ全体を中央の安全領域に収め、Cognis の高さ制限に対応します。正方形 PNG アイコンはバナーのグラフの切り抜きです。
 
 ### 応答と障害
 
@@ -105,26 +85,34 @@ Cognis がモジュールをアンインストールする際、コンテンツ�
 
 HTTP操作は、検証・実行・表示のステージを持つモジュール所有のctxフローを通じて実行します。テストはこれらのステージを実行し、検証やスキーマ初期化が失敗した場合に保存が行われないことを確認します。
 
-### 開発者向け構成とホストの責任範囲
-
-新しいモジュールは[cognis-module-template](https://github.com/Cognis-Labs-HQ/cognis-module-template)から作成し、このリポジトリでは`AGENTS.md`に記載されたテンプレート版の指針に従います。`bootstrap.js`はライフサイクルの調整、`api/index.js`はctx依存関係の接続、`api/routes/<domain>/index.js`はHTTP処理、`api/reuse/`は再利用するサーバーコードを担当します。ブラウザー機能は`ui/`、スタイルは`ui/styles/`、再利用するマークアップは`ui/templates/`、翻訳された文書は`docs/index.<locale>.md`に配置します。過去のリリース記録は`docs/changelog/`に置き、パッケージのハッシュ対象から除外します。対応しない任意の領域は作成しません。
-
-公開ctx機能と宣言されたフローを利用し、Cognis内部や他のモジュールをインポートしないでください。ダッシュボードの機能・ナビゲーション提供スクリプトは`mountProvider(scopedUiCtx)`を公開し、所有するリソースの終了処理を返します。インポート時にモジュールの動作を登録してはいけません。ホストは無効化時に機能、フローフック、リスナー、提供状態を解除し、再有効化時にキャッシュ済みスクリプトを再マウントします。設定・管理画面のファクトリーと認証フッターの記述子は、それぞれの公開ホスト契約に従います。独立したテスト用実装で契約を検証し、構成チェックを実行し、最後のパッケージ変更後にハッシュを更新して、公開前にlint、テスト、マニフェスト検証を実行してください。
-
-## 送信待ちと同意
+### 送信待ちと同意
 
 Analytics は `POST /api/v1/modules/analytics/activity` とブラウザーフロー `analytics:recordActivity` で認証済みの活動を記録します。アカウント別の冪等キーで重複を防ぎ、元の発生時刻を維持します。移動と Study 操作には安全なスカラーメタデータ（`component`、`action`、`result`、`count`、`durationMs`）のみを含め、その他のデータは保存前に拒否します。レポートのアカウントはハッシュ化されます。無効化すると送信処理とリスナーを解除します。
 
 ホストは ctx 経由で `offline:outbox`、`offline:state`、`offline:accessPolicy` を提供します。各コンポーネントはプロバイダーの有効期間中に送信処理を登録し、安定した操作 ID を `offline:enqueue` に渡します。`offline:flush` が認可と送信を行います。永続キューはアカウント別で最大 1,000 件・1 MB・7 日間、トークンは保存しません。元の ID と時刻を維持し、一時的な失敗を再試行し、確認済みまたは恒久的に拒否された項目を削除します。拒否は翻訳済みの警告で通知します。ログアウトで当該アカウントのキューを消去し、他のアカウントのデータは送信しません。オフラインモードを無効にすると新規保存を停止します。既存の項目はオンラインで送信できます。
 
-## バックグラウンド送信と警告
+### バックグラウンド送信と警告
 
 Analytics はホストの送信キューに `protectOnClose: false` を指定して登録します。ナビゲーションと活動のデータは永続キューに維持し、手動の接続確認を含む認可済み復旧後に送信しますが、ブラウザーの終了警告は発生させません。ユーザー編集には引き続きホストの既定の保護を適用します。更新されたホストの終了警告分類契約が必要です。
 
-## アカウント活動の削除
+### アカウント活動の削除
 
 ライフサイクルに紐付く `analytics:deleteAccountActivity` フックは、`deprovision-user` の `cleanup-dependencies` を拡張します。アカウントの削除が永続化された後、スキーマの準備を待ち、削除された識別情報のダイジェストに一致するイベントのみを削除します。認証済み活動の記録と同じ SHA-256 導出を使用します。他のアカウントと匿名の管理者イベントは保持されます。無効化、アーカイブ、拒否された削除要求では活動を保持します。失敗は記録して呼び出し元に伝え、再有効化の前にホストがモジュールの終了処理でフックを解除します。
 
-## ガイド付きチュートリアル
+プロバイダーテストでは公開契約、4 言語の翻訳、利用条件、失敗時の後処理、未対応ホストバージョンの拒否を確認します。
 
-[ガイド付きチュートリアル](tutorials.ja.md)
+ホスト共通の待ち行列でフローティング操作を提供します。初回は次へ・完了のみで中止やスキップはなく、再実行では最後の表示ステップより前にスキップを使えます。最初の表示ステップの後から再開始できます。内容の更新後も完了を維持します。明示的な highlightNext は説明ステップの呼吸するようなアニメーションだけを有効にし、動きを減らす設定では停止します。各段階は表示順に沿って異なる実操作を強調します。ガイドは現在の画面に結び付き、空や省略可能な状態を扱い、移動や所有者解除で後処理を行います。
+
+### グラフを読む前に更新
+
+期間を選び、「更新」を押すまでを期間設定の練習として案内します。すべてのレポート取得とレスポンスの解析が成功し、レポートを描画してから次へ進みます。選択の変更だけでは進まず、取得の失敗やセクションを閉じた後の処理完了でも進みません。失敗した場合は操作を再試行でき、更新中は期間の選択と更新ボタンを一時的に無効にします。
+
+## セキュリティ
+
+集計レポートには管理者権限が必要です。認証済みの活動記録は検証済みの認証情報から主体を決め、制限された安全なメタデータだけを受け付けます。レポートには生のアカウント ID ではなくダイジェストを使います。保持と削除は自身のイベントだけを対象とし、他のアカウント情報やアプリのレコードを維持します。
+
+## リファレンス
+
+- [manifest.json](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/blob/HEAD/manifest.json)
+- [bootstrap.js](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/blob/HEAD/bootstrap.js)
+- [Cognis](https://github.com/Cognis-Labs-HQ/Cognis/blob/HEAD/src/docs/modules/external/TECHNICAL.en.md)
