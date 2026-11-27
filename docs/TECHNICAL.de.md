@@ -30,6 +30,8 @@ Die Marketplace-Grafiken verwenden die in `manifest.json` unter `assets.icon` un
 
 ## Verhalten
 
+Berichtsbereiche verwenden den Host-Composer-Hook `data-composer-layout="compact"` für schmale Inhalte. Kompakte Ereignisübersichten zeigen jeden Balken unter Bezeichnung und Anzahl; Summen und Filter brechen um. Ereignistabellen behalten feste Spaltenanteile bei und erlauben in kompakten Ansichten den Umbruch von Zeitstempeln. Die Regeln gelten für moduleigene Berichtsinhalte und berücksichtigen die Theme- und Textgrößeneinstellungen des Hosts.
+
 ### Administrationsoberfläche
 
 Der Admin-Bereich ist auf die Rolle `admin` beschränkt. Er zeigt:

@@ -42,6 +42,8 @@ The marketplace artwork uses the files declared by `assets.icon` and `assets.ban
 
 ## Behavior
 
+Report panels use the host Composer’s `data-composer-layout="compact"` hook for narrow content. Compact event summaries place each bar below its label and count; totals and filters wrap. Event tables retain fixed column proportions and wrap timestamps in compact views. These rules apply to the module-owned report content and preserve host theme and text-size settings.
+
 ### Responses and failures
 
 Successful reads return HTTP `200` with a `data` property. If event storage is unavailable, event-summary and activity-log reads return safe empty results; metrics and series return `503`. Invalid JSON or a missing event type returns `400`, an oversized body returns `413`, and an event write without storage returns `503`. Query or write failures return a generic safe error and do not expose internal details. Query and schema failures are logged through the host logger.

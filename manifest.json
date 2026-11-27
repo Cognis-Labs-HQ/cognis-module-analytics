@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.2.9",
+    "version": "2.2.10",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -216,19 +216,19 @@
         },
         {
             "path": "docs/TECHNICAL.de.md",
-            "sha256": "f8ccbe0f32705f9261f56d9b7dcb5a978b2fddb53a35c4bcb7231017cfe5776d"
+            "sha256": "787783dc2371998ad60debff6fe22d453e8e73f4f9c21c64ec4b629cdb47e48a"
         },
         {
             "path": "docs/TECHNICAL.en.md",
-            "sha256": "c7113cd59d6bd5f0b70ead10c2e59f0107ea93af1b7d76a0887835929ae3d7be"
+            "sha256": "82b92aa7d4d3503627c6b75e8c61e0be901293314b42b464c75dd5a36766d840"
         },
         {
             "path": "docs/TECHNICAL.id.md",
-            "sha256": "ef07d53706446a6320396ecc869e9384dc7ea061090150aca2c94c83d5d54513"
+            "sha256": "b1f050dfa520607c14f0cb4f7157080299f3031dbd8c18bd0e2723ac9b7c6f4d"
         },
         {
             "path": "docs/TECHNICAL.ja.md",
-            "sha256": "52a780e93705a11e4f188fa180324255183249fa22373c24b9e05dfe94425ee3"
+            "sha256": "4b75564a9166ffb3f912cef76fa4a02ad672fafe9ecd300c62f4029d085a8465"
         },
         {
             "path": "docs/USAGE.de.md",
@@ -248,11 +248,11 @@
         },
         {
             "path": "package-lock.json",
-            "sha256": "86f83a4bb8c3030cdec3a3ca8a53e045124ed29cc2983210b322d0b84506f4d3"
+            "sha256": "b34e26e1cd3ae4a70ebdd5c36971b1ef825bae46dd6bc36bb325706ffa28d452"
         },
         {
             "path": "package.json",
-            "sha256": "51d52bb4d61ff1f917e012f54e78e1cecb6c4e5a936429e2e50612648ee35cd1"
+            "sha256": "1ed2a58a2869028eef592b844124f69d7942aca76b9037b576b1093dd0e165be"
         },
         {
             "path": "routes.json",
@@ -360,7 +360,7 @@
         },
         {
             "path": "ui/styles/admin-section.css",
-            "sha256": "ea044e2118f4039dc05696fadc63f3f98783a1ef1a35456cb883cdcc7b030dba"
+            "sha256": "e61d95522ba9d335005e3d16aa0023c034ea3b812002948bda2e7dba27669d94"
         },
         {
             "path": "ui/tests/activity-provider.test.js",

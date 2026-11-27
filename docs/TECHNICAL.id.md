@@ -34,6 +34,8 @@ Analytics tidak mendeklarasikan formulir preferensi modul. Rentang laporan dan b
 
 ## Perilaku
 
+Panel laporan memakai hook Composer host `data-composer-layout="compact"` untuk konten sempit. Ringkasan peristiwa yang ringkas menempatkan setiap bilah di bawah label dan jumlah; total serta filter dapat berpindah baris. Tabel peristiwa mempertahankan proporsi kolom tetap dan membungkus stempel waktu pada tampilan ringkas. Aturan ini berlaku pada konten laporan milik modul dan mempertahankan pengaturan tema serta ukuran teks host.
+
 ### Instalasi dan siklus hidup
 
 Instal modul melalui Cognis Module Marketplace atau tempatkan repositori lengkap di direktori modul eksternal yang dikonfigurasi. Manifes mendeklarasikan `bootstrap.js` sebagai satu-satunya titik masuk modul aktif. Cognis memvalidasi setiap sumber runtime sebelum memuatnya, lalu `bootstrapModule(ctx)` mendaftarkan bagian admin dan rute API melalui konteks host tercakup. Semua URL API runtime tetap berada di bawah `/api/v1/modules/analytics`, dan ukuran font antarmuka memakai unit relatif terhadap preferensi, sehingga memenuhi kontrak batas host selama pengaktifan dan pemutakhiran. Analytics tidak memerlukan konfigurasi sebelum pengaktifan; modul yang dinonaktifkan tidak menyediakan API atau UI runtime dan tidak menjalankan bootstrap aktif. Modul memerlukan kapabilitas host `db:executor` dan `auth:accountStore`. Skema peristiwa milik modul dipastikan saat startup; kegagalan inisialisasi dicatat dengan metadata komponen dan operasi yang aman.
