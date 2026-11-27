@@ -30,17 +30,17 @@ function buildBarChart(series, { i18n, escapeHtml }) {
 
     const gridLines = yLevels
         .map((value) => {
-            const yPos =
+            const verticalPosition =
                 paddingTop + barAreaHeight - (value / maxCount) * barAreaHeight;
-            return `<line x1="${paddingLeft}" y1="${yPos.toFixed(1)}" x2="${(chartWidth - paddingRight).toFixed(1)}" y2="${yPos.toFixed(1)}" class="analytics-chart-grid" />`;
+            return `<line x1="${paddingLeft}" y1="${verticalPosition.toFixed(1)}" x2="${(chartWidth - paddingRight).toFixed(1)}" y2="${verticalPosition.toFixed(1)}" class="analytics-chart-grid" />`;
         })
         .join("");
 
     const yLabels = yLevels
         .map((value) => {
-            const yPos =
+            const verticalPosition =
                 paddingTop + barAreaHeight - (value / maxCount) * barAreaHeight;
-            return `<text x="${paddingLeft - 4}" y="${(yPos + 4).toFixed(1)}" text-anchor="end" class="analytics-chart-label">${value}</text>`;
+            return `<text x="${paddingLeft - 4}" y="${(verticalPosition + 4).toFixed(1)}" text-anchor="end" class="analytics-chart-label">${value}</text>`;
         })
         .join("");
 
@@ -269,11 +269,11 @@ export async function createAdminSection({
     let activeDays = 30;
     let isLoading = false;
 
-    let statsEl = null;
-    let chartEl = null;
-    let eventsEl = null;
-    let eventSummaryEl = null;
-    let applyBtn = null;
+    let statsElement = null;
+    let chartElement = null;
+    let eventsElement = null;
+    let eventSummaryElement = null;
+    let applyButton = null;
     let sectionController;
 
     async function fetchData(days, signal) {
@@ -345,38 +345,42 @@ export async function createAdminSection({
     }
 
     function updateView() {
-        if (statsEl instanceof HTMLElement) {
-            statsEl.innerHTML = renderStats();
+        if (statsElement instanceof HTMLElement) {
+            statsElement.innerHTML = renderStats();
         }
-        if (chartEl instanceof HTMLElement) {
-            chartEl.innerHTML = renderChart();
+        if (chartElement instanceof HTMLElement) {
+            chartElement.innerHTML = renderChart();
         }
-        if (eventsEl instanceof HTMLElement) {
-            eventsEl.innerHTML = renderEvents();
+        if (eventsElement instanceof HTMLElement) {
+            eventsElement.innerHTML = renderEvents();
         }
-        if (eventSummaryEl instanceof HTMLElement) {
-            eventSummaryEl.innerHTML = renderEventSummary();
+        if (eventSummaryElement instanceof HTMLElement) {
+            eventSummaryElement.innerHTML = renderEventSummary();
         }
     }
 
-    function bindSection(rootEl) {
+    function bindSection(rootElement) {
         unbindSection();
         const controller = new AbortController();
         sectionController = controller;
-        statsEl = rootEl.querySelector(".analytics-stats");
-        chartEl = rootEl.querySelector(".analytics-chart-wrap");
-        eventsEl = rootEl.querySelector(".analytics-events-wrap");
-        eventSummaryEl = rootEl.querySelector(".analytics-event-summary-wrap");
-        applyBtn = rootEl.querySelector(".analytics-apply");
+        statsElement = rootElement.querySelector(".analytics-stats");
+        chartElement = rootElement.querySelector(".analytics-chart-wrap");
+        eventsElement = rootElement.querySelector(".analytics-events-wrap");
+        eventSummaryElement = rootElement.querySelector(
+            ".analytics-event-summary-wrap",
+        );
+        applyButton = rootElement.querySelector(".analytics-apply");
 
-        const rangeSelect = rootEl.querySelector('[name="analyticsRange"]');
+        const rangeSelect = rootElement.querySelector(
+            '[name="analyticsRange"]',
+        );
 
         if (rangeSelect instanceof HTMLSelectElement) {
             rangeSelect.value = String(activeDays);
         }
 
-        if (applyBtn instanceof HTMLButtonElement) {
-            const button = applyBtn;
+        if (applyButton instanceof HTMLButtonElement) {
+            const button = applyButton;
             controller.signal.addEventListener(
                 "abort",
                 () => {
@@ -403,7 +407,7 @@ export async function createAdminSection({
                         controller.signal.throwIfAborted();
                         activeDays = days;
                         updateView();
-                        rootEl
+                        rootElement
                             .querySelector(".analytics-filter-row")
                             ?.dispatchEvent(
                                 new CustomEvent("analytics:reportUpdated", {
@@ -430,11 +434,11 @@ export async function createAdminSection({
         sectionController?.abort();
         sectionController = undefined;
         isLoading = false;
-        statsEl = null;
-        chartEl = null;
-        eventsEl = null;
-        eventSummaryEl = null;
-        applyBtn = null;
+        statsElement = null;
+        chartElement = null;
+        eventsElement = null;
+        eventSummaryElement = null;
+        applyButton = null;
     }
 
     return {
@@ -482,8 +486,8 @@ export async function createAdminSection({
                     `,
                 },
             ],
-            onRender: (rootEl) => {
-                bindSection(rootEl);
+            onRender: (rootElement) => {
+                bindSection(rootElement);
             },
             onUnmount: () => {
                 unbindSection();

@@ -19,8 +19,10 @@ export function registerCommands({ register, apiGet, apiPost }) {
 export function registerActivityCommands({ register, apiGet, apiPost }) {
     register(
         "modules:analytics:series",
-        async ({ args, apiBaseUrl, getApiToken }) => {
-            const days = args[0] ? `?days=${encodeURIComponent(args[0])}` : "";
+        async ({ args: argumentsList, apiBaseUrl, getApiToken }) => {
+            const days = argumentsList[0]
+                ? `?days=${encodeURIComponent(argumentsList[0])}`
+                : "";
             return apiGet(
                 apiBaseUrl,
                 `/api/v1/modules/analytics/series${days}`,
@@ -35,9 +37,9 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
 
     register(
         "modules:analytics:activityLog",
-        async ({ args, apiBaseUrl, getApiToken }) => {
-            const limit = args[0]
-                ? `?limit=${encodeURIComponent(args[0])}`
+        async ({ args: argumentsList, apiBaseUrl, getApiToken }) => {
+            const limit = argumentsList[0]
+                ? `?limit=${encodeURIComponent(argumentsList[0])}`
                 : "";
             return apiGet(
                 apiBaseUrl,
@@ -54,8 +56,10 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
 
     register(
         "modules:analytics:eventSummary",
-        async ({ args, apiBaseUrl, getApiToken }) => {
-            const days = args[0] ? `?days=${encodeURIComponent(args[0])}` : "";
+        async ({ args: argumentsList, apiBaseUrl, getApiToken }) => {
+            const days = argumentsList[0]
+                ? `?days=${encodeURIComponent(argumentsList[0])}`
+                : "";
             return apiGet(
                 apiBaseUrl,
                 `/api/v1/modules/analytics/event-summary${days}`,
@@ -71,17 +75,19 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
 
     register(
         "modules:analytics:activityLog:record",
-        async ({ args, apiBaseUrl, getApiToken }) => {
-            if (!args[0]) {
+        async ({ args: argumentsList, apiBaseUrl, getApiToken }) => {
+            if (!argumentsList[0]) {
                 throw new Error(
                     "Not enough arguments (missing: event-type)\n\nUsage:\n  cognisctl modules:analytics:activityLog:record <event-type> [meta-json]",
                 );
             }
-            const meta = args[1] ? JSON.parse(args[1]) : null;
+            const metadata = argumentsList[1]
+                ? JSON.parse(argumentsList[1])
+                : null;
             return apiPost(
                 apiBaseUrl,
                 "/api/v1/modules/analytics/activity-log",
-                { eventType: args[0], meta },
+                { eventType: argumentsList[0], meta: metadata },
                 await getApiToken(),
             );
         },

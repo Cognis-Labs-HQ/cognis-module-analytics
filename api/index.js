@@ -87,7 +87,8 @@ export function registerApiRoutes(router, ctx) {
                 validate: ([id, eventType]) => {
                     if (!id || !eventType) throw new Error("invalid_event");
                 },
-                execute: (...args) => store.recordEvent(...args),
+                execute: (...argumentsList) =>
+                    store.recordEvent(...argumentsList),
             },
         },
         ready,

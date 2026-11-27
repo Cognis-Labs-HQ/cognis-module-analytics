@@ -118,3 +118,7 @@ Analytics はホストの送信キューに `protectOnClose: false` を指定し
 - [manifest.json](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/blob/HEAD/manifest.json)
 - [bootstrap.js](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/blob/HEAD/bootstrap.js)
 - [Cognis](https://github.com/Cognis-Labs-HQ/Cognis/blob/HEAD/src/docs/modules/external/TECHNICAL.en.md)
+
+### 名前の検証
+
+`npm test` はローカルの構文木検出器で、bootstrap、スクリプト、テスト、フィクスチャを含むバインディング名を検証します。構文解析エラーがある場合、検証は失敗します。回帰検証用フィクスチャは、宣言、引数、プライベートメンバー、TypeScript の型アサーション、有効な型専用名を検証します。共通方針は[ホストの命名標準](https://github.com/Cognis-Labs-HQ/Cognis/blob/HEAD/src/docs/standard/TECHNICAL.ja.md#バインディング名)を参照してください。

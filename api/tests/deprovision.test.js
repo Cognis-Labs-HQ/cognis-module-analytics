@@ -73,7 +73,7 @@ function fixture() {
             router: { get() {}, post() {} },
             registerCapabilityProvider() {},
             registerAdminSection() {},
-            log: (...args) => logs.push(args),
+            log: (...argumentsList) => logs.push(argumentsList),
         };
         bootstrapModule(ctx);
         return () => {
@@ -134,8 +134,9 @@ test("persisted account deletion removes only its authenticated activity digest"
     assert.match(deletion.where[0].value, /^[a-f0-9]{64}$/);
     assert.ok(
         state.logs.some(
-            ([level, , meta]) =>
-                level === "info" && meta.operation === "deleteAccountActivity",
+            ([level, , metadata]) =>
+                level === "info" &&
+                metadata.operation === "deleteAccountActivity",
         ),
     );
     dispose();
@@ -173,8 +174,9 @@ test("cleanup errors propagate with safe logging and preserve records", async ()
     assert.equal(state.rows.size, 1);
     assert.ok(
         state.logs.some(
-            ([level, , meta]) =>
-                level === "error" && meta.operation === "deleteAccountActivity",
+            ([level, , metadata]) =>
+                level === "error" &&
+                metadata.operation === "deleteAccountActivity",
         ),
     );
     dispose();

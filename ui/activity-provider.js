@@ -71,12 +71,12 @@ export function mountProvider(ctx) {
     );
     const record = async (
         eventType,
-        meta = {},
+        metadata = {},
         eventId = crypto.randomUUID(),
         occurredAt = new Date().toISOString(),
     ) => {
         ctx.signal.throwIfAborted();
-        const activity = { eventType, meta, eventId, occurredAt };
+        const activity = { eventType, meta: metadata, eventId, occurredAt };
         return (await ctx.runFlow("analytics:recordActivity", activity)).data
             .result;
     };
