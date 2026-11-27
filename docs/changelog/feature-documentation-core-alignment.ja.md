@@ -14,7 +14,12 @@ Info、使用例、技術情報を、マニフェストで宣言する完全な�
 
 レポートの行は Composer のコンパクト表示を使い、イベントの棒を名前と件数の下に置きます。集計とフィルターは折り返し、列比率を固定したイベント表は狭い画面で日時を折り返して、ホストの文字とテーマの設定に従います。
 
+## 役割が分かるバインディング名
+
+モジュールのバインディングを役割が分かる名前にし、公開 API 名、ペイロードのキー、インポート先を維持します。行単位の検証を構文木検証に置き換え、bootstrap、スクリプト、テスト、フィクスチャを走査します。共通の60件の回帰検証用フィクスチャで、宣言、分割代入、引数、プライベートメンバー、enum と名前空間のバインディング、TypeScript の型アサーション、許可された型識別名を検証します。コンポーネントの指針と4言語の技術文書は同じ方針を説明し、バージョン、ロックファイル、パッケージのハッシュを同期します。
+
 ## コミット
 
 - [3e91917](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/3e9191776d8df2cb1a3e0f57b18efd76a124b894)
 - [5cf0109](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/5cf0109d1f912d473d87a82758ac2aca033a8ddf)
+- [278e8c9](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/278e8c9371ad3dd631671314d29ef1fce8b541c3)

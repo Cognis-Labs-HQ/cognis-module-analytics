@@ -14,7 +14,12 @@ Laufzeitdiagnosen verwenden das Logging-Gateway des Hosts und dessen Ausgaberich
 
 Berichtszeilen verwenden die kompakte Composer-Darstellung und zeigen Ereignisbalken unter Bezeichnung und Anzahl. Summen und Filter brechen um; Tabellen mit festen Spaltenanteilen erlauben den Umbruch von Zeitstempeln auf schmalen Bildschirmen und behalten die Schrift- und Theme-Einstellungen des Hosts bei.
 
+## Aussagekräftige Bindungsnamen
+
+Die Bindungen des Moduls verwenden aussagekräftige Rollennamen; öffentliche API-Bezeichnungen, Nutzdatenschlüssel und Importziele bleiben erhalten. Die Syntaxbaumprüfung erfasst Bootstrap, Skripte, Tests und Testdaten und ersetzt die zeilenbasierte Prüfung. Sechzig gemeinsame Regressionstestfälle decken Deklarationen, Destrukturierungen, Parameter, private Mitglieder, Enum-/Namensraumbindungen, TypeScript-Typzusicherungen und zulässige Typbezeichner ab. Komponentenanweisungen und technische Handbücher in vier Sprachen beschreiben dieselben Regeln; Versionen, Sperrdateien und Paketprüfsummen sind synchronisiert.
+
 ## Änderungen
 
 - [3e91917](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/3e9191776d8df2cb1a3e0f57b18efd76a124b894)
 - [5cf0109](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/5cf0109d1f912d473d87a82758ac2aca033a8ddf)
+- [278e8c9](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/278e8c9371ad3dd631671314d29ef1fce8b541c3)
