@@ -16,7 +16,7 @@ Info、使用例、技術情報を、マニフェストで宣言する完全な�
 
 ## 役割が分かるバインディング名
 
-構文木による名前検証は、既存違反やファイル別の除外を設けず、JavaScript と TypeScript のソース、ツール、テスト、フィクスチャを走査します。実行時バインディング、シグネチャの引数名、非公開メンバー、所有する複合型名とメソッド名を検証します。`db`、`this.db`、`args`、LDAP の `dn` など、一般的な短縮形は独立した名前に使用できます。上流から引き継いだ名前も含め、複合名の省略語は `DatabaseExecutor`、`KeyringDatabaseExecutor`、`createDatabaseExecutor`、`baseDistinguishedName`、`registerStaticDirectory` のように展開します。不明瞭な省略名、番号付きの仮名、無視するバインディングの値の使用は検証に失敗します。未使用かつ非公開の `_`、`id`、算術カウンター `i`・`j`・`k` は定義された役割を維持します。ジェネリック型パラメーター、依存ライブラリーやプラットフォームの正規名、公開ペイロードのキーは契約を維持します。所有する API の宣言、インポート、エクスポート、呼び出し元は同じ名前を使用し、型を含めて名前を変えるだけの別名は検証に失敗します。回帰フィクスチャで独立名と複合名の区別、およびプラットフォーム API の正規名を保護します。各言語の技術文書、貢献指針、モジュールのバージョン、ロックファイル、パッケージのハッシュを同期します。
+構文木による名前検証は、既存違反やファイル別の除外を設けず、JavaScript と TypeScript のソース、ツール、テスト、フィクスチャを走査します。実行時バインディング、シグネチャの引数名、非公開メンバー、所有する複合型名とメソッド名を検証します。`db`、`this.db`、`args`、LDAP の `dn` など、一般的な短縮形は独立した名前に使用できます。上流から引き継いだ名前も含め、複合名の測定単位以外の省略語は `DatabaseExecutor`、`KeyringDatabaseExecutor`、`createDatabaseExecutor`、`baseDistinguishedName`、`registerStaticDirectory` のように展開します。不明瞭な省略名、番号付きの仮名、無視するバインディングの値の使用は検証に失敗します。未使用かつ非公開の `_`、`id`、算術カウンター `i`・`j`・`k` は定義された役割を維持します。ジェネリック型パラメーター、依存ライブラリーやプラットフォームの正規名、公開ペイロードのキーは契約を維持します。所有する API の宣言、インポート、エクスポート、呼び出し元は同じ名前を使用し、型を含めて名前を変えるだけの別名は検証に失敗します。回帰フィクスチャで独立名と複合名の区別、およびプラットフォーム API の正規名を保護します。各言語の技術文書、貢献指針、モジュールのバージョン、ロックファイル、パッケージのハッシュを同期します。`ms`、`sec`、`px`、`rad`、`deg` などの測定単位は複合名でも短縮形を維持し、時間とピクセルの名前を `INVITE_EXPIRY_MS`、`timeoutMs`、`widthPx` などの形式に戻します。回帰フィクスチャで単位の例外を検証し、隣接する不明瞭な省略語は引き続き拒否します。
 
 ## コミット
 
@@ -25,3 +25,4 @@ Info、使用例、技術情報を、マニフェストで宣言する完全な�
 - [278e8c9](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/278e8c9371ad3dd631671314d29ef1fce8b541c3)
 - [9ae1d59](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/9ae1d590121911358a6a7aa6666d1b8e5f3299b7)
 - [c0cf61b](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/c0cf61b731fc0a709e187fef06067d98b9375aee)
+- [d6f2060](https://github.com/Cognis-Labs-HQ/cognis-module-analytics/commit/d6f2060e9b2c06821febc6bc94fc4798b5f4cae2)
