@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 
-function sendJson(response, status, payload) {
-    response.writeHead(status, { "content-type": "application/json" });
-    response.end(JSON.stringify(payload));
+function sendJson(res, status, payload) {
+    res.writeHead(status, { "content-type": "application/json" });
+    res.end(JSON.stringify(payload));
 }
 
 function readRange(request, response, name, fallback, maximum) {
@@ -32,12 +32,12 @@ export function registerActivityRoutes(
     router,
     { accountStore, store, service, logFailure },
 ) {
-    const getEventSummary = async (request, response) => {
-        const days = readRange(request, response, "days", 30, 365);
+    const getEventSummary = async (req, res) => {
+        const days = readRange(req, res, "days", 30, 365);
         if (days === null) return;
 
         if (!store) {
-            sendJson(response, 200, {
+            sendJson(res, 200, {
                 data: { total: 0, uniqueActors: 0, byType: [] },
             });
             return;
@@ -45,10 +45,10 @@ export function registerActivityRoutes(
 
         try {
             const summary = await service.summary(days);
-            sendJson(response, 200, { data: summary });
+            sendJson(res, 200, { data: summary });
         } catch {
             logFailure("summarize-events");
-            sendJson(response, 500, {
+            sendJson(res, 500, {
                 error: {
                     code: "query_failed",
                     message: "Failed to summarize events.",
@@ -68,12 +68,12 @@ export function registerActivityRoutes(
 
     router.get(
         "/api/v1/modules/analytics/metrics",
-        async (request, response) => {
-            const days = readRange(request, response, "days", 30, 365);
+        async (req, res) => {
+            const days = readRange(req, res, "days", 30, 365);
             if (days === null) return;
 
             if (!accountStore) {
-                sendJson(response, 503, {
+                sendJson(res, 503, {
                     error: {
                         code: "db_unavailable",
                         message: "Database is not available.",
@@ -84,10 +84,10 @@ export function registerActivityRoutes(
 
             try {
                 const metrics = await service.metrics(days);
-                sendJson(response, 200, { data: metrics });
+                sendJson(res, 200, { data: metrics });
             } catch {
                 logFailure("compute-metrics");
-                sendJson(response, 500, {
+                sendJson(res, 500, {
                     error: {
                         code: "query_failed",
                         message: "Failed to compute analytics metrics.",
@@ -100,12 +100,12 @@ export function registerActivityRoutes(
 
     router.get(
         "/api/v1/modules/analytics/series",
-        async (request, response) => {
-            const days = readRange(request, response, "days", 30, 365);
+        async (req, res) => {
+            const days = readRange(req, res, "days", 30, 365);
             if (days === null) return;
 
             if (!accountStore) {
-                sendJson(response, 503, {
+                sendJson(res, 503, {
                     error: {
                         code: "db_unavailable",
                         message: "Database is not available.",
@@ -116,10 +116,10 @@ export function registerActivityRoutes(
 
             try {
                 const series = await service.series(days);
-                sendJson(response, 200, { data: series });
+                sendJson(res, 200, { data: series });
             } catch {
                 logFailure("compute-series");
-                sendJson(response, 500, {
+                sendJson(res, 500, {
                     error: {
                         code: "query_failed",
                         message: "Failed to compute registration series.",
@@ -132,21 +132,21 @@ export function registerActivityRoutes(
 
     router.get(
         "/api/v1/modules/analytics/activity-log",
-        async (request, response) => {
-            const limit = readRange(request, response, "limit");
+        async (req, res) => {
+            const limit = readRange(req, res, "limit");
             if (limit === null) return;
 
             if (!store) {
-                sendJson(response, 200, { data: [] });
+                sendJson(res, 200, { data: [] });
                 return;
             }
 
             try {
                 const events = await service.recentEvents(limit);
-                sendJson(response, 200, { data: events });
+                sendJson(res, 200, { data: events });
             } catch {
                 logFailure("read-activity-log");
-                sendJson(response, 200, { data: [] });
+                sendJson(res, 200, { data: [] });
             }
         },
         { access: { minRole: "admin" } },
@@ -154,9 +154,9 @@ export function registerActivityRoutes(
 
     router.post(
         "/api/v1/modules/analytics/activity-log",
-        async (request, response) => {
+        async (req, res) => {
             if (!store) {
-                sendJson(response, 503, {
+                sendJson(res, 503, {
                     error: {
                         code: "db_unavailable",
                         message: "Database is not available.",
@@ -169,11 +169,11 @@ export function registerActivityRoutes(
             try {
                 const chunks = [];
                 let bodySize = 0;
-                for await (const chunk of request) {
+                for await (const chunk of req) {
                     chunks.push(chunk);
                     bodySize += chunk.length;
                     if (bodySize > MAX_EVENT_BODY_BYTES) {
-                        sendJson(response, 413, {
+                        sendJson(res, 413, {
                             error: {
                                 code: "body_too_large",
                                 message: "Request body is too large.",
@@ -185,7 +185,7 @@ export function registerActivityRoutes(
                 body = JSON.parse(Buffer.concat(chunks).toString("utf8"));
             } catch {
                 logFailure("record-activity");
-                sendJson(response, 400, {
+                sendJson(res, 400, {
                     error: {
                         code: "invalid_body",
                         message: "Invalid JSON body.",
@@ -198,7 +198,7 @@ export function registerActivityRoutes(
                 .trim()
                 .slice(0, 64);
             if (!eventType) {
-                sendJson(response, 400, {
+                sendJson(res, 400, {
                     error: {
                         code: "missing_event_type",
                         message: "eventType is required.",
@@ -208,7 +208,7 @@ export function registerActivityRoutes(
             }
 
             const id = randomUUID();
-            const metadata =
+            const meta =
                 body.meta &&
                 typeof body.meta === "object" &&
                 !Array.isArray(body.meta)
@@ -216,11 +216,11 @@ export function registerActivityRoutes(
                     : null;
 
             try {
-                await service.recordEvent(id, eventType, null, metadata);
-                sendJson(response, 201, { data: { id } });
+                await service.recordEvent(id, eventType, null, meta);
+                sendJson(res, 201, { data: { id } });
             } catch {
                 logFailure("record-activity");
-                sendJson(response, 500, {
+                sendJson(res, 500, {
                     error: {
                         code: "record_failed",
                         message: "Failed to record event.",

@@ -7,8 +7,8 @@ test("installed module commands forward credentials and validate event JSON befo
     const requests = [];
     registerCommands({
         register: (id, handler) => commands.set(id, handler),
-        apiGet: (...argumentsList) => requests.push(argumentsList),
-        apiPost: (...argumentsList) => requests.push(argumentsList),
+        apiGet: (...args) => requests.push(args),
+        apiPost: (...args) => requests.push(args),
     });
     const context = {
         apiBaseUrl: "https://cognis.test",

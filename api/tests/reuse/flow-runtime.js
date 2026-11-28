@@ -70,10 +70,10 @@ export function withActionFlows(context) {
     context.flow = {
         ...hostFlow,
         exists: (id) => runtime.flow.exists(id) || hostFlow?.exists(id),
-        extend: (...argumentsList) =>
-            runtime.flow.exists(argumentsList[0])
-                ? runtime.flow.extend(...argumentsList)
-                : hostFlow.extend(...argumentsList),
+        extend: (...args) =>
+            runtime.flow.exists(args[0])
+                ? runtime.flow.extend(...args)
+                : hostFlow.extend(...args),
         run: runtime.flow.run,
     };
     context.executions = runtime.executions;

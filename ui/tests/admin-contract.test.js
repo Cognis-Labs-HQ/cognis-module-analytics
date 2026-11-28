@@ -16,7 +16,7 @@ globalThis[Symbol.for("cognis.uiCtx")] = {
                           };
                       },
                   }
-                : (...argumentsList) => logs.push(argumentsList),
+                : (...args) => logs.push(args),
     },
 };
 const { createAdminSection } = await import("../admin-section.js");
@@ -27,7 +27,7 @@ function dependencies(apiFetch, notices = []) {
         apiFetch,
         escapeHtml: String,
         formatTimestamp: String,
-        showToast: (...argumentsList) => notices.push(argumentsList),
+        showToast: (...args) => notices.push(args),
     };
 }
 

@@ -15,8 +15,8 @@ const ANALYTICS_EVENTS_TABLE = "sample_analytics_events";
  * }} options
  */
 export class AnalyticsStore {
-    constructor({ db: database }) {
-        this.db = database;
+    constructor({ db: db }) {
+        this.db = db;
     }
 
     async ensureSchema() {
@@ -43,7 +43,7 @@ export class AnalyticsStore {
         id,
         eventType,
         accountId = null,
-        metadata = null,
+        meta = null,
         occurredAt = new Date().toISOString(),
     ) {
         await this.db.executeCommand({
@@ -54,7 +54,7 @@ export class AnalyticsStore {
                 id,
                 event_type: eventType,
                 account_id: accountId ?? null,
-                meta: metadata !== null ? JSON.stringify(metadata) : null,
+                meta: meta !== null ? JSON.stringify(meta) : null,
                 occurred_at: occurredAt,
                 created_at: occurredAt,
             },
@@ -69,8 +69,7 @@ export class AnalyticsStore {
             !row ||
             row.event_type !== eventType ||
             row.account_id !== accountId ||
-            row.meta !==
-                (metadata === null ? null : JSON.stringify(metadata)) ||
+            row.meta !== (meta === null ? null : JSON.stringify(meta)) ||
             row.occurred_at !== occurredAt
         )
             throw new Error("activity_conflict");
