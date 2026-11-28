@@ -2,15 +2,15 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { AnalyticsStore } from "../store.js";
 
-function makeDb(initialRows = {}) {
+function makeDatabase(initialRows = {}) {
     const tables = new Map(Object.entries(initialRows));
     const insertedRows = [];
 
     return {
         insertedRows,
-        async ensureTable(def) {
-            if (!tables.has(def.name)) {
-                tables.set(def.name, []);
+        async ensureTable(definition) {
+            if (!tables.has(definition.name)) {
+                tables.set(definition.name, []);
             }
         },
         async executeCommand(command) {
@@ -39,10 +39,10 @@ function makeDb(initialRows = {}) {
                 if (command.orderBy) {
                     const [order] = command.orderBy;
                     const direction = order?.direction === "ASC" ? 1 : -1;
-                    const col = order?.column ?? "created_at";
+                    const column = order?.column ?? "created_at";
                     rows = [...rows].sort((rowA, rowB) => {
-                        const valueA = String(rowA[col] ?? "");
-                        const valueB = String(rowB[col] ?? "");
+                        const valueA = String(rowA[column] ?? "");
+                        const valueB = String(rowB[column] ?? "");
                         return valueA < valueB ? -direction : direction;
                     });
                 }
@@ -63,15 +63,15 @@ function makeDb(initialRows = {}) {
     };
 }
 
-function makeAnalyticsDb({ accountRows = [], eventRows = [] } = {}) {
-    return makeDb({
+function makeAnalyticsDatabase({ accountRows = [], eventRows = [] } = {}) {
+    return makeDatabase({
         accounts: accountRows,
         sample_analytics_events: eventRows,
     });
 }
 
 test("AnalyticsStore.ensureSchema initializes the events table", async () => {
-    const database = makeAnalyticsDb();
+    const database = makeAnalyticsDatabase();
     const store = new AnalyticsStore({ db: database });
     await store.ensureSchema();
     const result = await database.executeCommand({
@@ -83,7 +83,7 @@ test("AnalyticsStore.ensureSchema initializes the events table", async () => {
 });
 
 test("AnalyticsStore.recordEvent inserts a row with the correct fields", async () => {
-    const database = makeAnalyticsDb();
+    const database = makeAnalyticsDatabase();
     const store = new AnalyticsStore({ db: database });
     await store.ensureSchema();
     await store.recordEvent("test-id-1", "page_view", "user-123", {
@@ -98,7 +98,7 @@ test("AnalyticsStore.recordEvent inserts a row with the correct fields", async (
 });
 
 test("AnalyticsStore.recordEvent accepts null accountId and meta", async () => {
-    const database = makeAnalyticsDb();
+    const database = makeAnalyticsDatabase();
     const store = new AnalyticsStore({ db: database });
     await store.ensureSchema();
     await store.recordEvent("test-id-2", "system_event", null, null);
@@ -108,7 +108,7 @@ test("AnalyticsStore.recordEvent accepts null accountId and meta", async () => {
 });
 
 test("AnalyticsStore.deleteAllData removes every stored event", async () => {
-    const database = makeAnalyticsDb({
+    const database = makeAnalyticsDatabase({
         eventRows: [{ id: "event-1", event_type: "page_view" }],
     });
     const store = new AnalyticsStore({ db: database });
@@ -119,7 +119,7 @@ test("AnalyticsStore.deleteAllData removes every stored event", async () => {
 });
 
 test("AnalyticsStore.getRecentEvents returns rows ordered by created_at descending", async () => {
-    const database = makeAnalyticsDb({
+    const database = makeAnalyticsDatabase({
         eventRows: [
             {
                 id: "a",
@@ -150,7 +150,7 @@ test("AnalyticsStore.getRecentEvents returns rows ordered by created_at descendi
 });
 
 test("AnalyticsStore.getRecentEvents respects the limit", async () => {
-    const database = makeAnalyticsDb({
+    const database = makeAnalyticsDatabase({
         eventRows: [
             { id: "a", event_type: "e1", created_at: "2024-01-03T10:00:00Z" },
             { id: "b", event_type: "e2", created_at: "2024-01-02T10:00:00Z" },
@@ -163,7 +163,7 @@ test("AnalyticsStore.getRecentEvents respects the limit", async () => {
 });
 
 test("AnalyticsStore.getRecentEvents returns empty array when no events exist", async () => {
-    const database = makeAnalyticsDb();
+    const database = makeAnalyticsDatabase();
     const store = new AnalyticsStore({ db: database });
     const events = await store.getRecentEvents(50);
     assert.deepEqual(events, []);
@@ -172,7 +172,7 @@ test("AnalyticsStore.getRecentEvents returns empty array when no events exist", 
 test("AnalyticsStore.getEventSummary groups recent events and unique actors", async () => {
     const recent = new Date().toISOString();
     const old = "2020-01-01T00:00:00.000Z";
-    const database = makeAnalyticsDb({
+    const database = makeAnalyticsDatabase({
         eventRows: [
             { event_type: "page_view", account_id: "u1", created_at: recent },
             { event_type: "page_view", account_id: "u2", created_at: recent },

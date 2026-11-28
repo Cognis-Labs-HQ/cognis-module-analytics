@@ -1,25 +1,19 @@
-# Cognis Analytics
+# Analytics
 
-**English** · [Deutsch](README.de.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md)
+Review account activity and module-owned event reports without a third-party analytics service.
 
-Privacy-conscious usage insights and administrative reporting for Cognis. Track registration trends, activation, account health, role distribution, and module-owned events without introducing a third-party analytics service.
+## What You Can Do
 
-This repository is a self-contained Cognis extension module. Install it through the Module Marketplace or place it in the configured external modules directory. See [`docs/index.en.md`](docs/index.en.md) for configuration, capabilities, routes, and operational guidance; equivalent German, Indonesian, and Japanese references are available alongside it.
+Administrators can inspect account totals, registration trends, activity periods and recorded event summaries.
 
-## Analytics coverage
+## Before You Start
 
-- Account totals, enabled and disabled status, seven-day activity, and 30-day dormancy
-- Registration time series over configurable 7-, 30-, or 90-day windows
-- Privacy-conscious custom event capture with a 16 KiB request limit
-- Event volume, unique-actor, and event-type summaries
-- Admin dashboard and CLI access protected by host authorization
+Sign in as an administrator after the module is enabled. Database and account services must be available for complete reports.
 
-## Start here
+## Get Started
 
-```sh
-npm install
-npm test
-npm run check:manifest
-```
+Open Analytics in Administration, choose a reporting range and refresh before reading time-dependent charts.
 
-The manifest publishes the module-owned language bundles through `ui.stringsBaseUrl`, allowing Cognis to localize marketplace metadata before the analytics UI loads.
+## Learn More
+
+[Usage](docs/USAGE.en.md) provides procedures. [Technical](docs/TECHNICAL.en.md) provides contracts and configuration.

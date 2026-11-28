@@ -1,25 +1,19 @@
-# Cognis Analytics
+# Analitik
 
-[English](README.en.md) · [Deutsch](README.de.md) · **Bahasa Indonesia** · [日本語](README.ja.md)
+Tinjau aktivitas akun dan laporan peristiwa milik modul tanpa layanan analitik pihak ketiga.
 
-Wawasan penggunaan dan pelaporan administratif yang menjaga privasi untuk Cognis. Pantau tren pendaftaran, aktivasi, kesehatan akun, distribusi peran, dan peristiwa milik modul tanpa menambahkan layanan analitik pihak ketiga.
+## Yang Dapat Anda Lakukan
 
-Repositori ini merupakan modul ekstensi Cognis yang mandiri. Pasang melalui Marketplace Modul atau tempatkan di direktori modul eksternal yang telah dikonfigurasi. Lihat [`docs/index.id.md`](docs/index.id.md) untuk konfigurasi, kapabilitas, rute, dan panduan operasional; referensi setara dalam bahasa Jerman, Inggris, dan Jepang tersedia di sebelahnya.
+Administrator dapat memeriksa jumlah akun, tren pendaftaran, periode aktivitas, dan ringkasan peristiwa tercatat.
 
-## Cakupan analitik
+## Sebelum Memulai
 
-- Jumlah akun, status aktif dan nonaktif, aktivitas tujuh hari, serta dormansi 30 hari
-- Deret waktu pendaftaran dalam rentang 7, 30, atau 90 hari yang dapat dikonfigurasi
-- Perekaman peristiwa khusus yang menjaga privasi dengan batas permintaan 16 KiB
-- Ringkasan volume peristiwa, aktor unik, dan jenis peristiwa
-- Dasbor admin dan akses CLI yang dilindungi oleh otorisasi host
+Masuk sebagai administrator setelah modul diaktifkan. Layanan basis data dan akun diperlukan agar laporan lengkap.
 
-## Mulai di sini
+## Langkah Awal
 
-```sh
-npm install
-npm test
-npm run check:manifest
-```
+Buka Analytics di Administration, pilih rentang laporan, lalu segarkan sebelum membaca grafik berdasarkan waktu.
 
-Manifest memublikasikan bundel bahasa milik modul melalui `ui.stringsBaseUrl`, sehingga Cognis dapat melokalkan metadata marketplace sebelum antarmuka analitik dimuat.
+## Pelajari Lebih Lanjut
+
+[Penggunaan](docs/USAGE.id.md) menyediakan prosedur. [Teknis](docs/TECHNICAL.id.md) menjelaskan kontrak dan konfigurasi.

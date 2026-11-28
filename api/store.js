@@ -3,7 +3,7 @@ const ANALYTICS_EVENTS_TABLE = "sample_analytics_events";
 /**
  * Persistence layer for the Analytics module.
  *
- * Manages the analytics events table via the structured DbExecutor abstraction.
+ * Manages the analytics events table via the structured DatabaseExecutor abstraction.
  * Account reporting uses its owner capability; this store only
  * manages custom event records contributed by the analytics module itself.
  *
@@ -15,7 +15,7 @@ const ANALYTICS_EVENTS_TABLE = "sample_analytics_events";
  * }} options
  */
 export class AnalyticsStore {
-    constructor({ db }) {
+    constructor({ db: db }) {
         this.db = db;
     }
 

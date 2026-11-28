@@ -25,14 +25,14 @@ function buildEventRow(overrides = {}) {
     };
 }
 
-function makeDb({ accountRows = [], eventRows = [] } = {}) {
+function makeDatabase({ accountRows = [], eventRows = [] } = {}) {
     const tables = new Map([["sample_analytics_events", [...eventRows]]]);
     const insertedRows = [];
 
     return {
         insertedRows,
-        async ensureTable(def) {
-            if (!tables.has(def.name)) tables.set(def.name, []);
+        async ensureTable(definition) {
+            if (!tables.has(definition.name)) tables.set(definition.name, []);
         },
         async executeCommand(command) {
             assert.equal(
@@ -66,10 +66,10 @@ function makeDb({ accountRows = [], eventRows = [] } = {}) {
                 if (command.orderBy) {
                     const [order] = command.orderBy;
                     const direction = order?.direction === "ASC" ? 1 : -1;
-                    const col = order?.column ?? "created_at";
+                    const column = order?.column ?? "created_at";
                     rows = [...rows].sort((rowA, rowB) => {
-                        const valueA = String(rowA[col] ?? "");
-                        const valueB = String(rowB[col] ?? "");
+                        const valueA = String(rowA[column] ?? "");
+                        const valueB = String(rowB[column] ?? "");
                         return valueA < valueB ? -direction : direction;
                     });
                 }
@@ -136,7 +136,7 @@ function makeResponse() {
 }
 
 function setupRoutes(options = {}) {
-    const database = makeDb(options);
+    const database = makeDatabase(options);
     const router = makeRouter();
     const accounts = (options.accountRows ?? []).map((row, index) => ({
         username: `account-${index}`,
@@ -334,7 +334,10 @@ test("GET /api/v1/modules/analytics/event-summary reports event mix", async () =
     assert.equal(res.status, 200);
     assert.equal(res.json.data.total, 3);
     assert.equal(res.json.data.uniqueActors, 2);
-    assert.deepEqual(res.json.data.byType[0], { type: "page_view", count: 2 });
+    assert.deepEqual(res.json.data.byType[0], {
+        type: "page_view",
+        count: 2,
+    });
 });
 
 test("GET /api/v1/modules/analytics/type-summary reports event mix", async () => {

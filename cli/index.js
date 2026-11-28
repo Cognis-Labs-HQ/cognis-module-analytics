@@ -19,7 +19,7 @@ export function registerCommands({ register, apiGet, apiPost }) {
 export function registerActivityCommands({ register, apiGet, apiPost }) {
     register(
         "modules:analytics:series",
-        async ({ args, apiBaseUrl, getApiToken }) => {
+        async ({ args: args, apiBaseUrl, getApiToken }) => {
             const days = args[0] ? `?days=${encodeURIComponent(args[0])}` : "";
             return apiGet(
                 apiBaseUrl,
@@ -35,7 +35,7 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
 
     register(
         "modules:analytics:activityLog",
-        async ({ args, apiBaseUrl, getApiToken }) => {
+        async ({ args: args, apiBaseUrl, getApiToken }) => {
             const limit = args[0]
                 ? `?limit=${encodeURIComponent(args[0])}`
                 : "";
@@ -54,7 +54,7 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
 
     register(
         "modules:analytics:eventSummary",
-        async ({ args, apiBaseUrl, getApiToken }) => {
+        async ({ args: args, apiBaseUrl, getApiToken }) => {
             const days = args[0] ? `?days=${encodeURIComponent(args[0])}` : "";
             return apiGet(
                 apiBaseUrl,
@@ -71,7 +71,7 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
 
     register(
         "modules:analytics:activityLog:record",
-        async ({ args, apiBaseUrl, getApiToken }) => {
+        async ({ args: args, apiBaseUrl, getApiToken }) => {
             if (!args[0]) {
                 throw new Error(
                     "Not enough arguments (missing: event-type)\n\nUsage:\n  cognisctl modules:analytics:activityLog:record <event-type> [meta-json]",
@@ -81,7 +81,7 @@ export function registerActivityCommands({ register, apiGet, apiPost }) {
             return apiPost(
                 apiBaseUrl,
                 "/api/v1/modules/analytics/activity-log",
-                { eventType: args[0], meta },
+                { eventType: args[0], meta: meta },
                 await getApiToken(),
             );
         },

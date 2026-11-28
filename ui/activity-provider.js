@@ -76,7 +76,7 @@ export function mountProvider(ctx) {
         occurredAt = new Date().toISOString(),
     ) => {
         ctx.signal.throwIfAborted();
-        const activity = { eventType, meta, eventId, occurredAt };
+        const activity = { eventType, meta: meta, eventId, occurredAt };
         return (await ctx.runFlow("analytics:recordActivity", activity)).data
             .result;
     };

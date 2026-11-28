@@ -1,4 +1,4 @@
-const META_FIELDS = new Set([
+const METADATA_FIELDS = new Set([
     "component",
     "action",
     "result",
@@ -30,7 +30,7 @@ export function validateActivity(input, now = Date.now()) {
         Array.isArray(input.meta) ||
         Object.entries(input.meta).some(
             ([key, value]) =>
-                !META_FIELDS.has(key) ||
+                !METADATA_FIELDS.has(key) ||
                 !["string", "number", "boolean"].includes(typeof value) ||
                 (typeof value === "string" && value.length > 128) ||
                 (typeof value === "number" && !Number.isFinite(value)),
