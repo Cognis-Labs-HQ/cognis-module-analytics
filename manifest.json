@@ -2,7 +2,7 @@
     "id": "analytics",
     "uuid": "e10c016f-8a15-5ec2-8188-c1657dfbe829",
     "name": "module.analytics.name",
-    "version": "2.2.13",
+    "version": "2.2.14",
     "class": "extension",
     "coreApiVersion": "v1",
     "capabilities": [],
@@ -16,7 +16,7 @@
     "files": [
         {
             "path": ".github/copilot-instructions.md",
-            "sha256": "a9f7423e3c68f488573c1f2788d625d77a5cd24ac4bd16cd6a29bc977dc468df"
+            "sha256": "77ec9e791ca9a1aa42d125bb8306bee5aba2f254f88e8316b551d61e829214ed"
         },
         {
             "path": ".github/documentation/README.de.md",
@@ -112,7 +112,7 @@
         },
         {
             "path": "api/reporting/index.js",
-            "sha256": "00272e6aac3dc9497607c51380ee38bfcb5abf295dd0f9658a7c36265b81f729"
+            "sha256": "adebc1c4dad65c672905cb2ff8d9b19516f5c179552baa7ed11fa1cd99bfa360"
         },
         {
             "path": "api/reuse/action-flows.js",
@@ -216,19 +216,19 @@
         },
         {
             "path": "docs/TECHNICAL.de.md",
-            "sha256": "ee4327f36f02451431feeef60f7f43a026290fc918bffd1047b740b756f59f22"
+            "sha256": "6864fab6618dc0284b4a8e92a766637c992c7d947b55dcac891a55adae8c057d"
         },
         {
             "path": "docs/TECHNICAL.en.md",
-            "sha256": "c4d9fc1aa9cc45e49b1f8783aadb53137db0b43d53f4bd566829e19c8a8ca251"
+            "sha256": "d64e7a31672636d7f8e3afb5ae7d04278ce5bdeb5adbe17daeb3904bb5d74afb"
         },
         {
             "path": "docs/TECHNICAL.id.md",
-            "sha256": "b12f3fcb9b4db063e6236830730b6313a8c90db93f5c9cbe91e5ca21e3890904"
+            "sha256": "6cac087506ed97dd53a600ba8d8091f8a2e91909dafc817bb7d654357f3e5631"
         },
         {
             "path": "docs/TECHNICAL.ja.md",
-            "sha256": "5c3ccbe79da2f312fb5ba17d28e725521becd93004ef70ce3e7b4ce11b42e758"
+            "sha256": "dbefba5e672fef0867fabd63fa31add3b77c2ad9374a8b568e7caab3164b7427"
         },
         {
             "path": "docs/USAGE.de.md",
@@ -248,11 +248,11 @@
         },
         {
             "path": "package-lock.json",
-            "sha256": "e53dfa4ed5dd02bba182a9dc4fa898b440f7d1e17c59f610f495c73ca98b451e"
+            "sha256": "c426187c281b29cc1b2e7fac1d16f42c92150b41c868aba9fb3f8b69500c3a7d"
         },
         {
             "path": "package.json",
-            "sha256": "ea6d8dd72b32bc40437a506288164b6c2575b8415645c7fc5a00972506c7aa73"
+            "sha256": "16da678dbd5c1ffa472f763582a68b7fee79c45ffd69627ef83c2ce6b2b7168b"
         },
         {
             "path": "routes.json",
@@ -304,7 +304,7 @@
         },
         {
             "path": "tests/fixtures/naming-cases.json",
-            "sha256": "dcb3f32c6d28e24f2442687bd241379b7779d95db9a22f3cd574b460c42b3ef2"
+            "sha256": "262bd84ff7483a61a4cba4162e2567d68466fff68ee6b3b1cae263a0cc332289"
         },
         {
             "path": "tests/structural-compliance.test.js",
@@ -312,11 +312,11 @@
         },
         {
             "path": "tooling/reuse/ambiguous-name-words.json",
-            "sha256": "4b021010dde8a029186cc4d4e9bcaf5e3ac2484c38d27733ece49c53916cf212"
+            "sha256": "1c181f2061b3a4c452a8f79045a9291a400b0e3247fc337cda5949f98d2d2d2e"
         },
         {
             "path": "tooling/reuse/ambiguous-names.js",
-            "sha256": "428bed8de094747472e17de6795aee6e0d5fc939538afc02b8d2aeba0cb72423"
+            "sha256": "a1b37d839e684e5dd73076e80a8338c5b820cb6a3bac2ffa9a3bdc8a13368e89"
         },
         {
             "path": "tooling/reuse/source-files.js",

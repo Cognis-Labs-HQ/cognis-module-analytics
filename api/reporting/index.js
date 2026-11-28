@@ -5,7 +5,7 @@ function toDateString(value) {
     return new Date(timestamp).toISOString().slice(0, 10);
 }
 
-const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 async function readAccountFacts(accountStore) {
     return Promise.all(
@@ -19,8 +19,8 @@ async function readAccountFacts(accountStore) {
 export async function computeMetrics(accountStore, days) {
     const rows = await readAccountFacts(accountStore);
     const now = Date.now();
-    const cutoffDays = now - days * MILLISECONDS_PER_DAY;
-    const cutoff7d = now - 7 * MILLISECONDS_PER_DAY;
+    const cutoffDays = now - days * MS_PER_DAY;
+    const cutoff7d = now - 7 * MS_PER_DAY;
 
     let activeUsers7d = 0;
     let newUsersDays = 0;
@@ -35,17 +35,11 @@ export async function computeMetrics(accountStore, days) {
         if (row.enabled !== 0 && row.enabled !== false) enabledUsers++;
 
         if (row.lastLogin) {
-            const loginMilliseconds = Date.parse(String(row.lastLogin));
-            if (
-                Number.isFinite(loginMilliseconds) &&
-                loginMilliseconds >= cutoff7d
-            ) {
+            const loginMs = Date.parse(String(row.lastLogin));
+            if (Number.isFinite(loginMs) && loginMs >= cutoff7d) {
                 activeUsers7d++;
             }
-            if (
-                Number.isFinite(loginMilliseconds) &&
-                loginMilliseconds < now - 30 * MILLISECONDS_PER_DAY
-            ) {
+            if (Number.isFinite(loginMs) && loginMs < now - 30 * MS_PER_DAY) {
                 dormantUsers30d++;
             }
         } else {
@@ -53,11 +47,8 @@ export async function computeMetrics(accountStore, days) {
         }
 
         if (row.createdAt) {
-            const createdMilliseconds = Date.parse(String(row.createdAt));
-            if (
-                Number.isFinite(createdMilliseconds) &&
-                createdMilliseconds >= cutoffDays
-            ) {
+            const createdMs = Date.parse(String(row.createdAt));
+            if (Number.isFinite(createdMs) && createdMs >= cutoffDays) {
                 newUsersDays++;
             }
         }
@@ -81,7 +72,7 @@ export async function computeMetrics(accountStore, days) {
 
 export async function computeSeries(accountStore, days) {
     const rows = await readAccountFacts(accountStore);
-    const cutoff = Date.now() - days * MILLISECONDS_PER_DAY;
+    const cutoff = Date.now() - days * MS_PER_DAY;
     const countByDate = {};
 
     for (const row of rows) {
@@ -93,7 +84,7 @@ export async function computeSeries(accountStore, days) {
 
     const series = [];
     for (let offset = days - 1; offset >= 0; offset--) {
-        const date = new Date(Date.now() - offset * MILLISECONDS_PER_DAY)
+        const date = new Date(Date.now() - offset * MS_PER_DAY)
             .toISOString()
             .slice(0, 10);
         series.push({ date, count: countByDate[date] ?? 0 });
